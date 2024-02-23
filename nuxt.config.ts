@@ -18,6 +18,10 @@ export default defineNuxtConfig({
   runtimeConfig: {
     public: {
       LOGIN_REDIRECT_URL: ``,
+      DEPLOY_PRIME_URL : process.env.DEPLOY_PRIME_URL,
     },
   },
+  supabase: {
+    redirect: false
+  }
 })
