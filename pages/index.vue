@@ -1,3 +1,3 @@
 <template>
-  <span>Veuillez vous connecter</span>
+  <span>Ceci est la page d'acceuil</span>
 </template>

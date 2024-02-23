@@ -3,21 +3,22 @@
 const supabase = useSupabaseClient()
 const user = useSupabaseUser()
 
-
 async function signOut() {
   const { error } = await supabase.auth.signOut()
-  if (error) {console.log(error)}
+  if (error) {throw createError(error)}
   navigateTo(`/login`)
 }
 
 const signInWithOAuth = async () => {
+  const runtimeConfig = useRuntimeConfig()
+  const redirectTo = runtimeConfig.public.LOGIN_REDIRECT_URL as string
   const { error } = await supabase.auth.signInWithOAuth({
     provider: `google`,
     options: {
-      redirectTo: `http://localhost:3000/confirm`,
+      redirectTo,
     },
   })
-  if (error) {console.log(error)}
+  if (error) {throw createError(error)}
 }
 
 </script>

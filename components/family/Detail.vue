@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { FamilyMember } from '~/types/family';
+import { useFetchFamily } from '~/composables/family';
 
 const props = defineProps<{
   familyId: string
