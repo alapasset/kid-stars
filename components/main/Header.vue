@@ -1,7 +1,10 @@
+
 <script setup lang="ts">
 
 const supabase = useSupabaseClient()
 const user = useSupabaseUser()
+const runtimeConfig = useRuntimeConfig()
+const redirectTo = `${runtimeConfig.public.DEPLOY_PRIME_URL}/confirm`
 
 async function signOut() {
   const { error } = await supabase.auth.signOut()
@@ -10,8 +13,6 @@ async function signOut() {
 }
 
 const signInWithOAuth = async () => {
-  const runtimeConfig = useRuntimeConfig()
-  const redirectTo = runtimeConfig.public.LOGIN_REDIRECT_URL as string
   const { error } = await supabase.auth.signInWithOAuth({
     provider: `google`,
     options: {
