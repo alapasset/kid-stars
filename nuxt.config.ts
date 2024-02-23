@@ -14,5 +14,10 @@ export default defineNuxtConfig({
     `vuetify-nuxt-module`,
     `@vee-validate/nuxt`,
     `@hebilicious/vue-query-nuxt`
-  ]
+  ],
+  runtimeConfig: {
+    public: {
+      LOGIN_REDIRECT_URL: ``,
+    },
+  },
 })
