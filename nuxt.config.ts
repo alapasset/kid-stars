@@ -11,6 +11,8 @@ export default defineNuxtConfig({
   modules: [
     `@nuxtjs/tailwindcss`,
     `@nuxtjs/supabase`,
-    `vuetify-nuxt-module`
+    `vuetify-nuxt-module`,
+    `@vee-validate/nuxt`,
+    `@hebilicious/vue-query-nuxt`
   ]
 })

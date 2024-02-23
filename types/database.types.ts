@@ -9,26 +9,59 @@ export type Json =
 export type Database = {
   public: {
     Tables: {
-      parents: {
+      family: {
         Row: {
-          code: number
-          created_at: string
-          id: number
+          id: string
           name: string
         }
         Insert: {
-          code: number
-          created_at?: string
-          id?: number
+          id?: string
           name: string
         }
         Update: {
-          code?: number
-          created_at?: string
-          id?: number
+          id?: string
           name?: string
         }
         Relationships: []
+      }
+      family_member: {
+        Row: {
+          code: string | null
+          family: string
+          id: string
+          pseudo: string
+          user: string | null
+        }
+        Insert: {
+          code?: string | null
+          family: string
+          id?: string
+          pseudo: string
+          user?: string | null
+        }
+        Update: {
+          code?: string | null
+          family?: string
+          id?: string
+          pseudo?: string
+          user?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: `public_family_user_family_fkey`
+            columns: [`family`]
+            isOneToOne: false
+            referencedRelation: `family`
+            referencedColumns: [`id`]
+          },
+          {
+            foreignKeyName: `public_family_user_user_fkey`
+            columns: [`user`]
+            isOneToOne: false
+            referencedRelation: `users`
+            referencedColumns: [`id`]
+          }
+        ]
       }
     }
     Views: {
