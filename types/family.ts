@@ -18,3 +18,7 @@ export interface Family {
   name: string
   family_member: FamilyMember[]
 }
+
+export interface ChildCreationForm {
+  pseudo: string
+}

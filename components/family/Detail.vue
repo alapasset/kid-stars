@@ -5,25 +5,34 @@ const props = defineProps<{
   familyId: string
 }>()
 
-const { data, isFetched } = useFetchFamily(props.familyId)
+const { data, isFetched, isLoading } = useFetchFamily(props.familyId)
 </script>
 
 <template>
-  <div
-    v-if="isFetched"
-    class="flex flex-col gap-5"
-  >
-    <header class="text-center">
-      <h1 class="text-2xl">
-        {{ `Les membres de la famille ${data?.name}` }}
-      </h1>
-    </header>
-    <div class="grid gap-5 px-5 justify-center">
-      <FamilyMember
-        v-for="member in data?.family_member"
-        :key="member.id"
-        :member="member"
-      />
+  <div>
+    <div
+      v-if="isFetched"
+      class="flex flex-col gap-5"
+    >
+      <header class="text-center">
+        <h1 class="text-2xl">
+          {{ `Les membres de la famille ${data?.name}` }}
+        </h1>
+      </header>
+      <div class="grid grid-flow-col gap-5 px-5 justify-center">
+        <FamilyMemberItem
+          v-for="member in data?.family_member"
+          :key="member.id"
+          :member="member"
+        />
+        <FamilyMemberAdd />
+      </div>
+    </div>
+    <div
+      v-else-if="isLoading"
+      class="flex justify-center items-center h-96"
+    >
+      <VSkeletonLoader type="card" />
     </div>
   </div>
 </template>
