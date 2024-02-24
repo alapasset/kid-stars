@@ -1,8 +1,16 @@
 {
   "editor.formatOnSave":false,
-  "prettier.enable": false,
   "editor.codeActionsOnSave":{
     "source.fixAll.eslint": "explicit"
+  },
+  "tailwindCSS.includeLanguages": {
+    "plaintext": "html"
+  },
+  "files.associations": {
+    "*.css": "tailwindcss"
+  },
+  "editor.quickSuggestions": {
+    "strings": true
   },
   "eslint.validate":[
     "javascript",
@@ -11,5 +19,5 @@
     "html",
     "json",
     "jsonc"
-  ]
+  ],
 }

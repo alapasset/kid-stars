@@ -53,6 +53,7 @@ const onSubmit = handleSubmit(async values => {
       >
         <VTextField
           v-model="name"
+          required
           label="Nom de la famille"
           type="text"
           :error-messages="errorMessageName"
@@ -60,6 +61,7 @@ const onSubmit = handleSubmit(async values => {
         />
         <VTextField
           v-model="pseudo"
+          required
           label="Mon pseudo"
           type="text"
           :error-messages="errorMessagePseudo"
@@ -67,6 +69,7 @@ const onSubmit = handleSubmit(async values => {
         />
         <VTextField
           v-model="code"
+          required
           label="Code de la session parent"
           type="number"
           hint="code numerique (ex: 123456789)"
@@ -75,13 +78,18 @@ const onSubmit = handleSubmit(async values => {
         />
         <VTextField
           v-model="confirmationCode"
+          required
           label="Valider le code"
           type="number"
           :error-messages="errorMessageConfirmationCode"
           prepend-inner-icon="mdi-lock-check-outline"
         />
         <div class="flex flex-row-reverse">
-          <VBtn type="submit">
+          <VBtn
+            type="submit"
+            color="primary"
+            block
+          >
             Créer
           </VBtn>
         </div>

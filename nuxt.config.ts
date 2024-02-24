@@ -23,5 +23,8 @@ export default defineNuxtConfig({
   },
   supabase: {
     redirect: false
+  },
+  tailwindcss: {
+    editorSupport: { autocompleteUtil: { as: `tailwindClasses` }, generateConfig: true }
   }
 })

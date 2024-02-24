@@ -8,11 +8,14 @@ const props = defineProps<{
 const user = useSupabaseUser();
 
 const title = computed(() => props.member.user ? `Tuteur` : `Enfant`)
-const profile = computed(() => user.value?.user_metadata.avatar_url)
+const profile = computed(() => props.member.user === user.value?.id ? user.value?.user_metadata.avatar_url : null)
 </script>
 
 <template>
-  <VCard width="200">
+  <VCard
+    width="200"
+    hover
+  >
     <VAvatar
       rounded="0"
       size="200"
