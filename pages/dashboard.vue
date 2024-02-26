@@ -4,7 +4,7 @@ definePageMeta({
 })
 
 async function goToFamily() {
-  navigateTo(`/family`)
+  await navigateTo(`/family`)
 }
 </script>
 

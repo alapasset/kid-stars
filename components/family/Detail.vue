@@ -6,6 +6,10 @@ const props = defineProps<{
 }>()
 
 const { data, isFetched, isLoading } = useFetchFamily(props.familyId)
+
+async function goToDashboard() {
+  await navigateTo(`/dashboard`);
+}
 </script>
 
 <template>
