@@ -7,3 +7,16 @@ export function useFetchFamilyMember(memberId: string) {
     select: (data) => data as FamilyMember,
   })
 }
+
+export function useDeleteFamilyMember() {
+  const queryClient = useQueryClient()
+
+  const mutation = useMutation({
+    mutationFn: (memberId: string) => $fetch(`/api/family/member/${memberId}`, { method: `delete` }),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: [`family`] })
+    },
+  });
+
+  return { mutation };
+}
