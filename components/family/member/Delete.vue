@@ -8,7 +8,7 @@ const { mutation: deleteFamilyMember } = useDeleteFamilyMember();
 const onDelete = () => {
   openDialog.value = true;
 }
-const confirmDeletion = (memberId: string) => {
+const confirmDeletion = () => {
   deleteFamilyMember.mutate(props.memberId);
   openDialog.value = false;
 }
@@ -38,7 +38,7 @@ const confirmDeletion = (memberId: string) => {
           <VBtn color="blue darken-1"  @click="openDialog = false">
             Annuler
           </VBtn>
-          <VBtn color="blue darken-1"  @click="confirmDeletion(props.memberId)">
+          <VBtn color="blue darken-1"  @click="confirmDeletion()">
             Confirmer
           </VBtn>
         </VCardActions>
