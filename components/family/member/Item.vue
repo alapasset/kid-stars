@@ -1,12 +1,14 @@
 <script setup lang="ts">
 import type { FamilyMember } from '~/types/family';
-import { useDeleteFamilyMember} from "~/composables/member";
+import { useDeleteFamilyMember, useUpdateFamilyMember} from "~/composables/member";
 
 const props = defineProps<{
   member: FamilyMember
 }>()
 
+const data = ref({...props.member})
 const openDeleteDialog = ref(false);
+const openUpdateDialog = ref(false);
 const profile = computed(() => props.member.user === user.value?.id ? user.value?.user_metadata.avatar_url : null);
 const showModal = ref(false);
 const title = computed(() => props.member.user ? `Tuteur` : `Enfant`);
@@ -14,6 +16,7 @@ const user = useSupabaseUser();
 const wrongCodeError = ref<string>(``);
 
 const { handleSubmit, errors } = useForm();
+const { mutation: updateFamilyMember } = useUpdateFamilyMember();
 const { mutation: deleteFamilyMember } = useDeleteFamilyMember();
 const { value: code, errorMessage: errorMessageCode } = useField<string>(
   `code`,
@@ -43,6 +46,10 @@ const confirmDeletion = (memberId: string) => {
   deleteFamilyMember.mutate(memberId);
   openDeleteDialog.value = false;
 }
+
+const onFormSubmit = handleSubmit(async values => {
+  updateFamilyMember.mutate({ data: data.value });
+})
 </script>
 
 <template>
@@ -65,20 +72,70 @@ const confirmDeletion = (memberId: string) => {
       <div class="w-full flex justify-between">
         <VBtn
           icon
-          @click.stop=""
+          @click.stop="openUpdateDialog = true"
         >
           <VIcon size="20" class="text-blue-600">mdi-pencil</VIcon>
         </VBtn>
         <VBtn
           v-if="!props.member.code"
           icon
-          @click.stop="() => onDelete()"
+          @click.stop="onDelete"
         >
           <VIcon size="20" class="text-red-600">mdi-delete</VIcon>
         </VBtn>
       </div>
     </VCardActions>
   </VCard>
+  <VDialog
+    v-model="openUpdateDialog"
+    max-width="400"
+  >
+    <VForm
+      class="flex flex-col gap-3"
+      @submit.prevent="onFormSubmit"
+    >
+      <VCard>
+        <VCardTitle>
+          Modifier le membre de la famille
+        </VCardTitle>
+        <VCardText>
+          <VTextField
+            v-model="data.pseudo"
+            required
+            label="Pseudo"
+            type="text"
+            :error-messages="errors.pseudo"
+            prepend-inner-icon="mdi-account"
+          />
+          <VTextField
+            v-if="props.member.code"
+            v-model="data.code"
+            required
+            label="Code de la session"
+            type="text"
+            :error-messages="errors.code"
+            prepend-inner-icon="mdi-lock-outline"
+          />
+        </VCardText>
+        <VCardActions>
+          <VSpacer />
+          <VBtn
+            color="blue darken-1"
+            @click="openUpdateDialog = false"
+          >
+            Annuler
+          </VBtn>
+          <VBtn
+            type="submit"
+            color="primary"
+            @click="openUpdateDialog = false"
+          >
+            Valider
+          </VBtn>
+        </VCardActions>
+      </VCard>
+    </VForm>
+  </VDialog>
   <VDialog
     v-model="openDeleteDialog"
     max-width="400"
