@@ -5,6 +5,8 @@ const props = defineProps<{
   familyId: string
 }>()
 
+const { t } = useI18n()
+
 const { data, isFetched, isLoading } = useFetchFamily(props.familyId)
 </script>
 
@@ -16,7 +18,7 @@ const { data, isFetched, isLoading } = useFetchFamily(props.familyId)
     >
       <header class="text-center">
         <h1 class="text-2xl">
-          {{ `Les membres de la famille ${data?.name}` }}
+          {{ t('family.detail.title', {familyName: data?.name}) }}
         </h1>
       </header>
       <div class="grid grid-flow-col gap-5 px-5 justify-center">
@@ -32,7 +34,10 @@ const { data, isFetched, isLoading } = useFetchFamily(props.familyId)
       v-else-if="isLoading"
       class="flex justify-center items-center h-96"
     >
-      <VSkeletonLoader type="card" />
+      <VSkeletonLoader
+        width="200"
+        type="card"
+      />
     </div>
   </div>
 </template>

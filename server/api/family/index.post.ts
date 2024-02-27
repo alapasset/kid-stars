@@ -9,7 +9,7 @@ export default defineEventHandler(async (event) => {
   const client = await serverSupabaseClient<Database>(event)
 
   const {data: family, error: errorFamily} = await client.from(`family`)
-    .insert({ name: body.name })
+    .insert({ name: body.name, creator: user.id})
     .select()
     .single()
   if(errorFamily) throw createError(errorFamily)

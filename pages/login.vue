@@ -1,3 +1,7 @@
+<script setup lang="ts">
+const { t } = useI18n()
+</script>
+
 <template>
-  <span>Veuillez vous connecter</span>
+  <span>{{ t('login.title') }}</span>
 </template>

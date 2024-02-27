@@ -12,9 +12,12 @@ const { data: familyMember} = useFetchFamilyMember(memberId);
 </script>
 
 <template>
-  <div v-if="familyMember" class="w-full flex justify-center">
+  <div
+    v-if="familyMember"
+    class="w-full flex justify-center"
+  >
     <div v-if="familyMember?.code !== null">
-        <FamilyMemberParent :member="familyMember" />
+      <FamilyMemberTutor :member="familyMember" />
     </div>
     <div v-else>
       <FamilyMemberChild :member="familyMember" />

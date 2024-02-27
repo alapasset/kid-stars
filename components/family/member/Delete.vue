@@ -2,14 +2,17 @@
 const props = defineProps<{
   memberId: string
 }>()
+
+const { t } = useI18n()
+
 const openDialog = ref(false);
-const { mutation: deleteFamilyMember } = useDeleteFamilyMember();
+const { mutateAsync } = useDeleteFamilyMember();
 
 const onDelete = () => {
   openDialog.value = true;
 }
-const confirmDeletion = () => {
-  deleteFamilyMember.mutate(props.memberId);
+const confirmDeletion = async () => {
+  await mutateAsync(props.memberId);
   openDialog.value = false;
 }
 </script>
@@ -17,29 +20,34 @@ const confirmDeletion = () => {
 <template>
   <div>
     <VBtn
-      icon
+      icon="mdi-delete"
+      color="error"
       @click.stop="onDelete"
-    >
-      <VIcon size="20" class="text-red-600">mdi-delete</VIcon>
-    </VBtn>
+    />
     <VDialog
       v-model="openDialog"
       max-width="400"
     >
       <VCard>
         <VCardTitle>
-          Confirmer la suppression
+          {{ t('common.deletion') }}
         </VCardTitle>
         <VCardText>
-          Êtes-vous sûr de vouloir supprimer le membre de la famille?
+          {{ t('family.member.delete.confirm') }}
         </VCardText>
         <VCardActions>
           <VSpacer />
-          <VBtn color="blue darken-1"  @click="openDialog = false">
-            Annuler
+          <VBtn
+            color="secondary"
+            @click="openDialog = false"
+          >
+            {{ t('common.cancel') }}
           </VBtn>
-          <VBtn color="blue darken-1"  @click="confirmDeletion()">
-            Confirmer
+          <VBtn
+            color="primary"
+            @click="confirmDeletion()"
+          >
+            {{ t('common.confirm') }}
           </VBtn>
         </VCardActions>
       </VCard>

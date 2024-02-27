@@ -1,13 +1,14 @@
 <script setup lang="ts">
 import type { FamilyCreationForm } from '~/types/family';
 
+const { t } = useI18n()
 const { mutate } = useCreateFamily()
 const { handleSubmit } = useForm<FamilyCreationForm>();
 
 const { value: name, errorMessage: errorMessageName } = useField<string>(
   `name`,
   inputValue => {
-    if(inputValue?.length === 0) return `Le nom de la famille est obligatoire`;
+    if(inputValue?.length === 0) return t(`form.error.name.required`);
     return true
   }
 );
@@ -15,7 +16,7 @@ const { value: name, errorMessage: errorMessageName } = useField<string>(
 const { value: pseudo, errorMessage: errorMessagePseudo } = useField<string>(
   `pseudo`,
   inputValue => {
-    if(inputValue?.length === 0) return `Le pseudo est obligatoire`;
+    if(inputValue?.length === 0) return t(`form.error.pseudo.required`);
     return true
   }
 );
@@ -23,7 +24,7 @@ const { value: pseudo, errorMessage: errorMessagePseudo } = useField<string>(
 const { value: code, errorMessage: errorMessageCode } = useField<string>(
 `code`,
   inputValue => {
-    if(inputValue?.length < 4) return `Le code de la session doit faire 4 caractères minimum`;
+    if(inputValue?.length < 4) return t(`form.error.code.minLegnth`);
     return true
   }
 );
@@ -31,7 +32,7 @@ const { value: code, errorMessage: errorMessageCode } = useField<string>(
 const { value: confirmationCode, errorMessage: errorMessageConfirmationCode } = useField<string>(
 `confirmationCode`,
   inputValue => {
-    if(code.value !== inputValue) return `Le code doit être identique`;
+    if(code.value !== inputValue) return t(`form.error.code.same`);
     return true
   }
 );
@@ -44,7 +45,7 @@ const onSubmit = handleSubmit(async values => {
 <template>
   <VCard width="300">
     <template #title>
-      <span>Création de votre famille</span>
+      <span>{{ t('family.add.title') }}</span>
     </template>
     <template #text>
       <VForm
@@ -54,7 +55,7 @@ const onSubmit = handleSubmit(async values => {
         <VTextField
           v-model="name"
           required
-          label="Nom de la famille"
+          :label="t('form.label.name')"
           type="text"
           :error-messages="errorMessageName"
           prepend-inner-icon="mdi-home-heart"
@@ -62,7 +63,7 @@ const onSubmit = handleSubmit(async values => {
         <VTextField
           v-model="pseudo"
           required
-          label="Mon pseudo"
+          :label="t('form.label.pseudo')"
           type="text"
           :error-messages="errorMessagePseudo"
           prepend-inner-icon="mdi-account"
@@ -70,16 +71,16 @@ const onSubmit = handleSubmit(async values => {
         <VTextField
           v-model="code"
           required
-          label="Code de la session parent"
+          :label="t('form.label.code')"
           type="number"
-          hint="code numerique (ex: 123456789)"
+          :hint="t('form.hint.code')"
           :error-messages="errorMessageCode"
           prepend-inner-icon="mdi-lock-outline"
         />
         <VTextField
           v-model="confirmationCode"
           required
-          label="Valider le code"
+          :label="t('form.label.validation-code')"
           type="number"
           :error-messages="errorMessageConfirmationCode"
           prepend-inner-icon="mdi-lock-check-outline"
@@ -90,7 +91,7 @@ const onSubmit = handleSubmit(async values => {
             color="primary"
             block
           >
-            Créer
+            {{ t('common.create') }}
           </VBtn>
         </div>
       </VForm>

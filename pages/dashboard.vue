@@ -10,6 +10,6 @@ async function goToFamily() {
 
 <template>
   <VBtn @click="goToFamily">
-    Gerer ma famille
+    {{ $t("dashboard.link.family-manage") }}
   </VBtn>
 </template>

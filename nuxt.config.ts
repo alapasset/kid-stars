@@ -13,7 +13,8 @@ export default defineNuxtConfig({
     `@nuxtjs/supabase`,
     `vuetify-nuxt-module`,
     `@vee-validate/nuxt`,
-    `@hebilicious/vue-query-nuxt`
+    `@hebilicious/vue-query-nuxt`,
+    `@nuxtjs/i18n`,
   ],
   runtimeConfig: {
     public: {
@@ -26,5 +27,28 @@ export default defineNuxtConfig({
   },
   tailwindcss: {
     editorSupport: { autocompleteUtil: { as: `tailwindClasses` }, generateConfig: true }
+  },
+  i18n: {
+    locales: [
+      {
+        code: `en`,
+        name: `English`,
+        iso: `en-EN`,
+        dir: `ltr`,
+        file: `en-EN.json`,
+      },
+      {
+        code: `fr`,
+        name: `Français`,
+        iso: `fr-FR`,
+        dir: `ltr`,
+        file: `fr-FR.json`,
+      },
+    ],
+    lazy: true,
+    langDir: `lang`,
+    defaultLocale: `fr`,
+    detectBrowserLanguage: false,
+    vueI18n: `./i18n.config.ts`,
   }
 })

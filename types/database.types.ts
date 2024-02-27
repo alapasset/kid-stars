@@ -11,18 +11,29 @@ export type Database = {
     Tables: {
       family: {
         Row: {
+          creator: string
           id: string
           name: string
         }
         Insert: {
+          creator: string
           id?: string
           name: string
         }
         Update: {
+          creator?: string
           id?: string
           name?: string
         }
-        Relationships: []
+        Relationships: [
+          {
+            foreignKeyName: `public_family_creator_fkey`
+            columns: [`creator`]
+            isOneToOne: false
+            referencedRelation: `users`
+            referencedColumns: [`id`]
+          }
+        ]
       }
       family_member: {
         Row: {
