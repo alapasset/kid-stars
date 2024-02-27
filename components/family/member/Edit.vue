@@ -5,25 +5,27 @@ const props = defineProps<{
   member: FamilyMember
 }>()
 
-const data = ref({...props.member})
+const { t } = useI18n()
+
+const data = ref(props.member)
 const openDialog = ref(false);
 
 const { handleSubmit, errors } = useForm();
-const { mutation: updateFamilyMember } = useUpdateFamilyMember();
+const { mutateAsync } = useUpdateFamilyMember();
 
 const onSubmit = handleSubmit(async () => {
-  updateFamilyMember.mutate({ data: data.value });
+  await mutateAsync({ data: data.value });
+  openDialog.value = false;
 })
 </script>
 
 <template>
   <div>
     <VBtn
-      icon
+      icon="mdi-pencil"
+      color="primary"
       @click.stop="openDialog = true"
-    >
-      <VIcon size="20" class="text-blue-600">mdi-pencil</VIcon>
-    </VBtn>
+    />
     <VDialog
       v-model="openDialog"
       max-width="400"
@@ -34,13 +36,13 @@ const onSubmit = handleSubmit(async () => {
       >
         <VCard>
           <VCardTitle>
-            Modifier le membre de la famille
+            {{ t('family.member.edit.title') }}
           </VCardTitle>
           <VCardText>
             <VTextField
               v-model="data.pseudo"
               required
-              label="Pseudo"
+              :label="t('form.label.pseudo')"
               type="text"
               :error-messages="errors.pseudo"
               prepend-inner-icon="mdi-account"
@@ -49,7 +51,7 @@ const onSubmit = handleSubmit(async () => {
               v-if="props.member.code"
               v-model="data.code"
               required
-              label="Code de la session"
+              :label="t('form.label.code')"
               type="text"
               :error-messages="errors.code"
               prepend-inner-icon="mdi-lock-outline"
@@ -58,17 +60,16 @@ const onSubmit = handleSubmit(async () => {
           <VCardActions>
             <VSpacer />
             <VBtn
-              color="blue darken-1"
+              color="secondary"
               @click="openDialog = false"
             >
-              Annuler
+              {{ t('common.cancel') }}
             </VBtn>
             <VBtn
               type="submit"
               color="primary"
-              @click="openDialog = false"
             >
-              Valider
+              {{ t('common.confirm') }}
             </VBtn>
           </VCardActions>
         </VCard>

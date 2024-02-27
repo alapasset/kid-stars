@@ -1,0 +1,91 @@
+{
+  "common": {
+    "confirm": "Confirmer",
+    "cancel": "Annuler",
+    "save": "Enregistrer",
+    "create": "Créer",
+    "delete": "Supprimer",
+    "deletion": "Suppression",
+    "edit": "Editer",
+    "add": "Ajouter",
+    "return": "Retour",
+    "yes": "Oui",
+    "no": "Non",
+    "error": "Erreur",
+    "success": "Succès",
+    "warning": "Attention",
+    "info": "Information",
+    "loading": "Chargement",
+    "search": "Rechercher",
+    "login": "Connexion",
+    "logout": "Déconnexion"
+  },
+  "dashboard": {
+    "link": {
+      "family-manage": "Gerer ma famille"
+    }
+  },
+  "welcome": {
+    "title": "Bienvenue sur l'application de gestion de famille"
+  },
+  "login": {
+    "title": "Veuillez vous connecter"
+  },
+  "family": {
+    "detail": {
+      "title": "Les membres de la famille {familyName}"
+    },
+    "add": {
+      "title": "Création de votre famille"
+    },
+    "child": "Enfant",
+    "tutor": "Tuteur",
+    "member": {
+      "hello": "Salut {username}, tu es un {type}",
+      "add": {
+        "title": "Nouveau membre",
+        "card": {
+          "title": "Ajouter un membre"
+        }
+      },
+      "delete": {
+        "confirm": "Etes-vous sûr de vouloir supprimer le membre de cette famille ?"
+      },
+      "edit": {
+        "title": "Editer le membre de la famille"
+      },
+      "return-to-family": "Retour à la famille",
+      "item": {
+        "title": "Code de la session tuteur"
+      }
+    }
+  },
+  "form": {
+    "error": {
+      "pseudo": {
+        "required": "Le pseudo est obligatoire"
+      },
+      "code": {
+        "required": "Le code est obligatoire",
+        "minlength": "Le code doit faire au moins 4 caractères",
+        "wrong": "Le code est incorrect, êtes-vous sûr de l'avoir bien saise ?",
+        "same": "Les codes doivent être identiques"
+      },
+      "name": {
+        "required": "Le nom de famille est obligatoire"
+      }
+    },
+    "label": {
+      "pseudo": "Pseudo",
+      "code": "Code de la session tuteur",
+      "name": "Nom de famille",
+      "validation-code": "Validation du code"
+    },
+    "hint": {
+      "code" : "code numerique (ex: 123456789)"
+    }
+  },
+  "footer": {
+    "terms": "© 2021 - Tout droits réservés"
+  }
+}

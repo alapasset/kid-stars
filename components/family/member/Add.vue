@@ -1,10 +1,11 @@
 <script setup lang="ts">
+const { t } = useI18n()
+
 const showModal = ref(false)
 const currentTab = ref(0)
-const tabs = [`Enfant`, `Tuteur`]
+const tabs = [t(`family.child`), t(`family.tutor`)]
 
 function onCloseModal() {
-  console.log(`onCloseModal`)
   showModal.value = false
 }
 </script>
@@ -24,7 +25,7 @@ function onCloseModal() {
       />
     </div>
     <div class="text-center">
-      <VCardTitle>Nouveau membre</VCardTitle>
+      <VCardTitle>{{ t('family.member.add.title') }}</VCardTitle>
     </div>
   </VCard>
   <VDialog
@@ -33,7 +34,7 @@ function onCloseModal() {
   >
     <VCard>
       <VCardTitle class="text-center border-2 border-gray-100">
-        Ajouter un membre
+        {{ t('family.member.add.card.title') }}
       </VCardTitle>
       <VTabs
         v-model="currentTab"

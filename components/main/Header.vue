@@ -1,6 +1,6 @@
 
 <script setup lang="ts">
-
+const { t } = useI18n()
 const supabase = useSupabaseClient()
 const user = useSupabaseUser()
 const runtimeConfig = useRuntimeConfig()
@@ -36,13 +36,13 @@ const signInWithOAuth = async () => {
         v-if="user"
         @click="signOut"
       >
-        Logout
+        {{ t('common.logout') }}
       </VBtn>
       <VBtn
         v-else
         @click="signInWithOAuth"
       >
-        Login
+        {{ t('common.login') }}
       </VBtn>
     </div>
   </header>

@@ -1,3 +1,7 @@
+<script setup lang="ts">
+const { t } = useI18n()
+</script>
+
 <template>
-  <span>Ceci est la page d'acceuil</span>
+  <span>{{ t('welcome.title') }}</span>
 </template>

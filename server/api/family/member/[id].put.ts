@@ -9,7 +9,7 @@ export default defineEventHandler(async (event) => {
   const body = await readBody(event);
   if (!body.id) throw createError({statusCode: 400, statusMessage: `Missing id`});
 
-  const { data: familyMember, error: errorFamilyMember} = await client.from(`family_member`).select(`user`).eq(`id`, body.id).single();
+  const { error: errorFamilyMember} = await client.from(`family_member`).select(`user`).eq(`id`, body.id).single();
   if(errorFamilyMember) throw createError(errorFamilyMember);
 
   const { error: errorFamilyMemberUpdate } = await client.from(`family_member`).update({ pseudo: body.pseudo, code: body.code }).eq(`id`, body.id);
