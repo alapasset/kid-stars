@@ -1,7 +1,7 @@
 {
-  "editor.formatOnSave":false,
-  "editor.codeActionsOnSave":{
-    "source.fixAll.eslint": "explicit"
+  "editor.formatOnSave": false,
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": "always"
   },
   "tailwindCSS.includeLanguages": {
     "plaintext": "html"
@@ -12,7 +12,7 @@
   "editor.quickSuggestions": {
     "strings": true
   },
-  "eslint.validate":[
+  "eslint.validate": [
     "javascript",
     "typescript",
     "vue",
