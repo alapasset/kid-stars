@@ -3,13 +3,9 @@ definePageMeta({
   middleware: `auth`
 })
 
-async function goToFamily() {
-  await navigateTo(`/family`)
-}
+const { t } = useI18n()
 </script>
 
 <template>
-  <VBtn @click="goToFamily">
-    {{ $t("dashboard.link.family-manage") }}
-  </VBtn>
+  <h1>{{ t('dashboard.title') }}</h1>
 </template>
