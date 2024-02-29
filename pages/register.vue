@@ -1,16 +1,16 @@
 <script lang="ts" setup>
 import type { NuxtLink } from '#build/components';
-import type { UserLoginForm } from '~/types/user';
+import type { UserCreationForm } from '~/types/user';
 
 const { t } = useI18n()
 
 const runtimeConfig = useRuntimeConfig()
 const redirectTo = `${runtimeConfig.public.DEPLOY_PRIME_URL}/confirm`
-const user = useSupabaseUser()
 const supabase = useSupabaseClient()
+const isLoading = ref(false)
 
-const { handleSubmit } = useForm<UserLoginForm>()
-const { notifyError } = useNotifications()
+const { handleSubmit } = useForm<UserCreationForm>()
+const { notifyError, notifySuccess } = useNotifications()
 
 const { value: email, errorMessage: errorMessageEmail } = useField<string>(
   `email`,
@@ -25,18 +25,38 @@ const { value: email, errorMessage: errorMessageEmail } = useField<string>(
 const { value: password, errorMessage: errorMessagePassword } = useField<string>(
 `password`,
   inputValue => {
+    const passwordValidationRegExp = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/
     if (inputValue?.length === 0) return t(`form.error.password.required`)
+    if (!passwordValidationRegExp.test(inputValue)) return t(`form.error.password.invalid`)
+    return true
+  }
+)
+
+const { value: confirmationPassword, errorMessage: errorMessageConfirmationPassword } = useField<string>(
+`confirmationPassword`,
+  inputValue => {
+    if(password.value !== inputValue) return t(`form.error.password.same`)
     return true
   }
 )
 
 const onSubmit = handleSubmit(async (values) => {
-  const { error } = await supabase.auth.signInWithPassword({
+  isLoading.value = true
+  const { data, error } = await supabase.auth.signUp({
     email: values.email,
     password: values.password,
   })
 
-  if (error) { notifyError(error.message) }
+  if (error) {
+    notifyError(error.message)
+    throw createError(error)
+  }
+
+  if (data) {
+    notifySuccess(t(`common.register-success`))
+    isLoading.value = false
+    navigateTo(`/`)
+  }
 })
 
 
@@ -47,14 +67,10 @@ const signInWithOAuth = async () => {
       redirectTo,
     },
   })
-  if (error) {throw createError(error)}
-}
-
-watchEffect(() => {
-  if (user.value) {
-    return navigateTo(`/dashboard`)
+  if (error) {
+    throw createError(error)
   }
-});
+}
 </script>
 
 <template>
@@ -63,7 +79,7 @@ watchEffect(() => {
     @submit.prevent="onSubmit"
   >
     <h2 class="mb-5 text-lg font-medium">
-      {{ t('common.login') }}
+      {{ t('common.register') }}
     </h2>
 
     <VTextField
@@ -83,9 +99,18 @@ watchEffect(() => {
       :hint="t('form.hint.password')"
       prepend-inner-icon="mdi-lock"
     />
-
+    <VTextField
+      v-model="confirmationPassword"
+      required
+      :label="t('form.label.confirmation-password')"
+      type="password"
+      :error-messages="errorMessageConfirmationPassword"
+      prepend-inner-icon="mdi-lock-check"
+    />
     <VBtn
       type="submit"
+      :loading="isLoading"
+      :disabled="isLoading"
       color="success"
       :text="t('common.confirm')"
     />
@@ -104,13 +129,13 @@ watchEffect(() => {
 
     <div>
       <p class="mt-3 text-xs">
-        {{ t('common.not-have-account') }}
+        {{ t('common.already-have-account') }}
       </p>
       <NuxtLink
         class="w-fit text-sm hover:text-[#42b883]"
-        to="/register"
+        to="/login"
       >
-        {{ t('common.register') }}
+        {{ t('common.login') }}
       </NuxtLink>
     </div>
   </VForm>
