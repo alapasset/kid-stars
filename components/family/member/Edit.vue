@@ -1,21 +1,56 @@
 <script setup lang="ts">
-import type {FamilyMember} from "~/types/family";
+import type { FamilyMember } from "~/types/family";
 
 const props = defineProps<{
   member: FamilyMember
 }>()
 
 const { t } = useI18n()
-
-const data = ref(props.member)
+const { notifyError, notifySuccess } = useNotifications()
 const openDialog = ref(false);
+const isTutor = computed(() => props.member.code !== null);
+const { mutateAsync, isSuccess, isError } = useUpdateFamilyMember();
 
-const { handleSubmit, errors } = useForm();
-const { mutateAsync } = useUpdateFamilyMember();
+const { values, handleSubmit } = useForm<FamilyMember>({
+  initialValues: {
+    ...props.member
+  }
+});
+
+const { value: pseudo, errorMessage: errorMessagePseudo } = useField<string>(
+  `pseudo`,
+  inputValue => {
+    if(inputValue?.length === 0) return t(`form.error.pseudo.required`);
+    return true
+  }
+);
+
+const { value: code, errorMessage: errorMessageCode } = useField<string>(
+`code`,
+  inputValue => {
+    if(isTutor.value && inputValue?.length < 4) return t(`form.error.code.minLegnth`);
+    return true
+  }
+);
+
+const { value: confirmationCode, errorMessage: errorMessageConfirmationCode } = useField<string>(
+`confirmationCode`,
+  inputValue => {
+    if(isTutor.value && code.value !== inputValue) return t(`form.error.code.same`);
+    return true
+  }
+);
+
 
 const onSubmit = handleSubmit(async () => {
-  await mutateAsync({ data: data.value });
-  openDialog.value = false;
+  await mutateAsync(values);
+  if(isSuccess.value) {
+    openDialog.value = false;
+    notifySuccess(t(`notification.save.success`))
+  }
+  if(isError.value) {
+    notifyError(t(`notification.save.error`))
+  }
 })
 </script>
 
@@ -40,20 +75,29 @@ const onSubmit = handleSubmit(async () => {
           </VCardTitle>
           <VCardText>
             <VTextField
-              v-model="data.pseudo"
+              v-model="pseudo"
               required
               :label="t('form.label.pseudo')"
               type="text"
-              :error-messages="errors.pseudo"
+              :error-messages="errorMessagePseudo"
               prepend-inner-icon="mdi-account"
             />
             <VTextField
-              v-if="props.member.code"
-              v-model="data.code"
+              v-if="isTutor"
+              v-model="code"
               required
               :label="t('form.label.code')"
               type="text"
-              :error-messages="errors.code"
+              :error-messages="errorMessageCode"
+              prepend-inner-icon="mdi-lock-outline"
+            />
+            <VTextField
+              v-if="isTutor"
+              v-model="confirmationCode"
+              required
+              :label="t('form.label.code')"
+              type="text"
+              :error-messages="errorMessageConfirmationCode"
               prepend-inner-icon="mdi-lock-outline"
             />
           </VCardText>
