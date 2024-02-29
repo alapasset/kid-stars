@@ -22,3 +22,6 @@ export interface Family {
 export interface ChildCreationForm {
   pseudo: string
 }
+export interface TutorCreationForm {
+  invitedEmail: string
+}

@@ -74,6 +74,45 @@ export type Database = {
           }
         ]
       }
+      point: {
+        Row: {
+          child: string
+          created_at: string
+          id: string
+          point: number
+          tutor: string
+        }
+        Insert: {
+          child?: string
+          created_at?: string
+          id?: string
+          point: number
+          tutor?: string
+        }
+        Update: {
+          child?: string
+          created_at?: string
+          id?: string
+          point?: number
+          tutor?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: `public_point_child_fkey`
+            columns: [`child`]
+            isOneToOne: false
+            referencedRelation: `family_member`
+            referencedColumns: [`id`]
+          },
+          {
+            foreignKeyName: `public_point_tutor_fkey`
+            columns: [`tutor`]
+            isOneToOne: false
+            referencedRelation: `family_member`
+            referencedColumns: [`id`]
+          }
+        ]
+      }
     }
     Views: {
       [_ in never]: never

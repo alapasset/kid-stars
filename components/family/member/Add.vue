@@ -55,7 +55,7 @@ function onCloseModal() {
           </VWindowItem>
 
           <VWindowItem value="two">
-            TODO
+            <FamilyMemberTutorForm @close-modal="onCloseModal" />
           </VWindowItem>
         </VWindow>
       </VCardText>
