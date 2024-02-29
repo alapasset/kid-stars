@@ -23,7 +23,7 @@ export function useUpdateFamilyMember() {
   const queryClient = useQueryClient()
 
   return useMutation({
-    mutationFn: ({ data }: { data: Partial<FamilyMember> }) => $fetch(`/api/family/member/${data.id}`, { method: `put`, body: data }),
+    mutationFn: (data: Partial<FamilyMember>) => $fetch(`/api/family/member/${data.id}`, { method: `put`, body: data }),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: [`family`] })
     },
