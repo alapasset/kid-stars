@@ -1,31 +1,43 @@
-import type { ChildCreationForm, Family, FamilyCreationForm } from "~/types/family";
-
-export function useCreateChild() {
-  const queryClient = useQueryClient()
-
-  return useMutation({
-    mutationFn: (body: ChildCreationForm) => $fetch(`/api/family/child`, { method: `post`, body }),
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: [`family`] })
-    },
-  })
-}
+import type { Family, FamilyCreationForm } from "~/types/family";
 
 export function useCreateFamily() {
   const queryClient = useQueryClient()
+  const { notifySuccess, notifyError } = useNotifications()
+  const { t } = useI18n()
 
   return useMutation({
     mutationFn: (body: FamilyCreationForm) => $fetch(`/api/family`, { method: `post`, body }),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: [`family`] })
+      notifySuccess(t(`notification.save.success`))
     },
+    onError: () => notifyError(t(`notification.save.error`)),
   })
 }
 
-export function useFetchFamily(familyId: string) {
+export function useJoinFamily(familyId: MaybeRef<string>) {
+  const queryClient = useQueryClient()
+  const familyRef = toRef(familyId)
+  const { notifySuccess, notifyError } = useNotifications()
+  const { t } = useI18n()
+
+  return useMutation({
+    mutationFn: (body: FamilyCreationForm) => $fetch(`/api/family/${familyRef.value}/join`, { method: `post`, body }),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: [`family`] })
+      notifySuccess(t(`notification.save.success`))
+    },
+    onError: () => notifyError(t(`notification.save.error`)),
+  })
+}
+
+export function useFetchFamily(familyId: MaybeRef<string>) {
+  const familyRef = toRef(familyId)
+
   return useQuery({
-    queryKey: [`family`, `get-one-family`, familyId],
-    queryFn: () => $fetch(`/api/family/${familyId}`),
+    enabled: !!familyRef.value,
+    queryKey: [`family`, `get-one-family`, familyRef.value],
+    queryFn: () => $fetch(`/api/family/${familyRef.value}`),
     select: (data) => data as Family,
   })
 }

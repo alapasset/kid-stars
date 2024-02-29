@@ -19,12 +19,17 @@
     "search": "Rechercher",
     "login": "Connexion",
     "logout": "Déconnexion",
-    "invite": "Inviter"
+    "invite": "Inviter",
+    "redirect": "Redirection...",
+    "register": "Inscription",
+    "register-with-google": "Google",
+    "already-have-account": "Déjà un compte ?",
+    "not-have-account": "Pas encore de compte ?",
+    "register-success": "Inscription réussie, un mail de confirmation vous a été envoyé",
+    "join": "Rejoindre"
   },
   "dashboard": {
-    "link": {
-      "family-manage": "Gerer ma famille"
-    }
+    "title": "Tableau de bord"
   },
   "welcome": {
     "title": "Bienvenue sur l'application de gestion de famille"
@@ -33,11 +38,15 @@
     "title": "Veuillez vous connecter"
   },
   "family": {
+    "manage": "Gerer ma famille",
     "detail": {
       "title": "Les membres de la famille {familyName}"
     },
     "add": {
       "title": "Création de votre famille"
+    },
+    "join": {
+      "title": "Rejoindre une famille"
     },
     "child": "Enfant",
     "tutor": "Tuteur",
@@ -61,6 +70,9 @@
       }
     }
   },
+  "create-password": {
+    "title": "Création de votre mot de passe"
+  },
   "form": {
     "error": {
       "pseudo": {
@@ -80,7 +92,9 @@
         "required": "Le nom de famille est obligatoire"
       },
       "password": {
-        "required": "Le mot de passe est obligatoire"
+        "required": "Le mot de passe est obligatoire",
+        "invalid": "Le mot de passe doit contenir au moins une majuscule, une minuscule, un chiffre et un caractère spécial",
+        "same":"Les mots de passe doivent être identiques"
       }
     },
     "label": {
@@ -88,10 +102,13 @@
       "code": "Code de la session tuteur",
       "name": "Nom de famille",
       "validation-code": "Validation du code",
-      "email": "Email"
+      "email": "Email",
+      "password": "Mot de passe",
+      "confirmation-password": "Confirmer le mot de passe"
     },
     "hint": {
-      "code": "code numerique (ex: 123456789)"
+      "code": "code numerique (ex: 123456789)",
+      "password": "8 caractères minimum avec une majuscule, une minuscule, un chiffre et un caractère spécial"
     }
   },
   "footer": {
@@ -113,6 +130,10 @@
     "update": {
       "success": "Mise à jour réussie",
       "error": "Erreur lors de la mise à jour"
+    },
+    "create-password": {
+      "success": "Mot de passe créé",
+      "error": "Erreur lors de la création du mot de passe"
     }
   }
 }

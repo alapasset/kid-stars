@@ -25,7 +25,8 @@
     "register-with-google": "Google",
     "already-have-account": "Déjà un compte ?",
     "not-have-account": "Pas encore de compte ?",
-    "register-success": "Inscription réussie, un mail de confirmation vous a été envoyé"
+    "register-success": "Inscription réussie, un mail de confirmation vous a été envoyé",
+    "join": "Rejoindre"
   },
   "dashboard": {
     "title": "Tableau de bord"
@@ -43,6 +44,9 @@
     },
     "add": {
       "title": "Création de votre famille"
+    },
+    "join": {
+      "title": "Rejoindre une famille"
     },
     "child": "Enfant",
     "tutor": "Tuteur",
@@ -65,6 +69,9 @@
         "title": "Code de la session tuteur"
       }
     }
+  },
+  "create-password": {
+    "title": "Création de votre mot de passe"
   },
   "form": {
     "error": {
@@ -123,6 +130,10 @@
     "update": {
       "success": "Mise à jour réussie",
       "error": "Erreur lors de la mise à jour"
+    },
+    "create-password": {
+      "success": "Mot de passe créé",
+      "error": "Erreur lors de la création du mot de passe"
     }
   }
 }

@@ -1,51 +1,80 @@
 <script setup lang="ts">
-import type { FamilyCreationForm } from '~/types/family';
+import type { FamilyCreationForm } from '~/types/family'
 
 const { t } = useI18n()
-const { mutate } = useCreateFamily()
-const { handleSubmit } = useForm<FamilyCreationForm>();
+const { handleSubmit, setFieldValue } = useForm<FamilyCreationForm>()
+
+const user = useSupabaseUser()
+
+const familyId = computed(() => user?.value?.user_metadata.family)
+
+const { data, isFetched } = useFetchFamily(familyId)
+const { mutate: createFamily } = useCreateFamily()
+const { mutate: joinFamily } = useJoinFamily(familyId)
 
 const { value: name, errorMessage: errorMessageName } = useField<string>(
   `name`,
   inputValue => {
-    if(inputValue?.length === 0) return t(`form.error.name.required`);
+    if(inputValue?.length === 0) return t(`form.error.name.required`)
     return true
+  },
+  {
+    initialValue: data.value?.name
   }
-);
+)
 
 const { value: pseudo, errorMessage: errorMessagePseudo } = useField<string>(
   `pseudo`,
   inputValue => {
-    if(inputValue?.length === 0) return t(`form.error.pseudo.required`);
+    if(inputValue?.length === 0) return t(`form.error.pseudo.required`)
     return true
   }
-);
+)
 
 const { value: code, errorMessage: errorMessageCode } = useField<string>(
 `code`,
   inputValue => {
-    if(inputValue?.length < 4) return t(`form.error.code.minLegnth`);
+    if(inputValue?.length < 4) return t(`form.error.code.minLegnth`)
     return true
   }
-);
+)
 
 const { value: confirmationCode, errorMessage: errorMessageConfirmationCode } = useField<string>(
 `confirmationCode`,
   inputValue => {
-    if(code.value !== inputValue) return t(`form.error.code.same`);
+    if(code.value !== inputValue) return t(`form.error.code.same`)
     return true
   }
-);
+)
 
 const onSubmit = handleSubmit(async values => {
-  mutate(values)
+  isInvitation ? joinFamily(values) : createFamily(values)
+})
+
+const isInvitation = computed(() => {
+  return !!data.value?.name
+})
+
+const pageTitle = computed(() => {
+  return isInvitation.value ? t(`family.join.title`) : t(`family.add.title`)
+})
+
+const buttonText = computed(() => {
+  return isInvitation.value ? t(`common.join`) : t(`common.create`)
+})
+
+watch(isFetched, () => {
+  setFieldValue(`name`, data.value?.name || ``)
 })
 </script>
 
 <template>
-  <VCard width="300">
+  <VCard
+    v-if="isFetched"
+    width="300"
+  >
     <template #title>
-      <span>{{ t('family.add.title') }}</span>
+      <span>{{ pageTitle }}</span>
     </template>
     <template #text>
       <VForm
@@ -57,6 +86,7 @@ const onSubmit = handleSubmit(async values => {
           required
           :label="t('form.label.name')"
           type="text"
+          :disabled="isInvitation"
           :error-messages="errorMessageName"
           prepend-inner-icon="mdi-home-heart"
         />
@@ -90,9 +120,8 @@ const onSubmit = handleSubmit(async values => {
             type="submit"
             color="primary"
             block
-          >
-            {{ t('common.create') }}
-          </VBtn>
+            :text="buttonText"
+          />
         </div>
       </VForm>
     </template>

@@ -4,6 +4,11 @@ export interface UserCreationForm {
   confirmationPassword: string;
 }
 
+export interface UserPasswordCreationForm {
+  password: string;
+  confirmationPassword: string;
+}
+
 export interface UserLoginForm {
   email: string;
   password: string;
