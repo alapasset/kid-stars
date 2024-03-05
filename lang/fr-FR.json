@@ -67,6 +67,17 @@
       "return-to-family": "Retour à la famille",
       "item": {
         "title": "Code de la session tuteur"
+      },
+      "point": {
+        "title": "Éditer le nombre de point",
+        "currentPoints": "Nombre de point actuel",
+        "addRemove": {
+          "start": "Combien de points à",
+          "end": "voulez vous ajouter / supprimer ?"
+        },
+        "removePoints": "Retirer des points",
+        "points": "points",
+        "newPoints": "Nouveau nombre de point"
       }
     }
   },
@@ -95,6 +106,9 @@
         "required": "Le mot de passe est obligatoire",
         "invalid": "Le mot de passe doit contenir au moins une majuscule, une minuscule, un chiffre et un caractère spécial",
         "same":"Les mots de passe doivent être identiques"
+      },
+      "points": {
+        "minValue": "Le nombre de points doit être supérieur à 0"
       }
     },
     "label": {
