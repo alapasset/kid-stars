@@ -35,21 +35,22 @@ const confirmDeletion = async () => {
         <VCardText>
           {{ t('family.member.delete.confirm') }}
         </VCardText>
-        <VCardActions>
-          <VSpacer />
+        <div class="flex flex-col gap-2 p-2">
           <VBtn
+            color="primary"
+            block
+            @click="confirmDeletion()"
+          >
+            {{ t('common.confirm') }}
+          </VBtn>
+          <VBtn
+            block
             color="secondary"
             @click="openDialog = false"
           >
             {{ t('common.cancel') }}
           </VBtn>
-          <VBtn
-            color="primary"
-            @click="confirmDeletion()"
-          >
-            {{ t('common.confirm') }}
-          </VBtn>
-        </VCardActions>
+        </div>
       </VCard>
     </VDialog>
   </div>

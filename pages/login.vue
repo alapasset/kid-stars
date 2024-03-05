@@ -59,7 +59,7 @@ watchEffect(() => {
 
 <template>
   <VForm
-    class="w-1/6 mt-10 mx-auto p-8 flex flex-col gap-4 rounded-lg bg-gray-100 border border-gray-600"
+    class="mt-10 mx-auto p-8 flex flex-col gap-4 rounded-lg bg-gray-100 border border-gray-600 max-w-sm"
     @submit.prevent="onSubmit"
   >
     <h2 class="mb-5 text-lg font-medium">

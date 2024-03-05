@@ -44,5 +44,12 @@ const onSubmit = handleSubmit(async values => {
     >
       {{ t('common.add') }}
     </VBtn>
+    <VBtn
+      color="secondary"
+      block
+      @click="emit(`closeModal`)"
+    >
+      {{ t('common.cancel') }}
+    </VBtn>
   </VForm>
 </template>

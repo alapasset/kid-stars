@@ -11,6 +11,7 @@ const isTutor = computed(() => !!props.member.code);
 const profile = computed(() => props.member.user === user.value?.id ? user.value?.user_metadata.avatar_url : null);
 const title = computed(() => props.member.user ? t(`family.tutor`) : t(`family.child`));
 const isGoodCode = computed(() => code.value === props.member.code);
+const canEdit = computed(() => props.member.user === user.value?.id || !isTutor.value);
 
 const showModal = ref(false);
 const user = useSupabaseUser();
@@ -45,7 +46,6 @@ const onClickCard = () => {
 <template>
   <VCard
     v-if="props.member"
-    width="200"
     @click="onClickCard"
   >
     <VAvatar
@@ -66,6 +66,7 @@ const onClickCard = () => {
           :member="props.member"
         />
         <FamilyMemberEdit
+          v-if="canEdit"
           :member="props.member"
         />
         <FamilyMemberDelete

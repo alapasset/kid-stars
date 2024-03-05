@@ -21,7 +21,7 @@ const { data, isFetched, isLoading } = useFetchFamily(props.familyId)
           {{ t('family.detail.title', {familyName: data?.name}) }}
         </h1>
       </header>
-      <div class="grid grid-flow-col gap-5 px-5 justify-center">
+      <div class="grid grid-flow-row md:grid-flow-col gap-5 md:px-5 justify-center">
         <FamilyMemberItem
           v-for="member in data?.family_member"
           :key="member.id"

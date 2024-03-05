@@ -22,6 +22,9 @@ export default defineNuxtConfig({
       DEPLOY_PRIME_URL : process.env.DEPLOY_PRIME_URL,
     },
   },
+  vuetify: {
+    vuetifyOptions: `./vuetify.config.ts`
+  },
   supabase: {
     redirect: false
   },
