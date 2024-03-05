@@ -59,17 +59,17 @@ export type Database = {
         }
         Relationships: [
           {
+            foreignKeyName: `public_family_member_user_fkey`
+            columns: [`user`]
+            isOneToOne: false
+            referencedRelation: `users`
+            referencedColumns: [`id`]
+          },
+          {
             foreignKeyName: `public_family_user_family_fkey`
             columns: [`family`]
             isOneToOne: false
             referencedRelation: `family`
-            referencedColumns: [`id`]
-          },
-          {
-            foreignKeyName: `public_family_user_user_fkey`
-            columns: [`user`]
-            isOneToOne: false
-            referencedRelation: `users`
             referencedColumns: [`id`]
           }
         ]
@@ -79,21 +79,21 @@ export type Database = {
           child: string
           created_at: string
           id: string
-          point: number
+          points: number
           tutor: string
         }
         Insert: {
           child?: string
           created_at?: string
           id?: string
-          point: number
+          points: number
           tutor?: string
         }
         Update: {
           child?: string
           created_at?: string
           id?: string
-          point?: number
+          points?: number
           tutor?: string
         }
         Relationships: [

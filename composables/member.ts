@@ -1,4 +1,5 @@
 import type { ChildCreationForm, FamilyMember, TutorCreationForm } from "~/types/family";
+import type {MaybeRef} from "vue";
 
 export function useCreateChild() {
   const queryClient = useQueryClient()
@@ -34,6 +35,16 @@ export function useFetchFamilyMember(memberId: string) {
   })
 }
 
+export function useFetchFamilyMemberByUser(userId: MaybeRef<string | undefined>) {
+  const userIdRef = toRef(userId);
+  const enabled = !!userIdRef.value
+  return useQuery({
+    enabled,
+    queryKey: [`family`, `get-family-member-by-user`, userIdRef.value],
+    queryFn: () => $fetch(`/api/family/member/user/${ userIdRef.value }`),
+    select: (data) => data as FamilyMember,
+  })
+}
 export function useDeleteFamilyMember() {
   const queryClient = useQueryClient()
   const { notifySuccess, notifyError } = useNotifications()
