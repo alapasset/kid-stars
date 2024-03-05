@@ -67,6 +67,17 @@
       "return-to-family": "Retour à la famille",
       "item": {
         "title": "Code de la session tuteur"
+      },
+      "point": {
+        "title": "Éditer le nombre de point",
+        "currentPoints": "Nombre de point actuel",
+        "addRemove": {
+          "start": "Combien de points à",
+          "end": "voulez vous ajouter / supprimer ?"
+        },
+        "removePoints": "Retirer des points",
+        "points": "points",
+        "newPoints": "Nouveau nombre de point"
       }
     }
   },

@@ -61,8 +61,11 @@ const onClickCard = () => {
     </div>
     <VCardActions>
       <div class="w-full flex justify-between">
-        <FamilyMemberEdit
+        <FamilyMemberPoint
           v-if="!isTutor"
+          :member="props.member"
+        />
+        <FamilyMemberEdit
           :member="props.member"
         />
         <FamilyMemberDelete
