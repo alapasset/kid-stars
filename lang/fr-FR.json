@@ -70,14 +70,11 @@
       },
       "point": {
         "title": "Éditer le nombre de point",
-        "currentPoints": "Nombre de point actuel",
-        "addRemove": {
-          "start": "Combien de points à",
-          "end": "voulez vous ajouter / supprimer ?"
-        },
-        "removePoints": "Retirer des points",
+        "current-points": "Nombre de point actuel",
+        "add-remove": "Combien de points voulez vous ajouter ou supprimer à",
+        "remove-points": "Retirer des points",
         "points": "points",
-        "newPoints": "Nouveau nombre de point"
+        "new-points": "Nouveau nombre de point"
       }
     }
   },

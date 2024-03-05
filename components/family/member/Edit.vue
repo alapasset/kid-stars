@@ -101,21 +101,22 @@ const onSubmit = handleSubmit(async () => {
               prepend-inner-icon="mdi-lock-outline"
             />
           </VCardText>
-          <VCardActions>
-            <VSpacer />
+          <div class="flex flex-col gap-2 p-2">
+            <VBtn
+              type="submit"
+              color="primary"
+              block
+            >
+              {{ t('common.confirm') }}
+            </VBtn>
             <VBtn
               color="secondary"
+              block
               @click="openDialog = false"
             >
               {{ t('common.cancel') }}
             </VBtn>
-            <VBtn
-              type="submit"
-              color="primary"
-            >
-              {{ t('common.confirm') }}
-            </VBtn>
-          </VCardActions>
+          </div>
         </VCard>
       </VForm>
     </VDialog>

@@ -12,7 +12,6 @@ function onCloseModal() {
 
 <template>
   <VCard
-    width="200"
     hover
     @click="showModal = true"
   >

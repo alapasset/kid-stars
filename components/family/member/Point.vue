@@ -9,9 +9,11 @@ const props = defineProps<{
 
 const openDialog = ref(false);
 const { data: point, refetch } = useGetPoint(props.member.id, openDialog);
-const { mutate } = useCreatePoint();
+const { mutateAsync, isPending } = useCreatePoint();
 const { t } = useI18n()
-const values = [-25, -10, -5, -1, 5, 10, 25, 50]
+const minusValues = [-25, -10, -5, -1]
+const plusValues = [1, 5, 10, 25]
+
 const { handleSubmit, resetForm } = useForm<PointCreationForm>({
   initialValues: {
     child: props.member.id,
@@ -29,14 +31,16 @@ const { value: points, errorMessage: errorMessagePoints } = useField<number>(
 
 const initialValue = computed(() => point.value ? point.value[0].sum : 0);
 const newPoints = computed(() => initialValue.value + Number(points.value));
+const disabled = computed(() => isPending.value || !points.value || newPoints.value < 0);
 
 const onSubmit = handleSubmit(async values => {
-  mutate(values)
+  await mutateAsync(values)
   openDialog.value = false
   resetForm()
 })
 
 const openModal = () => {
+  resetForm()
   openDialog.value = true
   refetch()
 }
@@ -54,76 +58,95 @@ const addPoint = (value: number) => {
     />
     <VDialog
       v-model="openDialog"
-      max-width="800"
+      max-width="400"
       class="flex justify-center items-center"
     >
       <VCard>
-        <VForm @submit.prevent="onSubmit">
-          <VCardTitle>
-            {{ t('family.member.point.title') }}
-          </VCardTitle>
-          <VCardText>
+        <VCardTitle>
+          {{ t('family.member.point.title') }}
+        </VCardTitle>
+        <VCardText class="flex flex-col gap-5">
+          <div class="flex gap-2 items-center">
             <p class="font-bold">
-              {{ t('family.member.point.currentPoints') }} :
+              {{ t('family.member.point.current-points') }} :
             </p>
-            <p>{{ initialValue }}</p>
-          </VCardText>
-          <VCardText>
-            {{ t('family.member.point.addRemove.start') }} :
-            <VChip>
-              <p class="font-bold">
-                {{ props.member.pseudo }}
-              </p>
+            <VChip
+              color="indigo"
+            >
+              <span class="text-lg font-bold">{{ initialValue }}</span>
             </VChip>
-            {{ t('family.member.point.addRemove.end') }} :
-          </VCardText>
-          <VCardActions class="flex justify-around items-center">
-            <div class="w-10/12 flex flex-col justify-around items-center">
-              <VChipGroup
-                class="w-full"
-                selected-class="text-deep-purple-accent-4"
+          </div>
+          <div>
+            <span>{{ t('family.member.point.add-remove') }}</span>
+            <VChip class="mx-2">
+              <span class="font-bold">
+                {{ props.member.pseudo }}
+              </span>
+            </VChip>
+            <span>?</span>
+          </div>
+          <VForm
+            class="flex flex-col gap-4 items-center"
+            @submit.prevent="onSubmit"
+          >
+            <div class="flex gap-2">
+              <VBtn
+                v-for="value in plusValues"
+                :key="value"
+                color="success"
+                @click="addPoint(value)"
               >
-                <VRow class="w-full flex justify-around p-2">
-                  <VChip
-                    :class="`${value < 0 ? 'text-warning !important' : 'text-success !important'}`"
-                    v-for="value in values"
-                    :key="value"
-                    @click="addPoint(value)"
-                  >
-                    {{ value }}
-                  </VChip>
-                </VRow>
-              </VChipGroup>
-              <VTextField
-                v-model="points"
-                :error-messages="errorMessagePoints"
-                type="number"
-                :label="t('family.member.point.points')"
-                class="my-2"
-              />
+                {{ value }}
+              </VBtn>
             </div>
-          </VCardActions>
-          <VCardText>
+            <VTextField
+              v-model="points"
+              class="mx-3"
+              :hide-details="true"
+              :error-messages="errorMessagePoints"
+              type="number"
+              :label="t('family.member.point.points')"
+            />
+            <div class="flex gap-2">
+              <VBtn
+                v-for="value in minusValues"
+                :key="value"
+                color="error"
+                @click="addPoint(value)"
+              >
+                {{ value }}
+              </VBtn>
+            </div>
+          </VForm>
+          <div class="flex gap-2 items-center">
             <p class="font-bold">
-              {{ t('family.member.point.newPoints') }} :
+              {{ t('family.member.point.new-points') }} :
             </p>
-            <p>{{ newPoints }}</p>
-          </VCardText>
-          <VCardActions class="flex justify-end">
-            <VBtn
-              color="secondary"
-              @click="openDialog = false"
+            <VChip
+              :color="newPoints >= 0 ? `success` : `error`"
             >
-              {{ t('common.cancel') }}
-            </VBtn>
-            <VBtn
-              color="primary"
-              type="submit"
-            >
-              {{ t('common.confirm') }}
-            </VBtn>
-          </VCardActions>
-        </VForm>
+              <span class="text-lg font-bold">{{ newPoints }}</span>
+            </VChip>
+          </div>
+        </VCardText>
+        <div class="flex flex-col gap-2 p-2">
+          <VBtn
+            :disabled="disabled"
+            :loading="isPending"
+            color="primary"
+            block
+            @click="onSubmit"
+          >
+            {{ t('common.confirm') }}
+          </VBtn>
+          <VBtn
+            block
+            color="secondary"
+            @click="openDialog = false"
+          >
+            {{ t('common.cancel') }}
+          </VBtn>
+        </div>
       </VCard>
     </VDialog>
   </div>
