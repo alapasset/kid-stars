@@ -23,33 +23,37 @@ const onSubmit = handleSubmit(async values => {
 </script>
 
 <template>
-  <VForm
+  <form
     class="flex flex-col gap-3"
     @submit.prevent="onSubmit"
   >
-    <VTextField
+    <CoreInputText
       v-model="pseudo"
       required
       :label="t('form.label.pseudo')"
+      :placeholder="t('form.label.pseudo')"
       type="text"
       :error-messages="errorMessagePseudo"
-      prepend-inner-icon="mdi-account"
+      icon="material-symbols:person"
     />
-    <VBtn
-      :loading="isPending"
-      :disabled="isPending"
-      type="submit"
-      color="primary"
-      block
-    >
-      {{ t('common.add') }}
-    </VBtn>
-    <VBtn
-      color="secondary"
-      block
-      @click="emit(`closeModal`)"
-    >
-      {{ t('common.cancel') }}
-    </VBtn>
-  </VForm>
+    <div class="flex flex-col gap-2 p-2">
+      <button
+        class="btn btn-primary btn-block"
+        :disabled="isPending"
+        @click="onSubmit"
+      >
+        <span
+          v-if="isPending"
+          class="loading loading-spinner"
+        />
+        {{ t('common.add') }}
+      </button>
+      <button
+        class="btn btn-secondary btn-block"
+        @click="emit(`closeModal`)"
+      >
+        {{ t('common.cancel') }}
+      </button>
+    </div>
+  </form>
 </template>

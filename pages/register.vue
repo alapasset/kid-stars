@@ -74,69 +74,92 @@ const signInWithOAuth = async () => {
 </script>
 
 <template>
-  <VForm
-    class="w-1/6 mt-10 mx-auto p-8 flex flex-col gap-4 rounded-lg bg-gray-100 border border-gray-600"
-    @submit.prevent="onSubmit"
-  >
-    <h2 class="mb-5 text-lg font-medium">
-      {{ t('common.register') }}
-    </h2>
-
-    <VTextField
-      v-model="email"
-      required
-      :label="t('form.label.email')"
-      type="email"
-      :error-messages="errorMessageEmail"
-      prepend-inner-icon="mdi-email"
-    />
-    <VTextField
-      v-model="password"
-      required
-      :label="t('form.label.password')"
-      type="password"
-      :error-messages="errorMessagePassword"
-      :hint="t('form.hint.password')"
-      prepend-inner-icon="mdi-lock"
-    />
-    <VTextField
-      v-model="confirmationPassword"
-      required
-      :label="t('form.label.confirmation-password')"
-      type="password"
-      :error-messages="errorMessageConfirmationPassword"
-      prepend-inner-icon="mdi-lock-check"
-    />
-    <VBtn
-      type="submit"
-      :loading="isLoading"
-      :disabled="isLoading"
-      color="success"
-      :text="t('common.confirm')"
-    />
-
-    <VDivider class="border-gray-900 my-3" />
-
-    <VBtn
-      type="button"
-      color="primary"
-      :prepend-icon="`mdi-google`"
-      :text="t('common.register-with-google')"
-      @click="signInWithOAuth"
-    />
-
-    <VDivider class="border-gray-900 my-3" />
-
-    <div>
-      <p class="mt-3 text-xs">
-        {{ t('common.already-have-account') }}
-      </p>
-      <NuxtLink
-        class="w-fit text-sm hover:text-[#42b883]"
-        to="/login"
+  <div class="card w-96 bg-base-100 shadow-xl mx-auto border">
+    <div class="card-body">
+      <form
+        novalidate
+        class="flex flex-col gap-4"
+        @submit.prevent="onSubmit"
       >
-        {{ t('common.login') }}
-      </NuxtLink>
+        <h2 class="card-title">
+          {{ t('common.register') }}
+        </h2>
+
+        <CoreInputText
+          v-model="email"
+          required
+          :label="t('form.label.email')"
+          :placeholder="t('form.label.email')"
+          type="email"
+          :error-messages="errorMessageEmail"
+          icon="material-symbols:mail"
+        />
+
+        <CoreInputText
+          v-model="password"
+          required
+          :label="t('form.label.password')"
+          :placeholder="t('form.label.password')"
+          type="password"
+          :error-messages="errorMessagePassword"
+          :hint="t('form.hint.password')"
+          icon="material-symbols:lock"
+        />
+
+        <CoreInputText
+          v-model="confirmationPassword"
+          required
+          :label="t('form.label.confirmation-password')"
+          :placeholder="t('form.label.confirmation-password')"
+          type="password"
+          :error-messages="errorMessageConfirmationPassword"
+          icon="material-symbols:shield-lock"
+        />
+
+        <button
+          type="submit"
+          class="btn btn-primary"
+          :disabled="isLoading"
+        >
+          <span
+            v-if="isLoading"
+            class="loading loading-spinner"
+          />
+          {{ t('common.confirm') }}
+        </button>
+      </form>
+      <div class="divider">
+        {{ t('common.or') }}
+      </div>
+
+      <button
+        class="btn p-0.5 bg-[#558aed] flex justify-start"
+        @click="signInWithOAuth"
+      >
+        <Icon
+          class="bg-white rounded-md h-full w-12 px-3"
+          name="logos:google-icon"
+        />
+        <span class="text-white">
+          {{ t('common.register-with-google') }}
+        </span>
+      </button>
+
+      <div class="divider">
+        {{ t('common.or') }}
+      </div>
+
+      <div>
+        <p class="text-xs">
+          {{ t('common.already-have-account') }}
+        </p>
+        <NuxtLink
+          class="w-fit text-sm hover:text-[#42b883]"
+          to="/login"
+        >
+          {{ t('common.login') }}
+        </NuxtLink>
+      </div>
     </div>
-  </VForm>
+  </div>
 </template>

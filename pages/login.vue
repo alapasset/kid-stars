@@ -58,60 +58,79 @@ watchEffect(() => {
 </script>
 
 <template>
-  <VForm
-    class="mt-10 mx-auto p-8 flex flex-col gap-4 rounded-lg bg-gray-100 border border-gray-600 max-w-sm"
-    @submit.prevent="onSubmit"
-  >
-    <h2 class="mb-5 text-lg font-medium">
-      {{ t('common.login') }}
-    </h2>
-
-    <VTextField
-      v-model="email"
-      required
-      :label="t('form.label.email')"
-      type="email"
-      :error-messages="errorMessageEmail"
-      prepend-inner-icon="mdi-email"
-    />
-    <VTextField
-      v-model="password"
-      required
-      :label="t('form.label.password')"
-      type="password"
-      :error-messages="errorMessagePassword"
-      :hint="t('form.hint.password')"
-      prepend-inner-icon="mdi-lock"
-    />
-
-    <VBtn
-      type="submit"
-      color="success"
-      :text="t('common.confirm')"
-    />
-
-    <VDivider class="border-gray-900 my-3" />
-
-    <VBtn
-      type="button"
-      color="primary"
-      :prepend-icon="`mdi-google`"
-      :text="t('common.register-with-google')"
-      @click="signInWithOAuth"
-    />
-
-    <VDivider class="border-gray-900 my-3" />
-
-    <div>
-      <p class="mt-3 text-xs">
-        {{ t('common.not-have-account') }}
-      </p>
-      <NuxtLink
-        class="w-fit text-sm hover:text-[#42b883]"
-        to="/register"
+  <div class="card w-96 bg-base-100 shadow-xl mx-auto border">
+    <div class="card-body">
+      <form
+        class="flex flex-col gap-4"
+        novalidate
+        @submit.prevent="onSubmit"
       >
-        {{ t('common.register') }}
-      </NuxtLink>
+        <h2 class="card-title">
+          {{ t('common.login') }}
+        </h2>
+
+        <CoreInputText
+          v-model="email"
+          required
+          :label="t('form.label.email')"
+          :placeholder="t('form.label.email')"
+          type="email"
+          :error-messages="errorMessageEmail"
+          icon="material-symbols:mail"
+        />
+
+        <CoreInputText
+          v-model="password"
+          required
+          :label="t('form.label.password')"
+          :placeholder="t('form.label.password')"
+          type="password"
+          :error-messages="errorMessagePassword"
+          :hint="t('form.hint.password')"
+          icon="material-symbols:lock"
+        />
+
+        <button
+          type="submit"
+          class="btn btn-primary"
+        >
+          {{ t('common.confirm') }}
+        </button>
+      </form>
+
+
+      <div class="divider">
+        {{ t('common.or') }}
+      </div>
+
+      <button
+        class="btn p-0.5 bg-[#558aed] flex justify-start"
+        @click="signInWithOAuth"
+      >
+        <Icon
+          class="bg-white rounded-md h-full w-12 px-3"
+          name="logos:google-icon"
+        />
+        <span class="text-white">
+          {{ t('common.register-with-google') }}
+        </span>
+      </button>
+
+      <div class="divider">
+        {{ t('common.or') }}
+      </div>
+
+      <div>
+        <p class="text-xs">
+          {{ t('common.not-have-account') }}
+        </p>
+        <NuxtLink
+          class="w-fit text-sm hover:text-[#42b883]"
+          to="/register"
+        >
+          {{ t('common.register') }}
+        </NuxtLink>
+      </div>
     </div>
-  </VForm>
+  </div>
 </template>

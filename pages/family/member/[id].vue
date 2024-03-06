@@ -24,7 +24,3 @@ const { data: familyMember} = useFetchFamilyMember(memberId);
     </div>
   </div>
 </template>
-
-<style scoped>
-
-</style>

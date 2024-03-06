@@ -55,37 +55,46 @@ const onSubmit = handleSubmit(async () => {
 </script>
 
 <template>
-  <VForm
-    class="w-1/6 mt-10 mx-auto p-8 flex flex-col gap-4 rounded-lg bg-gray-100 border border-gray-600"
+  <form
+    novalidate
+    class="mt-10 mx-auto p-8 flex flex-col gap-4 rounded-lg bg-gray-100 border border-gray-600 max-w-sm"
     @submit.prevent="onSubmit"
   >
     <h2 class="mb-5 text-lg font-medium">
       {{ t('create-password.title') }}
     </h2>
 
-    <VTextField
+    <CoreInputText
       v-model="password"
       required
       :label="t('form.label.password')"
+      :placeholder="t('form.label.password')"
       type="password"
       :error-messages="errorMessagePassword"
       :hint="t('form.hint.password')"
-      prepend-inner-icon="mdi-lock"
+      icon="material-symbols:lock"
     />
-    <VTextField
+
+    <CoreInputText
       v-model="confirmationPassword"
       required
       :label="t('form.label.confirmation-password')"
+      :placeholder="t('form.label.confirmation-password')"
       type="password"
       :error-messages="errorMessageConfirmationPassword"
-      prepend-inner-icon="mdi-lock-check"
+      icon="material-symbols:shield-lock"
     />
-    <VBtn
+
+    <button
       type="submit"
-      :loading="isLoading"
+      class="btn btn-primary"
       :disabled="isLoading"
-      color="success"
-      :text="t('common.confirm')"
-    />
-  </VForm>
+    >
+      <span
+        v-if="isLoading"
+        class="loading loading-spinner"
+      />
+      {{ t('common.confirm') }}
+    </button>
+  </form>
 </template>
