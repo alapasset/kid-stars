@@ -11,7 +11,7 @@ const { t } = useI18n()
 const { value: email, errorMessage: errorMessageEmail } = useField<string>(
   `invitedEmail`,
   inputValue => {
-    const emailValidationRegExp = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|.(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+    const emailValidationRegExp = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/
     if (inputValue?.length === 0) return t(`form.error.email.required`);
     if (!emailValidationRegExp.test(inputValue)) return t(`form.error.email.invalid`);
     return true
