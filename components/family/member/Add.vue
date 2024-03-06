@@ -1,63 +1,98 @@
 <script setup lang="ts">
 const { t } = useI18n()
 
-const showModal = ref(false)
-const currentTab = ref(0)
-const tabs = [t(`family.child`), t(`family.tutor`)]
+const addDialog = ref<HTMLDialogElement>()
+
+const onClickCard = () => {
+  addDialog.value?.showModal()
+}
 
 function onCloseModal() {
-  showModal.value = false
+  addDialog.value?.close()
 }
 </script>
 
 <template>
-  <VCard
-    hover
-    @click="showModal = true"
+  <div
+    class="card w-56 h-80 bg-base-100 shadow-xl cursor-pointer border"
+    @click="onClickCard"
   >
-    <div
-      class="bg-gray-200 h-52 flex justify-center items-center"
-    >
-      <VIcon
-        size="100"
-        icon="mdi-plus-circle-outline"
-      />
-    </div>
-    <div class="text-center">
-      <VCardTitle>{{ t('family.member.add.title') }}</VCardTitle>
-    </div>
-  </VCard>
-  <VDialog
-    v-model="showModal"
-    width="500"
-  >
-    <VCard>
-      <VCardTitle class="text-center border-2 border-gray-100">
-        {{ t('family.member.add.card.title') }}
-      </VCardTitle>
-      <VTabs
-        v-model="currentTab"
-        align-tabs="center"
-      >
-        <VTab
-          v-for="(tab, index) in tabs"
-          :key="index"
+    <figure>
+      <div class="avatar p-2">
+        <div
+          class="w-24 mask mask-hexagon cursor-pointer"
+          @click="onClickCard"
         >
-          {{ tab }}
-        </VTab>
-      </VTabs>
+          <Icon
+            class="w-24 h-24"
+            name="material-symbols:person-add-rounded"
+          />
+        </div>
+      </div>
+    </figure>
+    <div class="card-body px-4">
+      <h2 class="card-title text-center justify-center">
+        {{ t('family.member.add.title') }}
+      </h2>
+    </div>
+  </div>
 
-      <VCardText>
-        <VWindow v-model="currentTab">
-          <VWindowItem value="one">
-            <FamilyMemberChildForm @close-modal="onCloseModal" />
-          </VWindowItem>
+  <dialog
+    ref="addDialog"
+    class="modal"
+  >
+    <div class="modal-box flex flex-col gap-5">
+      <div class="flex justify-between items-center">
+        <h3 class="font-bold text-lg">
+          {{ t('family.member.add.card.title') }}
+        </h3>
+        <form method="dialog">
+          <button class="btn btn-sm btn-circle btn-ghost">
+            <Icon
+              class="w-5 h-5"
+              name="material-symbols:close"
+            />
+          </button>
+        </form>
+      </div>
+      <div
+        role="tablist"
+        class="tabs tabs-lifted"
+      >
+        <input
+          type="radio"
+          name="my_tabs_1"
+          role="tab"
+          class="tab font-bold"
+          :aria-label="t(`family.child`)"
+        >
+        <div
+          role="tabpanel"
+          class="tab-content bg-base-100 border-base-300 rounded-box p-6"
+        >
+          <FamilyMemberChildForm @close-modal="onCloseModal" />
+        </div>
 
-          <VWindowItem value="two">
-            <FamilyMemberTutorForm @close-modal="onCloseModal" />
-          </VWindowItem>
-        </VWindow>
-      </VCardText>
-    </VCard>
-  </VDialog>
+        <input
+          type="radio"
+          name="my_tabs_1"
+          role="tab"
+          class="tab font-bold"
+          :aria-label="t(`family.tutor`)"
+        >
+        <div
+          role="tabpanel"
+          class="tab-content bg-base-100 border-base-300 rounded-box p-6"
+        >
+          <FamilyMemberTutorForm @close-modal="onCloseModal" />
+        </div>
+      </div>
+    </div>
+    <form
+      method="dialog"
+      class="modal-backdrop"
+    >
+      <button>close</button>
+    </form>
+  </dialog>
 </template>

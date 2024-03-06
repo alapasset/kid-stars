@@ -5,53 +5,77 @@ const props = defineProps<{
 
 const { t } = useI18n()
 
-const openDialog = ref(false);
-const { mutateAsync } = useDeleteFamilyMember();
+const { mutateAsync, isPending } = useDeleteFamilyMember();
+const deleteDialog = ref<HTMLDialogElement>()
 
-const onDelete = () => {
-  openDialog.value = true;
+const openModal = () => {
+  deleteDialog.value?.showModal()
 }
-const confirmDeletion = async () => {
+
+const onSubmit = async () => {
   await mutateAsync(props.memberId);
-  openDialog.value = false;
+  deleteDialog.value?.close();
 }
 </script>
 
 <template>
   <div>
-    <VBtn
-      icon="mdi-delete"
-      color="error"
-      @click.stop="onDelete"
-    />
-    <VDialog
-      v-model="openDialog"
-      max-width="400"
+    <button
+      class="btn btn-ghost btn-circle "
+      @click.stop="openModal"
     >
-      <VCard>
-        <VCardTitle>
-          {{ t('common.deletion') }}
-        </VCardTitle>
-        <VCardText>
+      <Icon
+        class="w-10 h-10"
+        name="material-symbols:delete"
+      />
+    </button>
+    <dialog
+      ref="deleteDialog"
+      class="modal"
+    >
+      <div class="modal-box flex flex-col gap-5">
+        <div class="flex justify-between items-center">
+          <h3 class="font-bold text-lg">
+            {{ t('common.deletion') }}
+          </h3>
+          <form method="dialog">
+            <button class="btn btn-sm btn-circle btn-ghost">
+              <Icon
+                class="w-5 h-5"
+                name="material-symbols:close"
+              />
+            </button>
+          </form>
+        </div>
+        <div class="flex flex-col gap-5">
           {{ t('family.member.delete.confirm') }}
-        </VCardText>
+        </div>
         <div class="flex flex-col gap-2 p-2">
-          <VBtn
-            color="primary"
-            block
-            @click="confirmDeletion()"
+          <button
+            class="btn btn-primary btn-block"
+            :disabled="isPending"
+            @click="onSubmit"
           >
+            <span
+              v-if="isPending"
+              class="loading loading-spinner"
+            />
             {{ t('common.confirm') }}
-          </VBtn>
-          <VBtn
-            block
-            color="secondary"
-            @click="openDialog = false"
+          </button>
+          <button
+            class="btn btn-secondary btn-block"
+            @click="deleteDialog?.close()"
           >
             {{ t('common.cancel') }}
-          </VBtn>
+          </button>
         </div>
-      </VCard>
-    </VDialog>
+      </div>
+      <form
+        method="dialog"
+        class="modal-backdrop"
+      >
+        <button>close</button>
+      </form>
+    </dialog>
   </div>
 </template>

@@ -11,10 +11,11 @@ export default defineNuxtConfig({
   modules: [
     `@nuxtjs/tailwindcss`,
     `@nuxtjs/supabase`,
-    `vuetify-nuxt-module`,
+    `nuxt-icon`,
     `@vee-validate/nuxt`,
     `@hebilicious/vue-query-nuxt`,
     `@nuxtjs/i18n`,
+    `nuxt-svgo`,
   ],
   runtimeConfig: {
     public: {
@@ -22,13 +23,11 @@ export default defineNuxtConfig({
       DEPLOY_PRIME_URL : process.env.DEPLOY_PRIME_URL,
     },
   },
-  vuetify: {
-    vuetifyOptions: `./vuetify.config.ts`
-  },
   supabase: {
     redirect: false
   },
   tailwindcss: {
+    configPath: `./tailwind.config.ts`,
     editorSupport: { autocompleteUtil: { as: `tailwindClasses` }, generateConfig: true }
   },
   i18n: {

@@ -15,13 +15,18 @@ setTimeout(removeCurrentNotification, 7000);
 <template>
   <div
     class="flex items-center gap-3 p-2 md:p-4 md:rounded-lg shadow-md w-full text-white"
-    :class="notification?.type === NotificationType.Error ? `bg-red-500` : `bg-green-400`"
+    :class="notification?.type === NotificationType.Error ? `bg-error` : `bg-success`"
   >
     <span class="flex-1">{{ notification?.message }}</span>
-    <VBtn
-      icon="mdi-close"
-      variant="text"
+    <button
+      class="btn btn-ghost btn-circle"
       @click="removeCurrentNotification"
-    />
+    >
+      <Icon
+        class="w-5 h-5"
+        name="material-symbols:close"
+      />
+    </button>
   </div>
 </template>
+à'èé()

@@ -13,7 +13,7 @@ const title = computed(() => props.member.user ? t(`family.tutor`) : t(`family.c
 const isGoodCode = computed(() => code.value === props.member.code);
 const canEdit = computed(() => props.member.user === user.value?.id || !isTutor.value);
 
-const showModal = ref(false);
+const codeDialog = ref<HTMLDialogElement>()
 const user = useSupabaseUser();
 
 const { handleSubmit } = useForm();
@@ -36,7 +36,7 @@ const onSubmit = handleSubmit(() => {
 
 const onClickCard = () => {
   if(isTutor.value) {
-    showModal.value = true
+    codeDialog.value?.showModal();
     return
   }
   navigateTo(`/family/member/${props.member.id}`);
@@ -44,62 +44,95 @@ const onClickCard = () => {
 </script>
 
 <template>
-  <VCard
+  <div
     v-if="props.member"
-    @click="onClickCard"
+    class="card w-56 h-80 bg-base-100 shadow-xl border"
   >
-    <VAvatar
-      rounded="0"
-      size="200"
-      color="grey"
-      :image="profile"
-      :text="props.member.pseudo.slice(0,2).toUpperCase()"
-    />
-    <div class="flex justify-between items-center px-2">
-      <VCardTitle>{{ props.member.pseudo }}</VCardTitle>
-      <VChip>{{ title }}</VChip>
-    </div>
-    <VCardActions>
-      <div class="w-full flex justify-between">
-        <FamilyMemberPoint
-          v-if="!isTutor"
-          :member="props.member"
-        />
-        <FamilyMemberEdit
-          v-if="canEdit"
-          :member="props.member"
-        />
-        <FamilyMemberDelete
-          v-if="!isTutor"
-          :member-id="props.member.id"
-        />
+    <figure>
+      <div class="avatar p-2">
+        <div
+          class="w-24 mask mask-hexagon cursor-pointer"
+          @click="onClickCard"
+        >
+          <img
+            v-if="profile"
+            :src="profile"
+          >
+          <Icon
+            v-else
+            class="w-24 h-24"
+            name="material-symbols:person"
+          />
+        </div>
       </div>
-    </VCardActions>
-  </VCard>
-  <VDialog
-    v-model="showModal"
-    width="300"
+    </figure>
+    <div class="card-body justify-between px-4">
+      <h2 class="card-title justify-center">
+        {{ props.member.pseudo }}
+      </h2>
+      <div class="card-actions flex flex-col justify-end gap-5">
+        <div>
+          <div class="badge badge-outline">
+            {{ title }}
+          </div>
+        </div>
+        <div class="flex min-h-14 gap-5">
+          <FamilyMemberPoint
+            v-if="!isTutor"
+            :member="props.member"
+          />
+          <FamilyMemberEdit
+            v-if="canEdit"
+            :member="props.member"
+          />
+          <FamilyMemberDelete
+            v-if="!isTutor"
+            :member-id="props.member.id"
+          />
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <dialog
+    ref="codeDialog"
+    class="modal"
   >
-    <VCard class="flex flex-col gap-3">
-      <VCardTitle class="text-center border-2 border-gray-100">
+    <div class="modal-box">
+      <form method="dialog">
+        <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">
+          <Icon
+            class="w-5 h-5"
+            name="material-symbols:close"
+          />
+        </button>
+      </form>
+      <h3 class="font-bold text-lg">
         {{ t('family.member.item.title') }}
-      </VCardTitle>
-      <VCardText class="flex flex-col gap-3">
-        <VTextField
+      </h3>
+      <div class="flex flex-col gap-3 mt-3">
+        <CoreInputText
           v-model="code"
-          :label="t('form.label.code')"
+          :placeholder="t('form.label.code')"
           type="number"
           :error-messages="errorMessageCode"
-          prepend-inner-icon="mdi-lock-outline"
+          icon="material-symbols:lock"
         />
-        <VBtn
-          width="300"
-          color="primary"
+
+        <button
+          type="submit"
+          class="btn btn-primary"
           @click="onSubmit"
         >
           {{ t('common.confirm') }}
-        </VBtn>
-      </VCardText>
-    </VCard>
-  </VDialog>
+        </button>
+      </div>
+    </div>
+    <form
+      method="dialog"
+      class="modal-backdrop"
+    >
+      <button>close</button>
+    </form>
+  </dialog>
 </template>

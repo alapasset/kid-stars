@@ -55,6 +55,10 @@ const isInvitation = computed(() => {
   return !!data.value?.name
 })
 
+const showModal = computed(() => {
+  return isFetched.value || !isInvitation.value
+})
+
 const pageTitle = computed(() => {
   return isInvitation.value ? t(`family.join.title`) : t(`family.add.title`)
 })
@@ -69,61 +73,65 @@ watch(isFetched, () => {
 </script>
 
 <template>
-  <VCard
-    v-if="isFetched"
-    width="300"
+  <div
+    v-if="showModal"
+    class="card w-96 bg-base-100 shadow-xl"
   >
-    <template #title>
-      <span>{{ pageTitle }}</span>
-    </template>
-    <template #text>
-      <VForm
+    <div class="card-body">
+      <h2 class="card-title">
+        {{ pageTitle }}
+      </h2>
+
+      <form
+        novalidate
         class="flex flex-col gap-3"
         @submit.prevent="onSubmit"
       >
-        <VTextField
+        <CoreInputText
           v-model="name"
           required
           :label="t('form.label.name')"
-          type="text"
+          :placeholder="t('form.label.name')"
           :disabled="isInvitation"
           :error-messages="errorMessageName"
-          prepend-inner-icon="mdi-home-heart"
+          icon="material-symbols:home"
         />
-        <VTextField
+        <CoreInputText
           v-model="pseudo"
           required
           :label="t('form.label.pseudo')"
-          type="text"
+          :placeholder="t('form.label.pseudo')"
           :error-messages="errorMessagePseudo"
-          prepend-inner-icon="mdi-account"
+          icon="material-symbols:person"
         />
-        <VTextField
+        <CoreInputText
           v-model="code"
+          type="number"
           required
           :label="t('form.label.code')"
-          type="number"
+          :placeholder="t('form.label.code')"
           :hint="t('form.hint.code')"
           :error-messages="errorMessageCode"
-          prepend-inner-icon="mdi-lock-outline"
+          icon="material-symbols:lock"
         />
-        <VTextField
+        <CoreInputText
           v-model="confirmationCode"
+          type="number"
           required
           :label="t('form.label.validation-code')"
-          type="number"
+          :placeholder="t('form.label.validation-code')"
           :error-messages="errorMessageConfirmationCode"
-          prepend-inner-icon="mdi-lock-check-outline"
+          icon="material-symbols:shield-lock"
         />
         <div class="flex flex-row-reverse">
-          <VBtn
+          <button
             type="submit"
-            color="primary"
-            block
-            :text="buttonText"
-          />
+            class="btn btn-primary"
+          >
+            {{ buttonText }}
+          </button>
         </div>
-      </VForm>
-    </template>
-  </VCard>
+      </form>
+    </div>
+  </div>
 </template>

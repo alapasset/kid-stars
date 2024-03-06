@@ -22,11 +22,12 @@
     "invite": "Inviter",
     "redirect": "Redirection...",
     "register": "Inscription",
-    "register-with-google": "Google",
+    "register-with-google": "Se connecter avec Google",
     "already-have-account": "Déjà un compte ?",
     "not-have-account": "Pas encore de compte ?",
     "register-success": "Inscription réussie, un mail de confirmation vous a été envoyé",
-    "join": "Rejoindre"
+    "join": "Rejoindre",
+    "or": "ou"
   },
   "dashboard": {
     "title": "Tableau de bord"
@@ -105,7 +106,7 @@
         "same":"Les mots de passe doivent être identiques"
       },
       "points": {
-        "minValue": "Le nombre de points doit être supérieur à 0"
+        "minValue": "Le nombre de points total restant doit être supérieur ou égale à 0"
       }
     },
     "label": {

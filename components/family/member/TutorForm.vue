@@ -25,33 +25,38 @@ const onSubmit = handleSubmit(async values => {
 </script>
 
 <template>
-  <VForm
+  <form
     class="flex flex-col gap-3"
     @submit.prevent="onSubmit"
   >
-    <VTextField
+    <CoreInputText
       v-model="email"
       required
       :label="t('form.label.email')"
+      :placeholder="t('form.label.email')"
       type="email"
       :error-messages="errorMessageEmail"
-      prepend-inner-icon="mdi-email"
+      icon="material-symbols:alternate-email"
     />
-    <VBtn
-      :loading="isPending"
-      :disabled="isPending"
-      type="submit"
-      color="primary"
-      block
-    >
-      {{ t('common.invite') }}
-    </VBtn>
-    <VBtn
-      color="secondary"
-      block
-      @click="emit(`closeModal`)"
-    >
-      {{ t('common.cancel') }}
-    </VBtn>
-  </VForm>
+
+    <div class="flex flex-col gap-2 p-2">
+      <button
+        class="btn btn-primary btn-block"
+        :disabled="isPending"
+        @click="onSubmit"
+      >
+        <span
+          v-if="isPending"
+          class="loading loading-spinner"
+        />
+        {{ t('common.invite') }}
+      </button>
+      <button
+        class="btn btn-secondary btn-block"
+        @click="emit(`closeModal`)"
+      >
+        {{ t('common.cancel') }}
+      </button>
+    </div>
+  </form>
 </template>

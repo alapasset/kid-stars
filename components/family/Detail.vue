@@ -34,10 +34,12 @@ const { data, isFetched, isLoading } = useFetchFamily(props.familyId)
       v-else-if="isLoading"
       class="flex justify-center items-center h-96"
     >
-      <VSkeletonLoader
-        width="200"
-        type="card"
-      />
+      <div class="flex flex-col gap-4 w-52">
+        <div class="skeleton h-32 w-full" />
+        <div class="skeleton h-4 w-28" />
+        <div class="skeleton h-4 w-full" />
+        <div class="skeleton h-4 w-full" />
+      </div>
     </div>
   </div>
 </template>
