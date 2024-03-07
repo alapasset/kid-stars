@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { BUTTON_COLOR, BUTTON_SHAPE, BUTTON_STATE, BUTTON_TYPE } from "~/types/button";
 import type { FamilyMember } from "~/types/family";
 
 const props = defineProps<{
@@ -54,15 +55,17 @@ const onSubmit = handleSubmit(async () => {
 
 <template>
   <div>
-    <button
-      class="btn btn-ghost btn-circle "
+    <CoreButton
+      :type="BUTTON_TYPE.button"
+      :state="BUTTON_STATE.ghost"
+      :shape="BUTTON_SHAPE.circle"
       @click.stop="openModal"
     >
       <Icon
         class="w-10 h-10"
         name="material-symbols:box-edit-outline"
       />
-    </button>
+    </CoreButton>
     <dialog
       ref="editDialog"
       class="modal"
@@ -73,12 +76,18 @@ const onSubmit = handleSubmit(async () => {
             {{ t('family.member.edit.title') }}
           </h3>
           <form method="dialog">
-            <button class="btn btn-sm btn-circle btn-ghost">
+            <CoreButton
+              class="absolute right-2 top-2"
+              :type="BUTTON_TYPE.button"
+              :state="BUTTON_STATE.ghost"
+              :shape="BUTTON_SHAPE.circle"
+              @click="editDialog?.close()"
+            >
               <Icon
                 class="w-5 h-5"
                 name="material-symbols:close"
               />
-            </button>
+            </CoreButton>
           </form>
         </div>
         <div class="flex flex-col gap-5">
@@ -111,19 +120,21 @@ const onSubmit = handleSubmit(async () => {
         </div>
         <div class="flex flex-col gap-2 p-2">
           <CoreButton
-            :type="`submit`"
-            :color="`primary`"
-            :shape="`block`"
-            :text="t('common.confirm')"
+            :type="BUTTON_TYPE.submit"
+            :color="BUTTON_COLOR.primary"
+            :shape="BUTTON_SHAPE.block"
             :is-pending="isPending"
             @click="onSubmit"
-          />
+          >
+            {{ t('common.confirm') }}
+          </CoreButton>
           <CoreButton
-            :color="`secondary`"
-            :shape="`block`"
-            :text="t('common.cancel')"
+            :color="BUTTON_COLOR.secondary"
+            :shape="BUTTON_SHAPE.block"
             @click="editDialog?.close()"
-          />
+          >
+            {{ t('common.cancel') }}
+          </CoreButton>
         </div>
       </div>
       <form
