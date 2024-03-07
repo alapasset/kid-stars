@@ -1,6 +1,4 @@
 <script setup lang="ts">
-import { BUTTON_COLOR, BUTTON_SHAPE, BUTTON_STATE, BUTTON_TYPE } from '~/types/button';
-
 const props = defineProps<{
   memberId: string
 }>()
@@ -22,17 +20,15 @@ const onSubmit = async () => {
 
 <template>
   <div>
-    <CoreButton
-      :type="BUTTON_TYPE.button"
-      :state="BUTTON_STATE.ghost"
-      :shape="BUTTON_SHAPE.circle"
+    <button
+      class="btn btn-ghost btn-circle "
       @click.stop="openModal"
     >
       <Icon
         class="w-10 h-10"
         name="material-symbols:delete"
       />
-    </CoreButton>
+    </button>
     <dialog
       ref="deleteDialog"
       class="modal"
@@ -43,18 +39,12 @@ const onSubmit = async () => {
             {{ t('common.deletion') }}
           </h3>
           <form method="dialog">
-            <CoreButton
-              class="absolute right-2 top-2"
-              :type="BUTTON_TYPE.button"
-              :state="BUTTON_STATE.ghost"
-              :shape="BUTTON_SHAPE.circle"
-              @click="deleteDialog?.close()"
-            >
+            <button class="btn btn-sm btn-circle btn-ghost">
               <Icon
                 class="w-5 h-5"
                 name="material-symbols:close"
               />
-            </CoreButton>
+            </button>
           </form>
         </div>
         <div class="flex flex-col gap-5">
@@ -62,21 +52,19 @@ const onSubmit = async () => {
         </div>
         <div class="flex flex-col gap-2 p-2">
           <CoreButton
-            :type="BUTTON_TYPE.submit"
-            :color="BUTTON_COLOR.primary"
-            :shape="BUTTON_SHAPE.block"
+            :type="`submit`"
+            :color="`primary`"
+            :shape="`block`"
+            :text="t('common.confirm')"
             :is-pending="isPending"
             @click="onSubmit"
-          >
-            {{ t('common.confirm') }}
-          </CoreButton>
+          />
           <CoreButton
-            :color="BUTTON_COLOR.secondary"
-            :shape="BUTTON_SHAPE.block"
+            :color="`secondary`"
+            :shape="`block`"
+            :text="t('common.cancel')"
             @click="deleteDialog?.close()"
-          >
-            {{ t('common.cancel') }}
-          </CoreButton>
+          />
         </div>
       </div>
       <form

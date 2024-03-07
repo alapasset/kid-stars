@@ -1,6 +1,5 @@
 <script lang="ts" setup>
 import type { NuxtLink } from '#build/components';
-import { BUTTON_COLOR, BUTTON_TYPE } from '~/types/button';
 import type { UserCreationForm } from '~/types/user';
 
 const { t } = useI18n()
@@ -117,21 +116,24 @@ const signInWithOAuth = async () => {
           icon="material-symbols:shield-lock"
         />
 
-        <CoreButton
-          :type="BUTTON_TYPE.submit"
-          :color="BUTTON_COLOR.primary"
-          :is-pending="isLoading"
+        <button
+          type="submit"
+          class="btn btn-primary"
           :disabled="isLoading"
         >
+          <span
+            v-if="isLoading"
+            class="loading loading-spinner"
+          />
           {{ t('common.confirm') }}
-        </CoreButton>
+        </button>
       </form>
       <div class="divider">
         {{ t('common.or') }}
       </div>
 
-      <CoreButton
-        class="p-0.5 bg-[#558aed] flex justify-start"
+      <button
+        class="btn p-0.5 bg-[#558aed] flex justify-start"
         @click="signInWithOAuth"
       >
         <Icon
@@ -141,7 +143,7 @@ const signInWithOAuth = async () => {
         <span class="text-white">
           {{ t('common.register-with-google') }}
         </span>
-      </CoreButton>
+      </button>
 
       <div class="divider">
         {{ t('common.or') }}

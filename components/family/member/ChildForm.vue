@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { BUTTON_COLOR, BUTTON_SHAPE, BUTTON_TYPE } from '~/types/button';
 import type { ChildCreationForm } from '~/types/family';
 
 const emit = defineEmits([`closeModal`])
@@ -39,20 +38,19 @@ const onSubmit = handleSubmit(async values => {
     />
     <div class="flex flex-col gap-2 p-2">
       <CoreButton
-        :type="BUTTON_TYPE.submit"
-        :color="BUTTON_COLOR.primary"
-        :shape="BUTTON_SHAPE.block"
+        type="submit"
+        :color="`primary`"
+        :shape="`block`"
+        :text="t('common.add')"
         :is-pending="isPending"
-      >
-        {{ t('common.add') }}
-      </CoreButton>
+        @click="onSubmit"
+      />
       <CoreButton
-        :color="BUTTON_COLOR.secondary"
-        :shape="BUTTON_SHAPE.block"
+        :color="`secondary`"
+        :shape="`block`"
+        :text="t('common.cancel')"
         @click="emit(`closeModal`)"
-      >
-        {{ t('common.cancel') }}
-      </CoreButton>
+      />
     </div>
   </form>
 </template>
