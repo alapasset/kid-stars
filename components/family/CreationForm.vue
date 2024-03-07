@@ -124,12 +124,6 @@ watch(isFetched, () => {
           icon="material-symbols:shield-lock"
         />
         <div class="flex flex-row-reverse">
-          <CoreButton
-            type="submit"
-            :color="`primary`"
-            :shape="`block`"
-            :text="buttonText"
-          />
           <button
             type="submit"
             class="btn btn-primary"
