@@ -12,7 +12,8 @@ const editDialog = ref<HTMLDialogElement>()
 
 const { values, handleSubmit } = useForm<FamilyMember>({
   initialValues: {
-    ...props.member
+    ...props.member,
+    code: ``,
   }
 });
 
@@ -27,24 +28,22 @@ const { value: pseudo, errorMessage: errorMessagePseudo } = useField<string>(
 const { value: code, errorMessage: errorMessageCode } = useField<string>(
 `code`,
   inputValue => {
-    if(isTutor.value && inputValue?.length < 4) return t(`form.error.code.minLegnth`);
+    if(isTutor.value && inputValue?.length > 0 && inputValue?.length < 4) return t(`form.error.code.min-length`);
     return true
   }
 );
 
-const { value: confirmationCode, errorMessage: errorMessageConfirmationCode } = useField<string>(
-`confirmationCode`,
-  inputValue => {
-    if(isTutor.value && code.value !== inputValue) return t(`form.error.code.same`);
-    return true
-  }
-);
+const { value: actualCode, errorMessage: errorMessageActualCode, setErrors } = useField<string>(`actualCode`);
 
 const openModal = () => {
   editDialog.value?.showModal()
 }
 
 const onSubmit = handleSubmit(async () => {
+  if(props.member.code !== actualCode.value) {
+    setErrors(t(`form.error.code.wrong`));
+    return
+  }
   await mutateAsync(values);
   if(isSuccess.value) {
     editDialog.value?.close()
@@ -93,19 +92,20 @@ const onSubmit = handleSubmit(async () => {
           <CoreInputText
             v-if="isTutor"
             v-model="code"
-            required
-            :label="t('form.label.code')"
-            :placeholder="t('form.label.code')"
+            type="password"
+            :label="t('form.label.new-code')"
+            :placeholder="t('form.label.new-code')"
             :error-messages="errorMessageCode"
             icon="material-symbols:lock"
           />
           <CoreInputText
             v-if="isTutor"
-            v-model="confirmationCode"
+            v-model="actualCode"
+            type="password"
             required
-            :label="t('form.label.code')"
-            :placeholder="t('form.label.code')"
-            :error-messages="errorMessageConfirmationCode"
+            :label="t('form.label.actual-code')"
+            :placeholder="t('form.label.actual-code')"
+            :error-messages="errorMessageActualCode"
             icon="material-symbols:shield-lock"
           />
         </div>

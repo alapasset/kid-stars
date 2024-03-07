@@ -1,12 +1,10 @@
 export interface UserCreationForm {
   email: string;
   password: string;
-  confirmationPassword: string;
 }
 
 export interface UserPasswordCreationForm {
   password: string;
-  confirmationPassword: string;
 }
 
 export interface UserLoginForm {

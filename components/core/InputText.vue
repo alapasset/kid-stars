@@ -30,6 +30,14 @@ const onInput = (event: Event) => {
 }
 
 const isOnError = computed(() => !!props.errorMessages)
+
+const currentType = ref(props.type)
+const currentLabel = computed(() => `${props.label}${props.required ? ` *` : ``}`)
+const hiddenIcon = computed(() => currentType.value === `password` ? `material-symbols:visibility` : `material-symbols:visibility-off`)
+
+const updateType = () => {
+  currentType.value = currentType.value === `password` ? `text` : `password`
+}
 </script>
 
 <template>
@@ -37,9 +45,9 @@ const isOnError = computed(() => !!props.errorMessages)
     <span
       v-if="label"
       :class="{'input-error': isOnError}"
-      class="text-sm font-medium capitalize "
+      class="text-sm font-medium capitalize"
     >
-      {{ label }}
+      {{ currentLabel }}
     </span>
     <label
       :class="{'input-error': isOnError}"
@@ -47,17 +55,24 @@ const isOnError = computed(() => !!props.errorMessages)
     >
       <Icon
         v-if="icon"
+        class="w-6 h-6"
         :name="icon"
       />
       <input
         :value="modelValue"
-        :type="type"
+        :type="currentType"
         class="grow"
         :placeholder="placeholder"
         :required="required"
         :disabled="disabled"
         @input="onInput"
       >
+      <Icon
+        v-if="props.type === 'password'"
+        class="w-6 h-6"
+        :name="hiddenIcon"
+        @click="updateType"
+      />
     </label>
     <span
       v-if="hint"

@@ -1,3 +1,14 @@
+<script setup lang="ts">
+
+const colorMode = useColorMode()
+
+const setTheme = () => {
+  colorMode.preference = isChecked.value ? `dark` : `light`
+}
+
+const isChecked = ref(colorMode.preference === `dark`)
+</script>
+
 <template>
   <header class="w-full flex justify-between border-b-2 border-gray-100 h-24 p-3 items-center">
     <NuxtLink to="/">
@@ -10,9 +21,10 @@
           name="material-symbols:sunny"
         />
         <input
+          v-model="isChecked"
           type="checkbox"
-          value="dark"
-          class="toggle theme-controller"
+          class="toggle"
+          @change="setTheme"
         >
         <Icon
           class="w-5 h-5"
