@@ -118,14 +118,13 @@ const onClickCard = () => {
           :error-messages="errorMessageCode"
           icon="material-symbols:lock"
         />
-
-        <button
-          type="submit"
-          class="btn btn-primary"
+        <CoreButton
+          :type="`submit`"
+          :color="`primary`"
+          :shape="`block`"
+          :text="t('common.confirm')"
           @click="onSubmit"
-        >
-          {{ t('common.confirm') }}
-        </button>
+        />
       </div>
     </div>
     <form
