@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { BUTTON_COLOR, BUTTON_SHAPE, BUTTON_TYPE } from '~/types/button';
 import type { FamilyCreationForm } from '~/types/family'
 
 const { t } = useI18n()
@@ -126,12 +125,17 @@ watch(isFetched, () => {
         />
         <div class="flex flex-row-reverse">
           <CoreButton
-            :type="BUTTON_TYPE.submit"
-            :color="BUTTON_COLOR.primary"
-            :shape="BUTTON_SHAPE.block"
+            type="submit"
+            :color="`primary`"
+            :shape="`block`"
+            :text="buttonText"
+          />
+          <button
+            type="submit"
+            class="btn btn-primary"
           >
             {{ buttonText }}
-          </CoreButton>
+          </button>
         </div>
       </form>
     </div>

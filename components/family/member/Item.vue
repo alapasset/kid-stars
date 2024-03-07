@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { BUTTON_COLOR, BUTTON_SHAPE, BUTTON_STATE, BUTTON_TYPE } from '~/types/button';
 import type { FamilyMember } from '~/types/family';
 
 const props = defineProps<{
@@ -101,18 +100,12 @@ const onClickCard = () => {
   >
     <div class="modal-box">
       <form method="dialog">
-        <CoreButton
-          class="absolute right-2 top-2"
-          :type="BUTTON_TYPE.button"
-          :state="BUTTON_STATE.ghost"
-          :shape="BUTTON_SHAPE.circle"
-          @click="codeDialog?.close()"
-        >
+        <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">
           <Icon
             class="w-5 h-5"
             name="material-symbols:close"
           />
-        </CoreButton>
+        </button>
       </form>
       <h3 class="font-bold text-lg">
         {{ t('family.member.item.title') }}
@@ -126,13 +119,12 @@ const onClickCard = () => {
           icon="material-symbols:lock"
         />
         <CoreButton
-          :type="BUTTON_TYPE.submit"
-          :color="BUTTON_COLOR.primary"
-          :shape="BUTTON_SHAPE.block"
+          :type="`submit`"
+          :color="`primary`"
+          :shape="`block`"
+          :text="t('common.confirm')"
           @click="onSubmit"
-        >
-          {{ t('common.confirm') }}
-        </CoreButton>
+        />
       </div>
     </div>
     <form

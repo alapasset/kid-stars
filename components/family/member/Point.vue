@@ -2,7 +2,6 @@
 import type { FamilyMember } from "~/types/family";
 import type { PointCreationForm } from "~/types/point";
 import { useCreatePoint, useGetPoint } from "~/composables/point";
-import { BUTTON_COLOR, BUTTON_SHAPE, BUTTON_STATE, BUTTON_TYPE } from "~/types/button";
 
 const props = defineProps<{
   member: FamilyMember
@@ -55,17 +54,15 @@ const addPoint = (value: number) => {
 
 <template>
   <div>
-    <CoreButton
-      :type="BUTTON_TYPE.button"
-      :state="BUTTON_STATE.ghost"
-      :shape="BUTTON_SHAPE.circle"
+    <button
+      class="btn btn-ghost btn-circle "
       @click.stop="openModal"
     >
       <Icon
         class="w-10 h-10"
         name="material-symbols:copyright"
       />
-    </CoreButton>
+    </button>
     <dialog
       ref="pointDialog"
       class="modal"
@@ -76,18 +73,12 @@ const addPoint = (value: number) => {
             {{ t('family.member.point.title') }}
           </h3>
           <form method="dialog">
-            <CoreButton
-              class="absolute right-2 top-2"
-              :type="BUTTON_TYPE.button"
-              :state="BUTTON_STATE.ghost"
-              :shape="BUTTON_SHAPE.circle"
-              @click="pointDialog?.close()"
-            >
+            <button class="btn btn-sm btn-circle btn-ghost">
               <Icon
                 class="w-5 h-5"
                 name="material-symbols:close"
               />
-            </CoreButton>
+            </button>
           </form>
         </div>
         <div class="flex gap-2 items-center">
@@ -107,15 +98,14 @@ const addPoint = (value: number) => {
         </div>
         <div class="flex flex-col gap-4 items-center">
           <div class="flex gap-2">
-            <CoreButton
+            <button
               v-for="value in plusValues"
               :key="value"
-              :color="BUTTON_COLOR.success"
-              :shape="BUTTON_SHAPE.circle"
+              class="btn btn-success btn-circle"
               @click="addPoint(value)"
             >
               {{ value }}
-            </CoreButton>
+            </button>
           </div>
           <CoreInputText
             v-model="points"
@@ -126,15 +116,14 @@ const addPoint = (value: number) => {
             :placeholder="t('family.member.point.points')"
           />
           <div class="flex gap-2">
-            <CoreButton
+            <button
               v-for="value in minusValues"
               :key="value"
-              :color="BUTTON_COLOR.error"
-              :shape="BUTTON_SHAPE.circle"
+              class="btn btn-error btn-circle"
               @click="addPoint(value)"
             >
               {{ value }}
-            </CoreButton>
+            </button>
           </div>
         </div>
         <div class="flex gap-2 items-center">
@@ -150,22 +139,20 @@ const addPoint = (value: number) => {
         </div>
         <div class="flex flex-col gap-2 p-2">
           <CoreButton
-            :type="BUTTON_TYPE.submit"
-            :color="BUTTON_COLOR.primary"
-            :shape="BUTTON_SHAPE.block"
+            :type="`submit`"
+            :color="`primary`"
+            :shape="`block`"
+            :text="t('common.confirm')"
             :is-pending="isPending"
             :disabled="disabled"
             @click="onSubmit"
-          >
-            {{ t('common.confirm') }}
-          </CoreButton>
+          />
           <CoreButton
-            :color="BUTTON_COLOR.secondary"
-            :shape="BUTTON_SHAPE.block"
+            :color="`secondary`"
+            :shape="`block`"
+            :text="t('common.cancel')"
             @click="pointDialog?.close()"
-          >
-            {{ t('common.cancel') }}
-          </CoreButton>
+          />
         </div>
       </div>
       <form

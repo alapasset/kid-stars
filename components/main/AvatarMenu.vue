@@ -59,9 +59,9 @@ async function signOut() {
       v-else
       to="/login"
     >
-      <CoreButton>
+      <button class="btn">
         {{ t('common.login') }}
-      </CoreButton>
+      </button>
     </NuxtLink>
   </div>
 </template>

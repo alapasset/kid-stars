@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { BUTTON_SHAPE, BUTTON_STATE, BUTTON_TYPE } from '~/types/button';
 import { NotificationType, type Notification } from '~/types/notifications';
 
 const props = defineProps<{
@@ -19,18 +18,15 @@ setTimeout(removeCurrentNotification, 7000);
     :class="notification?.type === NotificationType.Error ? `bg-error` : `bg-success`"
   >
     <span class="flex-1">{{ notification?.message }}</span>
-
-
-    <CoreButton
-      :type="BUTTON_TYPE.button"
-      :state="BUTTON_STATE.ghost"
-      :shape="BUTTON_SHAPE.circle"
+    <button
+      class="btn btn-ghost btn-circle"
       @click="removeCurrentNotification"
     >
       <Icon
         class="w-5 h-5"
         name="material-symbols:close"
       />
-    </CoreButton>
+    </button>
   </div>
 </template>
+à'èé()

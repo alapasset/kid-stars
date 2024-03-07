@@ -11,8 +11,8 @@ const { t } = useI18n()
 <template>
   <h1>{{ t('family.member.hello', { username: member.pseudo, type: t(`family.tutor`).toLocaleLowerCase() }) }}</h1>
   <NuxtLink to="/family">
-    <CoreButton>
+    <button class="btn">
       {{ t('family.member.return-to-family') }}
-    </CoreButton>
+    </button>
   </NuxtLink>
 </template>

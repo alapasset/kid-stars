@@ -1,6 +1,4 @@
 <script setup lang="ts">
-import { BUTTON_SHAPE, BUTTON_STATE, BUTTON_TYPE } from '~/types/button';
-
 const { t } = useI18n()
 
 const addDialog = ref<HTMLDialogElement>()
@@ -49,18 +47,12 @@ function onCloseModal() {
           {{ t('family.member.add.card.title') }}
         </h3>
         <form method="dialog">
-          <CoreButton
-            class="absolute right-2 top-2"
-            :type="BUTTON_TYPE.button"
-            :state="BUTTON_STATE.ghost"
-            :shape="BUTTON_SHAPE.circle"
-            @click="addDialog?.close()"
-          >
+          <button class="btn btn-sm btn-circle btn-ghost">
             <Icon
               class="w-5 h-5"
               name="material-symbols:close"
             />
-          </CoreButton>
+          </button>
         </form>
       </div>
       <div
