@@ -1,4 +1,5 @@
 <script lang="ts" setup>
+import { BUTTON_COLOR, BUTTON_SHAPE, BUTTON_TYPE } from '~/types/button';
 import type { UserPasswordCreationForm } from '~/types/user';
 
 const client = useSupabaseClient()
@@ -85,16 +86,14 @@ const onSubmit = handleSubmit(async () => {
       icon="material-symbols:shield-lock"
     />
 
-    <button
-      type="submit"
-      class="btn btn-primary"
+    <CoreButton
+      :type="BUTTON_TYPE.submit"
+      :color="BUTTON_COLOR.primary"
+      :shape="BUTTON_SHAPE.block"
+      :is-pending="isLoading"
       :disabled="isLoading"
     >
-      <span
-        v-if="isLoading"
-        class="loading loading-spinner"
-      />
       {{ t('common.confirm') }}
-    </button>
+    </CoreButton>
   </form>
 </template>
