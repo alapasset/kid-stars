@@ -65,6 +65,7 @@ function onCloseModal() {
           role="tab"
           class="tab font-bold"
           :aria-label="t(`family.child`)"
+          checked
         >
         <div
           role="tabpanel"

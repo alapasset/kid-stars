@@ -10,37 +10,9 @@ const { t } = useI18n()
 const isTutor = computed(() => !!props.member.code);
 const profile = computed(() => props.member.user === user.value?.id ? user.value?.user_metadata.avatar_url : null);
 const title = computed(() => props.member.user ? t(`family.tutor`) : t(`family.child`));
-const isGoodCode = computed(() => code.value === props.member.code);
 const canEdit = computed(() => props.member.user === user.value?.id || !isTutor.value);
 
-const codeDialog = ref<HTMLDialogElement>()
 const user = useSupabaseUser();
-
-const { handleSubmit } = useForm();
-
-const { value: code, errorMessage: errorMessageCode, setErrors } = useField<string>(
-  `code`,
-  inputValue => {
-    if(inputValue?.length < 4) return t(`form.error.code.required`);
-    return true;
-  }
-);
-
-const onSubmit = handleSubmit(() => {
-  if (!isGoodCode.value) {
-    setErrors(t(`form.error.code.wrong`));
-    return;
-  }
-  navigateTo(`/family/member/${props.member.id}`)
-});
-
-const onClickCard = () => {
-  if(isTutor.value) {
-    codeDialog.value?.showModal();
-    return
-  }
-  navigateTo(`/family/member/${props.member.id}`);
-}
 </script>
 
 <template>
@@ -50,10 +22,7 @@ const onClickCard = () => {
   >
     <figure>
       <div class="avatar p-2">
-        <div
-          class="w-24 mask mask-hexagon cursor-pointer"
-          @click="onClickCard"
-        >
+        <div class="w-24 mask mask-hexagon">
           <img
             v-if="profile"
             :src="profile"
@@ -93,46 +62,4 @@ const onClickCard = () => {
       </div>
     </div>
   </div>
-
-  <dialog
-    ref="codeDialog"
-    class="modal"
-  >
-    <div class="modal-box">
-      <form method="dialog">
-        <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">
-          <Icon
-            class="w-5 h-5"
-            name="material-symbols:close"
-          />
-        </button>
-      </form>
-      <h3 class="font-bold text-lg">
-        {{ t('family.member.item.title') }}
-      </h3>
-      <div class="flex flex-col gap-3 mt-3">
-        <CoreInputText
-          v-model="code"
-          :placeholder="t('form.label.code')"
-          type="number"
-          :error-messages="errorMessageCode"
-          icon="material-symbols:lock"
-        />
-
-        <button
-          type="submit"
-          class="btn btn-primary"
-          @click="onSubmit"
-        >
-          {{ t('common.confirm') }}
-        </button>
-      </div>
-    </div>
-    <form
-      method="dialog"
-      class="modal-backdrop"
-    >
-      <button>close</button>
-    </form>
-  </dialog>
 </template>

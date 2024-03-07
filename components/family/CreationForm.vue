@@ -34,15 +34,7 @@ const { value: pseudo, errorMessage: errorMessagePseudo } = useField<string>(
 const { value: code, errorMessage: errorMessageCode } = useField<string>(
 `code`,
   inputValue => {
-    if(inputValue?.length < 4) return t(`form.error.code.minLegnth`)
-    return true
-  }
-)
-
-const { value: confirmationCode, errorMessage: errorMessageConfirmationCode } = useField<string>(
-`confirmationCode`,
-  inputValue => {
-    if(code.value !== inputValue) return t(`form.error.code.same`)
+    if(inputValue?.length < 4) return t(`form.error.code.min-legnth`)
     return true
   }
 )
@@ -75,7 +67,7 @@ watch(isFetched, () => {
 <template>
   <div
     v-if="showModal"
-    class="card w-96 bg-base-100 shadow-xl"
+    class="card w-96 bg-base-100 shadow-xl border"
   >
     <div class="card-body">
       <h2 class="card-title">
@@ -106,22 +98,13 @@ watch(isFetched, () => {
         />
         <CoreInputText
           v-model="code"
-          type="number"
+          type="password"
           required
           :label="t('form.label.code')"
           :placeholder="t('form.label.code')"
           :hint="t('form.hint.code')"
           :error-messages="errorMessageCode"
           icon="material-symbols:lock"
-        />
-        <CoreInputText
-          v-model="confirmationCode"
-          type="number"
-          required
-          :label="t('form.label.validation-code')"
-          :placeholder="t('form.label.validation-code')"
-          :error-messages="errorMessageConfirmationCode"
-          icon="material-symbols:shield-lock"
         />
         <div class="flex flex-row-reverse">
           <button

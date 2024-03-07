@@ -93,7 +93,7 @@
       },
       "code": {
         "required": "Le code est obligatoire",
-        "minlength": "Le code doit faire au moins 4 caractères",
+        "min-length": "Le code doit faire au moins 4 caractères",
         "wrong": "Le code est incorrect, êtes-vous sûr de l'avoir bien saise ?",
         "same": "Les codes doivent être identiques"
       },
@@ -116,7 +116,9 @@
       "validation-code": "Validation du code",
       "email": "Email",
       "password": "Mot de passe",
-      "confirmation-password": "Confirmer le mot de passe"
+      "confirmation-password": "Confirmer le mot de passe",
+      "actual-code": "Code actuel",
+      "new-code": "Nouveau code"
     },
     "hint": {
       "code": "code numerique (ex: 123456789)",

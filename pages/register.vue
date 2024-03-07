@@ -32,14 +32,6 @@ const { value: password, errorMessage: errorMessagePassword } = useField<string>
   }
 )
 
-const { value: confirmationPassword, errorMessage: errorMessageConfirmationPassword } = useField<string>(
-`confirmationPassword`,
-  inputValue => {
-    if(password.value !== inputValue) return t(`form.error.password.same`)
-    return true
-  }
-)
-
 const onSubmit = handleSubmit(async (values) => {
   isLoading.value = true
   const { data, error } = await supabase.auth.signUp({
@@ -104,16 +96,6 @@ const signInWithOAuth = async () => {
           :error-messages="errorMessagePassword"
           :hint="t('form.hint.password')"
           icon="material-symbols:lock"
-        />
-
-        <CoreInputText
-          v-model="confirmationPassword"
-          required
-          :label="t('form.label.confirmation-password')"
-          :placeholder="t('form.label.confirmation-password')"
-          type="password"
-          :error-messages="errorMessageConfirmationPassword"
-          icon="material-symbols:shield-lock"
         />
 
         <button

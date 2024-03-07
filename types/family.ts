@@ -2,7 +2,6 @@ export interface FamilyCreationForm {
   name: string
   pseudo: string
   code: string
-  confirmationCode: string
 }
 
 export interface FamilyMember {

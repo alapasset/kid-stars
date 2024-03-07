@@ -8,6 +8,12 @@ export default defineNuxtConfig({
     }
   },
   typescript: { typeCheck: true },
+  runtimeConfig: {
+    public: {
+      LOGIN_REDIRECT_URL: ``,
+      DEPLOY_PRIME_URL : process.env.DEPLOY_PRIME_URL,
+    },
+  },
   modules: [
     `@nuxtjs/tailwindcss`,
     `@nuxtjs/supabase`,
@@ -16,12 +22,11 @@ export default defineNuxtConfig({
     `@hebilicious/vue-query-nuxt`,
     `@nuxtjs/i18n`,
     `nuxt-svgo`,
+    `@nuxtjs/color-mode`
   ],
-  runtimeConfig: {
-    public: {
-      LOGIN_REDIRECT_URL: ``,
-      DEPLOY_PRIME_URL : process.env.DEPLOY_PRIME_URL,
-    },
+  colorMode: {
+    preference: `light`, // default theme
+    dataValue: `theme`, // activate data-theme in <html>
   },
   supabase: {
     redirect: false
