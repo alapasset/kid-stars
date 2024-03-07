@@ -110,20 +110,23 @@ const onSubmit = handleSubmit(async () => {
           />
         </div>
         <div class="flex flex-col gap-2 p-2">
-          <CoreButton
-            :type="`submit`"
-            :color="`primary`"
-            :shape="`block`"
-            :text="t('common.confirm')"
-            :is-pending="isPending"
+          <button
+            class="btn btn-primary btn-block"
+            :disabled="isPending"
             @click="onSubmit"
-          />
-          <CoreButton
-            :color="`secondary`"
-            :shape="`block`"
-            :text="t('common.cancel')"
+          >
+            <span
+              v-if="isPending"
+              class="loading loading-spinner"
+            />
+            {{ t('common.confirm') }}
+          </button>
+          <button
+            class="btn btn-secondary btn-block"
             @click="editDialog?.close()"
-          />
+          >
+            {{ t('common.cancel') }}
+          </button>
         </div>
       </div>
       <form

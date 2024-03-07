@@ -37,20 +37,23 @@ const onSubmit = handleSubmit(async values => {
       icon="material-symbols:person"
     />
     <div class="flex flex-col gap-2 p-2">
-      <CoreButton
-        type="submit"
-        :color="`primary`"
-        :shape="`block`"
-        :text="t('common.add')"
-        :is-pending="isPending"
+      <button
+        class="btn btn-primary btn-block"
+        :disabled="isPending"
         @click="onSubmit"
-      />
-      <CoreButton
-        :color="`secondary`"
-        :shape="`block`"
-        :text="t('common.cancel')"
+      >
+        <span
+          v-if="isPending"
+          class="loading loading-spinner"
+        />
+        {{ t('common.add') }}
+      </button>
+      <button
+        class="btn btn-secondary btn-block"
         @click="emit(`closeModal`)"
-      />
+      >
+        {{ t('common.cancel') }}
+      </button>
     </div>
   </form>
 </template>
