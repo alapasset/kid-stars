@@ -1,168 +1,39 @@
 <script setup lang="ts">
-import type { FamilyMember } from "~/types/family";
-import type { PointCreationForm } from "~/types/point";
-import { useCreatePoint, useGetPoint } from "~/composables/point";
+import type {FamilyMember} from "~/types/family";
+import { useGetLastTransaction } from "~/composables/point";
 
 const props = defineProps<{
   member: FamilyMember
+  lastTransaction: boolean
 }>()
 
-const openDialog = ref(false);
-const { data: point, refetch } = useGetPoint(props.member.id, openDialog);
-const { mutateAsync, isPending } = useCreatePoint();
-const { t } = useI18n()
-const minusValues = [-25, -10, -5, -1]
-const plusValues = [1, 5, 10, 25]
-const pointDialog = ref<HTMLDialogElement>()
+const { data: point } = useGetPoint(props.member.id);
+const { data: transaction, refetch } = useGetLastTransaction(props.member.id);
 
-const { handleSubmit, resetForm } = useForm<PointCreationForm>({
-  initialValues: {
-    child: props.member.id,
-    points: 0
-  }
-})
+const points = computed(() => point.value?.at(0)?.sum ? point.value[0].sum : 0);
+const lastTransaction = computed(() => transaction.value?.at(0)?.points ? transaction.value[0].points : 0);
 
-const { value: points, errorMessage: errorMessagePoints } = useField<number>(
-  `points`,
-  () => {
-    if(newPoints.value < 0) return t(`form.error.points.minValue`)
-    return true
-  }
-)
+const arrow = computed(() => lastTransaction.value > 0 ? '↗︎' : '↘︎');
+const isPositive = computed(() => lastTransaction.value > 0);
+const percent = computed(() => {
+  const previousPoints = points.value - lastTransaction.value;
+  return previousPoints != 0 ? (lastTransaction.value / previousPoints) * 100 : 0;
+});
 
-const initialValue = computed(() => point.value?.at(0)?.sum ? point.value[0].sum : 0);
-const newPoints = computed(() => initialValue.value + Number(points.value));
-const disabled = computed(() => isPending.value || !points.value || newPoints.value < 0);
-
-const onSubmit = handleSubmit(async values => {
-  await mutateAsync(values)
-  pointDialog.value?.close()
-  openDialog.value = false
-  resetForm()
-})
-
-const openModal = () => {
-  resetForm()
-  openDialog.value = true
-  pointDialog.value?.showModal()
-  refetch()
-}
-const addPoint = (value: number) => {
-  points.value = value
-}
+watch(point, () => {
+  refetch();
+});
 </script>
 
 <template>
-  <div>
-    <button
-      class="btn btn-ghost btn-circle "
-      @click.stop="openModal"
+  <div class="stat text-right absolute top-0 right-0 pt-1 pr-2">
+    <div class="stat-value">{{ points }}</div>
+    <div
+      class="stat-desc"
+      :class="isPositive ? 'text-success' : 'text-error'"
+      v-if="props.lastTransaction"
     >
-      <Icon
-        class="w-10 h-10"
-        name="material-symbols:copyright"
-      />
-    </button>
-    <dialog
-      ref="pointDialog"
-      class="modal"
-    >
-      <div class="modal-box flex flex-col gap-5">
-        <div class="flex justify-between items-center">
-          <h3 class="font-bold text-lg">
-            {{ t('family.member.point.title') }}
-          </h3>
-          <form method="dialog">
-            <button class="btn btn-sm btn-circle btn-ghost">
-              <Icon
-                class="w-5 h-5"
-                name="material-symbols:close"
-              />
-            </button>
-          </form>
-        </div>
-        <div class="flex gap-2 items-center">
-          <p class="font-bold">
-            {{ t('family.member.point.current-points') }} :
-          </p>
-          <div class="badge badge-outline text-lg font-bold p-4">
-            {{ initialValue }}
-          </div>
-        </div>
-        <div>
-          <span>{{ t('family.member.point.add-remove') }}</span>
-          <div class="badge badge-outline mx-2 font-bold p-3">
-            {{ props.member.pseudo }}
-          </div>
-          <span>?</span>
-        </div>
-        <div class="flex flex-col gap-4 items-center">
-          <div class="flex gap-2">
-            <button
-              v-for="value in plusValues"
-              :key="value"
-              class="btn btn-success btn-circle"
-              @click="addPoint(value)"
-            >
-              {{ value }}
-            </button>
-          </div>
-          <CoreInputText
-            v-model="points"
-            class="mx-3"
-            :error-messages="errorMessagePoints"
-            type="number"
-            :label="t('family.member.point.points')"
-            :placeholder="t('family.member.point.points')"
-          />
-          <div class="flex gap-2">
-            <button
-              v-for="value in minusValues"
-              :key="value"
-              class="btn btn-error btn-circle"
-              @click="addPoint(value)"
-            >
-              {{ value }}
-            </button>
-          </div>
-        </div>
-        <div class="flex gap-2 items-center">
-          <p class="font-bold">
-            {{ t('family.member.point.new-points') }} :
-          </p>
-          <div
-            class="badge badge-outline text-lg font-bold p-4"
-            :class="newPoints >= 0 ? `badge-success` : `badge-error`"
-          >
-            {{ newPoints }}
-          </div>
-        </div>
-        <div class="flex flex-col gap-2 p-2">
-          <button
-            class="btn btn-primary btn-block"
-            :disabled="disabled"
-            @click="onSubmit"
-          >
-            <span
-              v-if="isPending"
-              class="loading loading-spinner"
-            />
-            {{ t('common.confirm') }}
-          </button>
-          <button
-            class="btn btn-secondary btn-block"
-            @click="pointDialog?.close()"
-          >
-            {{ t('common.cancel') }}
-          </button>
-        </div>
-      </div>
-      <form
-        method="dialog"
-        class="modal-backdrop"
-      >
-        <button>close</button>
-      </form>
-    </dialog>
+      {{arrow}} {{ lastTransaction }} ({{percent.toFixed()}}%)
+    </div>
   </div>
 </template>

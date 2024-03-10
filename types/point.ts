@@ -10,3 +10,6 @@ export  interface PointCreationForm {
 export interface SumPoint {
   sum: number
 }
+export interface LastPoint {
+  points: number
+}

@@ -20,6 +20,11 @@ const user = useSupabaseUser();
     v-if="props.member"
     class="card w-56 h-80 bg-base-100 shadow-xl border"
   >
+    <FamilyMemberPoint
+      v-if="!isTutor"
+      :member="props.member"
+      :last-transaction="false"
+    />
     <figure>
       <div class="avatar p-2">
         <div class="w-24 mask mask-hexagon">
@@ -46,7 +51,7 @@ const user = useSupabaseUser();
           </div>
         </div>
         <div class="flex min-h-14 gap-5">
-          <FamilyMemberPoint
+          <FamilyMemberPointForm
             v-if="!isTutor"
             :member="props.member"
           />
