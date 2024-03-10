@@ -1,4 +1,5 @@
-import type {Point, SumPoint} from "~/types/point";
+import type {LastPoint, Point, SumPoint} from "~/types/point";
+import type {MaybeRef} from "vue";
 
 export function useCreatePoint() {
   const queryClient = useQueryClient()
@@ -15,12 +16,20 @@ export function useCreatePoint() {
   });
 }
 
-export function useGetPoint(child: MaybeRef<string>, doCall: MaybeRef<boolean>) {
+export function useGetPoint(child: MaybeRef<string>, doCall: MaybeRef<boolean> = true) {
   const doCallRef = toRef(doCall);
   const childRef = toRef(child);
   return useQuery<SumPoint[], Error>({
     enabled: doCallRef.value,
     queryKey: [`point`, childRef.value],
     queryFn: () => $fetch(`/api/point/${childRef.value}`, { method: `get` }),
+  });
+}
+
+export function useGetLastTransaction(child: MaybeRef<string>) {
+  const childRef = toRef(child);
+  return useQuery<LastPoint[], Error>({
+    queryKey: [`last`, childRef.value],
+    queryFn: () => $fetch(`/api/family/member/${childRef.value}/last-transaction`, { method: `get` }),
   });
 }
