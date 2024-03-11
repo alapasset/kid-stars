@@ -11,17 +11,18 @@ const myFirstFamily = computed(() => families.value?.[0]?.family)
 <template>
   <MainAdmin
     :is-fetched="isOnFetch"
-    :title="t('task.admin.title')"
+    :title="t('family.admin.title')"
   >
     <template #form>
-      <TaskCreationForm
+      <FamilyMemberCreationForm
         v-if="myFirstFamily"
         :family-id="myFirstFamily"
+        :title="t('family.admin.title')"
       />
     </template>
 
     <template #list>
-      <TaskList
+      <FamilyMemberList
         v-if="myFirstFamily"
         :family-id="myFirstFamily"
       />

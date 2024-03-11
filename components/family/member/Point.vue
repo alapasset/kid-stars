@@ -26,8 +26,8 @@ const percentValue = computed(() => {
 </script>
 
 <template>
-  <div class="stat absolute right-0 top-0 pr-2 pt-1 text-right">
-    <div class="stat-value">
+  <div>
+    <div class="stat-value text-xl md:text-4xl">
       {{ points }}
     </div>
     <div

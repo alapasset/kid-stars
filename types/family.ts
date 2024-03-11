@@ -5,7 +5,7 @@ export interface FamilyCreationForm {
 }
 
 export interface FamilyMember {
-  code?: string
+  code?: string | null
   family: string
   id: string
   pseudo: string

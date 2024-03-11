@@ -13,8 +13,11 @@ async function signOut () {
   await navigateTo('/login')
 }
 
+async function goToDashboard () {
+  await navigateTo('/dashboard')
+}
 async function goToFamily () {
-  await navigateTo('/family')
+  await navigateTo('/admin/family')
 }
 async function goToTask () {
   await navigateTo('/admin/task')
@@ -61,6 +64,7 @@ async function goToTask () {
         class="menu dropdown-content menu-sm z-[1] mt-3 w-52 rounded-box border bg-base-100 p-2 shadow"
         tabindex="0"
       >
+        <li><a @click="goToDashboard">{{ t('dashboard.title') }}</a></li>
         <li><a @click="goToFamily">{{ t('family.manage') }}</a></li>
         <li><a @click="goToTask">{{ t('task.manage') }}</a></li>
         <li><a @click="signOut">{{ t('common.logout') }}</a></li>
