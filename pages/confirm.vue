@@ -2,10 +2,9 @@
 const user = useSupabaseUser()
 const { t } = useI18n()
 
-watch(user, () => {
-  if (user.value) {
-    return navigateTo(`/dashboard`)
-  }
+watch(user, async () => {
+  if (user.value) await navigateTo('/dashboard')
+// eslint-disable-next-line @typescript-eslint/naming-convention
 }, { immediate: true })
 </script>
 

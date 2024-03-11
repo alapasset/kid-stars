@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { FamilyMember } from '~/types/family';
+import type { FamilyMember } from '~/types/family'
 
 const props = defineProps<{
   member: FamilyMember
@@ -7,34 +7,33 @@ const props = defineProps<{
 
 const { t } = useI18n()
 
-const isTutor = computed(() => !!props.member.code);
-const profile = computed(() => props.member.user === user.value?.id ? user.value?.user_metadata.avatar_url : null);
-const title = computed(() => props.member.user ? t(`family.tutor`) : t(`family.child`));
-const canEdit = computed(() => props.member.user === user.value?.id || !isTutor.value);
+const user = useSupabaseUser()
 
-const user = useSupabaseUser();
+const isTutor = computed(() => Boolean(props.member.code))
+const profile = computed(() => props.member.user === user.value?.id ? String(user.value?.user_metadata.avatar_url) : undefined)
+const title = computed(() => props.member.user === undefined ? t('family.tutor') : t('family.child'))
+const canEdit = computed(() => props.member.user === user.value?.id || !isTutor.value)
+
 </script>
 
 <template>
-  <div
-    v-if="props.member"
-    class="card w-56 h-80 bg-base-100 shadow-xl border"
-  >
+  <div class="card h-80 w-56 border bg-base-100 shadow-xl">
     <FamilyMemberPoint
       v-if="!isTutor"
-      :member="props.member"
-      :last-transaction="false"
+      :is-last-transaction="false"
+      :member-id="member.id"
     />
     <figure>
       <div class="avatar p-2">
-        <div class="w-24 mask mask-hexagon">
+        <div class="mask mask-hexagon w-24">
           <img
             v-if="profile"
+            alt="avatar"
             :src="profile"
           >
           <Icon
             v-else
-            class="w-24 h-24"
+            class="size-24"
             name="material-symbols:person"
           />
         </div>
@@ -42,7 +41,7 @@ const user = useSupabaseUser();
     </figure>
     <div class="card-body justify-between px-4">
       <h2 class="card-title justify-center">
-        {{ props.member.pseudo }}
+        {{ member.pseudo }}
       </h2>
       <div class="card-actions flex flex-col justify-end gap-5">
         <div>
@@ -53,15 +52,15 @@ const user = useSupabaseUser();
         <div class="flex min-h-14 gap-5">
           <FamilyMemberPointForm
             v-if="!isTutor"
-            :member="props.member"
+            :member
           />
           <FamilyMemberEdit
             v-if="canEdit"
-            :member="props.member"
+            :member
           />
           <FamilyMemberDelete
             v-if="!isTutor"
-            :member-id="props.member.id"
+            :member-id="member.id"
           />
         </div>
       </div>

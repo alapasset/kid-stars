@@ -1,21 +1,21 @@
 
-export function useGetTokens() {
+export function useGetTokens () {
   const route = useRoute()
   const hashString = toRef(() => route.hash)
 
-  function getParam (searchParams: string) {
-    if(!hashString.value) return
-    const hashParams = hashString.value.split(`#`)[1].split(`&`)
-    for (const param of hashParams) {
-      const [key, value] = param.split(`=`)
-      if (key === searchParams) {
-        return value
-      }
+  function getParameter (searchParameters: string): string | undefined {
+    if(!hashString.value) return undefined
+    const hashParameters = hashString.value.split('#')[1]?.split('&')
+    if (!hashParameters) return undefined
+    for (const parameter of hashParameters) {
+      const [key, value] = parameter.split('=')
+      if (key === searchParameters) return value
     }
+    return undefined
   }
 
   return {
-    accessToken: getParam(`access_token`),
-    refreshToken: getParam(`refresh_token`)
+    accessToken: getParameter('access_token'),
+    refreshToken: getParameter('refresh_token'),
   }
 }

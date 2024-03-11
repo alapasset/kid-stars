@@ -1,38 +1,43 @@
 <script setup lang="ts">
-import type { FamilyMember } from "~/types/family";
-import type { PointCreationForm } from "~/types/point";
-import { useCreatePoint, useGetPoint } from "~/composables/point";
+import type { FamilyMember } from '~/types/family'
+import type { PointCreationForm } from '~/types/point'
+import { useCreatePoint, useGetPoint } from '~/composables/point'
 
 const props = defineProps<{
   member: FamilyMember
 }>()
 
-const openDialog = ref(false);
-const { data: point, refetch } = useGetPoint(props.member.id, openDialog);
-const { mutateAsync, isPending } = useCreatePoint();
+const { member } = toRefs(props)
+
+const openDialog = ref(false)
+const { data: point, refetch } = useGetPoint(member.value.id, openDialog)
+const { mutateAsync, isPending } = useCreatePoint()
 const { t } = useI18n()
+// eslint-disable-next-line @typescript-eslint/no-magic-numbers
 const minusValues = [-25, -10, -5, -1]
+// eslint-disable-next-line @typescript-eslint/no-magic-numbers
 const plusValues = [1, 5, 10, 25]
 const pointDialog = ref<HTMLDialogElement>()
+const initialValue = computed(() => point.value?.at(0)?.sum ?? 0)
 
 const { handleSubmit, resetForm } = useForm<PointCreationForm>({
   initialValues: {
-    child: props.member.id,
-    points: 0
-  }
+    child: member.value.id,
+    points: 0,
+  },
 })
 
-const { value: points, errorMessage: errorMessagePoints } = useField<number>(
-  `points`,
-  () => {
-    if(newPoints.value < 0) return t(`form.error.points.minValue`)
+const { value: points, errorMessage: errorMessagePoints, setValue } = useField<number>(
+  'points',
+  (value) => {
+    if(value + initialValue.value < 0) return t('form.error.points.minValue')
     return true
-  }
+  },
 )
 
-const initialValue = computed(() => point.value?.at(0)?.sum ? point.value[0].sum : 0);
-const newPoints = computed(() => initialValue.value + Number(points.value));
-const disabled = computed(() => isPending.value || !points.value || newPoints.value < 0);
+const currentPoints = computed(() => initialValue.value + Number(points.value))
+const disabled = computed(() => isPending.value || !points.value || currentPoints.value < 0)
+
 
 const onSubmit = handleSubmit(async values => {
   await mutateAsync(values)
@@ -41,25 +46,35 @@ const onSubmit = handleSubmit(async values => {
   resetForm()
 })
 
-const openModal = () => {
+async function openModal () {
   resetForm()
   openDialog.value = true
   pointDialog.value?.showModal()
-  refetch()
+  await refetch()
 }
-const addPoint = (value: number) => {
+
+function addPoint (value: number) {
   points.value = value
+}
+
+function onCloseModal () {
+  pointDialog.value?.close()
+}
+
+function onPointUpdate (value: string) {
+  setValue(Number(value))
 }
 </script>
 
 <template>
   <div>
     <button
-      class="btn btn-ghost btn-circle "
+      class="btn btn-circle btn-ghost "
+      type="button"
       @click.stop="openModal"
     >
       <Icon
-        class="w-10 h-10"
+        class="size-10"
         name="material-symbols:copyright"
       />
     </button>
@@ -68,79 +83,83 @@ const addPoint = (value: number) => {
       class="modal"
     >
       <div class="modal-box flex flex-col gap-5">
-        <div class="flex justify-between items-center">
-          <h3 class="font-bold text-lg">
+        <div class="flex items-center justify-between">
+          <h3 class="text-lg font-bold">
             {{ t('family.member.point.title') }}
           </h3>
           <form method="dialog">
-            <button class="btn btn-sm btn-circle btn-ghost">
+            <button class="btn btn-circle btn-ghost btn-sm" type="submit">
               <Icon
-                class="w-5 h-5"
+                class="size-5"
                 name="material-symbols:close"
               />
             </button>
           </form>
         </div>
-        <div class="flex gap-2 items-center">
+        <div class="flex items-center gap-2">
           <p class="font-bold">
             {{ t('family.member.point.current-points') }} :
           </p>
-          <div class="badge badge-outline text-lg font-bold p-4">
+          <div class="badge badge-outline p-4 text-lg font-bold">
             {{ initialValue }}
           </div>
         </div>
         <div>
           <span>{{ t('family.member.point.add-remove') }}</span>
-          <div class="badge badge-outline mx-2 font-bold p-3">
-            {{ props.member.pseudo }}
+          <div class="badge badge-outline mx-2 p-3 font-bold">
+            {{ member.pseudo }}
           </div>
           <span>?</span>
         </div>
-        <div class="flex flex-col gap-4 items-center">
+        <div class="flex flex-col items-center gap-4">
           <div class="flex gap-2">
             <button
               v-for="value in plusValues"
               :key="value"
-              class="btn btn-success btn-circle"
-              @click="addPoint(value)"
+              class="btn btn-circle btn-success"
+              type="button"
+              @click="() => addPoint(value)"
             >
               {{ value }}
             </button>
           </div>
           <CoreInputText
-            v-model="points"
             class="mx-3"
             :error-messages="errorMessagePoints"
-            type="number"
             :label="t('family.member.point.points')"
+            :model-value="String(points)"
             :placeholder="t('family.member.point.points')"
+            type="number"
+            @update:model-value="onPointUpdate"
           />
           <div class="flex gap-2">
             <button
               v-for="value in minusValues"
               :key="value"
-              class="btn btn-error btn-circle"
-              @click="addPoint(value)"
+              class="btn btn-circle btn-error"
+              type="button"
+              @click="() => addPoint(value)"
             >
               {{ value }}
             </button>
           </div>
         </div>
-        <div class="flex gap-2 items-center">
+        <div class="flex items-center gap-2">
           <p class="font-bold">
             {{ t('family.member.point.new-points') }} :
           </p>
           <div
-            class="badge badge-outline text-lg font-bold p-4"
-            :class="newPoints >= 0 ? `badge-success` : `badge-error`"
+            class="badge badge-outline p-4 text-lg font-bold"
+            :class="currentPoints >= 0 ? `badge-success` : `badge-error`"
           >
-            {{ newPoints }}
+            {{ currentPoints }}
           </div>
         </div>
         <div class="flex flex-col gap-2 p-2">
           <button
             class="btn btn-primary btn-block"
-            :disabled="disabled"
+            :disabled
+            type="button"
             @click="onSubmit"
           >
             <span
@@ -151,17 +170,18 @@ const addPoint = (value: number) => {
           </button>
           <button
             class="btn btn-secondary btn-block"
-            @click="pointDialog?.close()"
+            type="button"
+            @click="onCloseModal"
           >
             {{ t('common.cancel') }}
           </button>
         </div>
       </div>
       <form
-        method="dialog"
         class="modal-backdrop"
+        method="dialog"
       >
-        <button>close</button>
+        <button type="submit">close</button>
       </form>
     </dialog>
   </div>

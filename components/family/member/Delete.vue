@@ -5,27 +5,32 @@ const props = defineProps<{
 
 const { t } = useI18n()
 
-const { mutateAsync, isPending } = useDeleteFamilyMember();
+const { mutateAsync, isPending } = useDeleteFamilyMember()
 const deleteDialog = ref<HTMLDialogElement>()
 
-const openModal = () => {
+function openModal () {
   deleteDialog.value?.showModal()
 }
 
-const onSubmit = async () => {
-  await mutateAsync(props.memberId);
-  deleteDialog.value?.close();
+function closeModal () {
+  deleteDialog.value?.close()
+}
+
+async function onSubmit () {
+  await mutateAsync(props.memberId)
+  deleteDialog.value?.close()
 }
 </script>
 
 <template>
   <div>
     <button
-      class="btn btn-ghost btn-circle "
+    class="btn btn-circle btn-ghost "
+      type="button"
       @click.stop="openModal"
     >
       <Icon
-        class="w-10 h-10"
+        class="size-10"
         name="material-symbols:delete"
       />
     </button>
@@ -34,14 +39,14 @@ const onSubmit = async () => {
       class="modal"
     >
       <div class="modal-box flex flex-col gap-5">
-        <div class="flex justify-between items-center">
-          <h3 class="font-bold text-lg">
+        <div class="flex items-center justify-between">
+          <h3 class="text-lg font-bold">
             {{ t('common.deletion') }}
           </h3>
           <form method="dialog">
-            <button class="btn btn-sm btn-circle btn-ghost">
+            <button class="btn btn-circle btn-ghost btn-sm" type="submit">
               <Icon
-                class="w-5 h-5"
+                class="size-5"
                 name="material-symbols:close"
               />
             </button>
@@ -54,6 +59,7 @@ const onSubmit = async () => {
           <button
             class="btn btn-primary btn-block"
             :disabled="isPending"
+            type="button"
             @click="onSubmit"
           >
             <span
@@ -64,17 +70,18 @@ const onSubmit = async () => {
           </button>
           <button
             class="btn btn-secondary btn-block"
-            @click="deleteDialog?.close()"
+            type="button"
+            @click="closeModal"
           >
             {{ t('common.cancel') }}
           </button>
         </div>
       </div>
       <form
-        method="dialog"
         class="modal-backdrop"
+        method="dialog"
       >
-        <button>close</button>
+        <button type="submit">close</button>
       </form>
     </dialog>
   </div>

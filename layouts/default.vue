@@ -1,5 +1,5 @@
 <template>
-  <div class="flex flex-col min-h-screen">
+  <div class="flex min-h-screen flex-col">
     <MainHeader />
     <main class="flex-1 p-5">
       <slot />

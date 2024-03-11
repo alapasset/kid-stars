@@ -1,15 +1,17 @@
 export interface Point {
-  points: number,
-  child: string,
+  child: string
+  points: number
 }
 
 export  interface PointCreationForm {
-  points: number,
-  child: string,
+  child: string
+  points: number
 }
+
 export interface SumPoint {
   sum: number
 }
+
 export interface LastPoint {
   points: number
 }

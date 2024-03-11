@@ -1,75 +1,71 @@
 <script setup lang="ts">
-import type { InputTypeHTMLAttribute } from 'vue';
+import type { InputTypeHTMLAttribute } from 'vue'
+const model = defineModel({ type: String })
 
 const props = withDefaults(defineProps<{
-  modelValue: string | number | undefined
-  type?: InputTypeHTMLAttribute
+  disabled?: boolean
+  errorMessages?: string
+  hint?: string
+  icon?: string
   label?: string
   placeholder?: string
-  errorMessages?: string
   required?: boolean
-  icon?: string
-  hint?: string
-  disabled?: boolean
+  type?: InputTypeHTMLAttribute
 }>(), {
-  type: `text`,
-  label: ``,
-  placeholder: ``,
-  errorMessages: ``,
-  required: false,
-  icon: ``,
-  hint: ``,
-  disabled: false,
+  type: 'text',
+  label: '',
+  placeholder: '',
+  errorMessages: '',
+  icon: '',
+  hint: '',
 })
 
-const emit = defineEmits([`update:modelValue`])
+const { type } = toRefs(props)
 
-const onInput = (event: Event) => {
-  const target = event.target as HTMLInputElement
-  emit(`update:modelValue`, target.value)
+const currentType = ref(type.value)
+
+const isOnError = computed(() => Boolean(props.errorMessages))
+const currentLabel = computed(() => `${props.label}${props.required ? ' *' : ''}`)
+const hiddenIcon = computed(() => currentType.value === 'password' ? 'material-symbols:visibility' : 'material-symbols:visibility-off')
+const inputName = computed(() => `${props.label.toLowerCase().replace(/ /gu, '_')}_input`)
+
+function updateType () {
+  currentType.value = currentType.value === 'password' ? 'text' : 'password'
 }
 
-const isOnError = computed(() => !!props.errorMessages)
-
-const currentType = ref(props.type)
-const currentLabel = computed(() => `${props.label}${props.required ? ` *` : ``}`)
-const hiddenIcon = computed(() => currentType.value === `password` ? `material-symbols:visibility` : `material-symbols:visibility-off`)
-
-const updateType = () => {
-  currentType.value = currentType.value === `password` ? `text` : `password`
-}
 </script>
 
 <template>
   <div class="flex flex-col gap-2">
     <span
       v-if="label"
-      :class="{'input-error': isOnError}"
       class="text-sm font-medium capitalize"
+      :class="{'input-error': isOnError}"
     >
       {{ currentLabel }}
     </span>
     <label
-      :class="{'input-error': isOnError}"
       class="input input-bordered flex items-center gap-2"
+      :class="{'input-error': isOnError}"
+      :for="inputName"
     >
       <Icon
         v-if="icon"
-        class="w-6 h-6"
+        class="size-6"
         :name="icon"
       />
       <input
-        :value="modelValue"
-        :type="currentType"
+        v-model="model"
         class="grow"
-        :placeholder="placeholder"
-        :required="required"
-        :disabled="disabled"
-        @input="onInput"
+        :disabled
+        :name="inputName"
+        :placeholder
+        :required
+        :type="currentType"
       >
       <Icon
         v-if="props.type === 'password'"
-        class="w-6 h-6"
+        class="size-6"
         :name="hiddenIcon"
         @click="updateType"
       />
@@ -82,7 +78,7 @@ const updateType = () => {
     </span>
     <span
       v-if="isOnError"
-      class="text-red-500 text-xs"
+      class="text-xs text-red-500"
     >
       {{ errorMessages }}
     </span>

@@ -1,21 +1,26 @@
 export interface FamilyCreationForm {
+  code: string
   name: string
   pseudo: string
-  code: string
 }
 
 export interface FamilyMember {
-  id: string
-  family: string
-  user?: string
   code?: string
+  family: string
+  id: string
   pseudo: string
+  user?: string
+}
+
+export interface FamilyWithItems {
+  members: FamilyMember[]
+  name: string
 }
 
 export interface Family {
+  familyMember: FamilyMember[]
   id: string
   name: string
-  family_member: FamilyMember[]
 }
 
 export interface ChildCreationForm {
