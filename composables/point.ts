@@ -1,5 +1,4 @@
 import type { LastPoint, Point, SumPoint } from '~/types/point'
-import type { MaybeRef } from 'vue'
 
 export function useCreatePoint () {
   const queryClient = useQueryClient()
@@ -12,18 +11,18 @@ export function useCreatePoint () {
       await queryClient.invalidateQueries({ queryKey: ['point'] })
       notifySuccess(t('notification.update.success'))
     },
-    onError: (error) => { notifyError(error.message) },
+    onError: () => { notifyError(t('notification.save.error')) },
   })
 }
 
 export function useGetPoint (child: MaybeRef<string>, doCall: MaybeRef<boolean> = true) {
   const doCallReference = toRef(doCall)
   const childReference = toRef(child)
-  return useQuery<SumPoint[]>({
+  return useQuery({
     // eslint-disable-next-line @typescript-eslint/naming-convention
     enabled: doCallReference.value,
     queryKey: ['point', childReference.value],
-    queryFn: async () => await $fetch(`/api/point/${childReference.value}`, { method: 'get' }),
+    queryFn: async () => await $fetch<SumPoint[]>(`/api/point/${childReference.value}`, { method: 'get' }),
   })
 }
 
@@ -31,9 +30,9 @@ export function useGetLastTransaction (child: MaybeRef<string>, doCall: MaybeRef
   const childReference = toRef(child)
   const doCallReference = toRef(doCall)
   const isEnabled = Boolean(doCallReference.value)
-  return useQuery<LastPoint[]>({
+  return useQuery({
     queryKey: ['last', childReference.value],
-    queryFn: async () => await $fetch(`/api/family/member/${childReference.value}/last-transaction`, { method: 'get' }),
+    queryFn: async () => await $fetch<LastPoint[]>(`/api/family/member/${childReference.value}/last-transaction`, { method: 'get' }),
     // eslint-disable-next-line @typescript-eslint/naming-convention
     enabled: isEnabled,
   })

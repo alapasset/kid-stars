@@ -27,7 +27,14 @@
     "not-have-account": "Pas encore de compte ?",
     "register-success": "Inscription réussie, un mail de confirmation vous a été envoyé",
     "join": "Rejoindre",
-    "or": "ou"
+    "or": "ou",
+    "name": "Nom",
+    "description": "Description",
+    "points": "Points",
+    "child": "Enfant",
+    "tutor": "Tuteur",
+    "member": "Membre",
+    "creator": "Créateur"
   },
   "dashboard": {
     "title": "Tableau de bord"
@@ -97,7 +104,7 @@
         "wrong": "Le code est incorrect, êtes-vous sûr de l'avoir bien saise ?",
         "same": "Les codes doivent être identiques"
       },
-      "name": {
+      "family-name": {
         "required": "Le nom de famille est obligatoire"
       },
       "password": {
@@ -107,18 +114,36 @@
       },
       "points": {
         "minValue": "Le nombre de points total restant doit être supérieur ou égale à 0"
+      },
+      "task": {
+        "name": {
+          "required": "Le nom de la tâche est obligatoire"
+        },
+        "description": {
+          "required": "La description de la tâche est obligatoire"
+        },
+        "points": {
+          "required": "Le nombre de points est obligatoire",
+          "minValue": "Le nombre de points doit être supérieur à 0"
+        }
       }
     },
     "label": {
       "pseudo": "Pseudo",
       "code": "Code de la session tuteur",
-      "name": "Nom de famille",
+      "family-name": "Nom de famille",
       "validation-code": "Validation du code",
       "email": "Email",
       "password": "Mot de passe",
       "confirmation-password": "Confirmer le mot de passe",
       "actual-code": "Code actuel",
-      "new-code": "Nouveau code"
+      "new-code": "Nouveau code",
+      "title": "Création d'une tâche",
+      "task": {
+        "name": "Nom",
+        "description": "Description",
+        "points": "Nombre de points"
+      }
     },
     "hint": {
       "code": "code numerique (ex: 123456789)",
@@ -149,5 +174,15 @@
       "success": "Mot de passe créé",
       "error": "Erreur lors de la création du mot de passe"
     }
+  },
+  "task": {
+    "admin": {
+      "title": "Gestion des tâches",
+      "form": {
+        "title": "Création d'une tâche"
+      },
+      "not-done": "Non effectuée"
+    },
+    "manage": "Gérer les tâches"
   }
 }
