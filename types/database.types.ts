@@ -113,6 +113,61 @@ export type Database = {
           }
         ]
       }
+      task: {
+        Row: {
+          child: string | null
+          created_at: string
+          description: string
+          family: string
+          id: string
+          name: string
+          points: number
+          tutor: string
+        }
+        Insert: {
+          child?: string | null
+          created_at?: string
+          description: string
+          family: string
+          id?: string
+          name: string
+          points: number
+          tutor: string
+        }
+        Update: {
+          child?: string | null
+          created_at?: string
+          description?: string
+          family?: string
+          id?: string
+          name?: string
+          points?: number
+          tutor?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: `public_task_child_fkey`
+            columns: [`child`]
+            isOneToOne: false
+            referencedRelation: `family_member`
+            referencedColumns: [`id`]
+          },
+          {
+            foreignKeyName: `public_task_family_fkey`
+            columns: [`family`]
+            isOneToOne: false
+            referencedRelation: `family`
+            referencedColumns: [`id`]
+          },
+          {
+            foreignKeyName: `public_task_tutor_fkey`
+            columns: [`tutor`]
+            isOneToOne: false
+            referencedRelation: `family_member`
+            referencedColumns: [`id`]
+          }
+        ]
+      }
     }
     Views: {
       [_ in never]: never

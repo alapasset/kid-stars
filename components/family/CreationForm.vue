@@ -15,7 +15,7 @@ const { mutateAsync: joinFamily } = useJoinFamily(familyId)
 const { value: name, errorMessage: errorMessageName } = useField<string>(
   'name',
   inputValue => {
-    if(inputValue.length === 0) return t('form.error.name.required')
+    if(inputValue.length === 0) return t('form.error.family-name.required')
     return true
   },
   {
@@ -75,8 +75,8 @@ watch(isFetched, () => {
           :disabled="isInvitation"
           :error-messages="errorMessageName"
           icon="material-symbols:home"
-          :label="t('form.label.name')"
-          :placeholder="t('form.label.name')"
+          :label="t('form.label.family-name')"
+          :placeholder="t('form.label.family-name')"
           required
         />
         <CoreInputText

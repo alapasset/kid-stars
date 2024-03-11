@@ -7,10 +7,10 @@ settings:
 dependencies:
   '@hebilicious/vue-query-nuxt':
     specifier: ^0.3.0
-    version: 0.3.0(@tanstack/vue-query@5.25.0)(nuxt@3.10.3)(rollup@4.12.1)
+    version: 0.3.0(@tanstack/vue-query@5.26.3)(nuxt@3.10.3)(rollup@4.12.1)
   '@tanstack/vue-query':
-    specifier: ^5.25.0
-    version: 5.25.0(vue@3.4.21)
+    specifier: ^5.26.3
+    version: 5.26.3(vue@3.4.21)
   '@vee-validate/nuxt':
     specifier: ^4.12.6
     version: 4.12.6(rollup@4.12.1)(vue@3.4.21)
@@ -65,8 +65,8 @@ devDependencies:
     specifier: ^1.1.0
     version: 1.1.0
   eslint-plugin-tailwindcss:
-    specifier: ^3.14.3
-    version: 3.14.3(tailwindcss@3.4.1)
+    specifier: ^3.15.0
+    version: 3.15.0(tailwindcss@3.4.1)
   eslint-plugin-unicorn:
     specifier: ^51.0.1
     version: 51.0.1(eslint@8.57.0)
@@ -83,7 +83,7 @@ devDependencies:
     specifier: ^5.4.2
     version: 5.4.2
   vue-tsc:
-    specifier: ^1.8.27
+    specifier: '*'
     version: 1.8.27(typescript@5.4.2)
 
 packages:
@@ -926,7 +926,7 @@ packages:
     resolution: {integrity: sha512-vBZP4NlzfOlerQTnba4aqZoMhE/a9HY7HRqoOPaETQcSQuWEIyZMHGfVu6w9wGtGK5fED5qRs2DteVCjOH60sA==}
     engines: {node: '>=14'}
 
-  /@hebilicious/vue-query-nuxt@0.3.0(@tanstack/vue-query@5.25.0)(nuxt@3.10.3)(rollup@4.12.1):
+  /@hebilicious/vue-query-nuxt@0.3.0(@tanstack/vue-query@5.26.3)(nuxt@3.10.3)(rollup@4.12.1):
     resolution: {integrity: sha512-3ULFb4Sq4vp7VCuMFTlvHOIipgLsFPTAUfSoPNrXiUzvuetsLquijaIFWMlgetWC/+1o5WEBXSVcrmX46uZB6w==}
     requiresBuild: true
     peerDependencies:
@@ -934,7 +934,7 @@ packages:
       nuxt: ^3.8.0
     dependencies:
       '@nuxt/kit': 3.10.3(rollup@4.12.1)
-      '@tanstack/vue-query': 5.25.0(vue@3.4.21)
+      '@tanstack/vue-query': 5.26.3(vue@3.4.21)
       defu: 6.1.4
       esbuild: 0.19.12
       magicast: 0.3.3
@@ -3521,12 +3521,12 @@ packages:
       remove-accents: 0.4.2
     dev: false
 
-  /@tanstack/query-core@5.25.0:
-    resolution: {integrity: sha512-vlobHP64HTuSE68lWF1mEhwSRC5Q7gaT+a/m9S+ItuN+ruSOxe1rFnR9j0ACWQ314BPhBEVKfBQ6mHL0OWfdbQ==}
+  /@tanstack/query-core@5.26.3:
+    resolution: {integrity: sha512-kKv7VHIleC7cwpMS3M63mWUFFbdiRo7JZMVUyZ4z/79RZoAi7/vGTVkCrnNqyKl+zwBRkumYL+eiYtyShGZd0A==}
     dev: false
 
-  /@tanstack/vue-query@5.25.0(vue@3.4.21):
-    resolution: {integrity: sha512-AulLKleumygoNXhBUmeEMjJAQSt7iMqsqZSYc9NOMby3QrQpEE8RbpYfWlGOBqG2Ftx046x6TkwelD+3ryQqfA==}
+  /@tanstack/vue-query@5.26.3(vue@3.4.21):
+    resolution: {integrity: sha512-GbKxyEmFG77uLqVKFuPF/feybxoP2RZ3ncaKaX3HHUgzROZRr10adg7JXRlF/gCbI31OFMPpxgLnddaPte+2IQ==}
     peerDependencies:
       '@vue/composition-api': ^1.1.2
       vue: ^2.6.0 || ^3.3.0
@@ -3535,7 +3535,7 @@ packages:
         optional: true
     dependencies:
       '@tanstack/match-sorter-utils': 8.11.8
-      '@tanstack/query-core': 5.25.0
+      '@tanstack/query-core': 5.26.3
       '@vue/devtools-api': 6.6.1
       vue: 3.4.21(typescript@5.4.2)
       vue-demi: 0.14.7(vue@3.4.21)
@@ -7107,8 +7107,8 @@ packages:
       eslint-plugin-jsx-a11y: 6.8.0(eslint@8.57.0)
     dev: true
 
-  /eslint-plugin-tailwindcss@3.14.3(tailwindcss@3.4.1):
-    resolution: {integrity: sha512-1MKT8CrVuqVJleHxb7ICHsF2QwO0G+VJ28athTtlcOkccp0qmwK7nCUa1C9paCZ+VVgQU4fonsjLz/wUxoMHJQ==}
+  /eslint-plugin-tailwindcss@3.15.0(tailwindcss@3.4.1):
+    resolution: {integrity: sha512-mRs8OGJMxkCl8cD0wGjr9NbcRYJCN3D1TfgmIGb1L+3opqYyTT1jjVau1s6SUdVJqci3EfbxG60TJQtgqfEtTw==}
     engines: {node: '>=12.13.0'}
     peerDependencies:
       tailwindcss: ^3.4.0

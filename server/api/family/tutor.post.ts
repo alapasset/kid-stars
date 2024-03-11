@@ -20,8 +20,6 @@ export default defineEventHandler(async (event) => {
   if (errorFamily) throw createError(errorFamily)
 
   const serviceClient = serverSupabaseServiceRole(event)
-  const { data, error } = await serviceClient.auth.admin.inviteUserByEmail(body.invitedEmail, { data: { family: dataFamily?.family }, redirectTo })
+  const { error } = await serviceClient.auth.admin.inviteUserByEmail(body.invitedEmail, { data: { family: dataFamily?.family }, redirectTo })
   if (error) throw createError(error)
-
-  return data
 })

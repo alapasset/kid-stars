@@ -16,9 +16,7 @@ export default defineEventHandler(async (event) => {
   if (error) throw createError(error.message)
   if (!tutor) throw createError({ statusCode: 400, statusMessage: 'No member for this user' })
 
-  const { data: insertedPoint, error: pointError } = await client.from('point').insert({ ...body, tutor:tutor.id }).single()
+  const { error: pointError } = await client.from('point').insert({ ...body, tutor:tutor.id }).single()
 
   if(pointError) throw createError({ statusCode: 500, message: 'Could not insert data' })
-
-  return insertedPoint
 })
