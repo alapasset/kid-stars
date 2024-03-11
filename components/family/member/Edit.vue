@@ -1,64 +1,72 @@
 <script setup lang="ts">
-import type { FamilyMember } from "~/types/family";
+import type { FamilyMember } from '~/types/family'
 
 const props = defineProps<{
   member: FamilyMember
 }>()
 
+const { member } = toRefs(props)
+
 const { t } = useI18n()
-const isTutor = computed(() => props.member.code !== null);
-const { mutateAsync, isSuccess, isPending } = useUpdateFamilyMember();
+const isTutor = computed(() => Boolean(member.value.code))
+const { mutateAsync, isSuccess, isPending } = useUpdateFamilyMember()
 const editDialog = ref<HTMLDialogElement>()
 
 const { values, handleSubmit } = useForm<FamilyMember>({
   initialValues: {
-    ...props.member,
-    code: ``,
-  }
-});
+    ...member.value,
+    code: '',
+  },
+})
 
 const { value: pseudo, errorMessage: errorMessagePseudo } = useField<string>(
-  `pseudo`,
+  'pseudo',
   inputValue => {
-    if(inputValue?.length === 0) return t(`form.error.pseudo.required`);
+    if(!inputValue || inputValue.length === 0) return t('form.error.pseudo.required')
     return true
-  }
-);
+  },
+)
 
 const { value: code, errorMessage: errorMessageCode } = useField<string>(
-`code`,
+  'code',
   inputValue => {
-    if(isTutor.value && inputValue?.length > 0 && inputValue?.length < 4) return t(`form.error.code.min-length`);
+    const maxLength = 4
+    if(isTutor.value && inputValue.length > 0 && inputValue.length < maxLength) return t('form.error.code.min-length')
     return true
-  }
-);
+  },
+)
 
-const { value: actualCode, errorMessage: errorMessageActualCode, setErrors } = useField<string>(`actualCode`);
+const { value: actualCode, errorMessage: errorMessageActualCode, setErrors } = useField<string>('actualCode')
 
-const openModal = () => {
+function openModal () {
   editDialog.value?.showModal()
 }
 
+function closeModal () {
+  editDialog.value?.close()
+}
+
 const onSubmit = handleSubmit(async () => {
-  if(props.member.code !== actualCode.value) {
-    setErrors(t(`form.error.code.wrong`));
+  if(isTutor.value && member.value.code !== actualCode.value) {
+    setErrors(t('form.error.code.wrong'))
     return
   }
-  await mutateAsync(values);
-  if(isSuccess.value) {
+  await mutateAsync(values)
+  if(isSuccess.value)
     editDialog.value?.close()
-  }
+
 })
 </script>
 
 <template>
   <div>
     <button
-      class="btn btn-ghost btn-circle "
+      class="btn btn-circle btn-ghost "
+      type="button"
       @click.stop="openModal"
     >
       <Icon
-        class="w-10 h-10"
+        class="size-10"
         name="material-symbols:box-edit-outline"
       />
     </button>
@@ -67,14 +75,14 @@ const onSubmit = handleSubmit(async () => {
       class="modal"
     >
       <div class="modal-box flex flex-col gap-5">
-        <div class="flex justify-between items-center">
-          <h3 class="font-bold text-lg">
+        <div class="flex items-center justify-between">
+          <h3 class="text-lg font-bold">
             {{ t('family.member.edit.title') }}
           </h3>
           <form method="dialog">
-            <button class="btn btn-sm btn-circle btn-ghost">
+            <button class="btn btn-circle btn-ghost btn-sm" type="submit">
               <Icon
-                class="w-5 h-5"
+                class="size-5"
                 name="material-symbols:close"
               />
             </button>
@@ -83,36 +91,37 @@ const onSubmit = handleSubmit(async () => {
         <div class="flex flex-col gap-5">
           <CoreInputText
             v-model="pseudo"
-            required
-            :label="t('form.label.pseudo')"
-            :placeholder="t('form.label.pseudo')"
             :error-messages="errorMessagePseudo"
             icon="material-symbols:person"
+            :label="t('form.label.pseudo')"
+            :placeholder="t('form.label.pseudo')"
+            required
           />
           <CoreInputText
             v-if="isTutor"
             v-model="code"
-            type="password"
-            :label="t('form.label.new-code')"
-            :placeholder="t('form.label.new-code')"
             :error-messages="errorMessageCode"
             icon="material-symbols:lock"
+            :label="t('form.label.new-code')"
+            :placeholder="t('form.label.new-code')"
+            type="password"
           />
           <CoreInputText
             v-if="isTutor"
             v-model="actualCode"
-            type="password"
-            required
-            :label="t('form.label.actual-code')"
-            :placeholder="t('form.label.actual-code')"
             :error-messages="errorMessageActualCode"
             icon="material-symbols:shield-lock"
+            :label="t('form.label.actual-code')"
+            :placeholder="t('form.label.actual-code')"
+            required
+            type="password"
           />
         </div>
         <div class="flex flex-col gap-2 p-2">
           <button
             class="btn btn-primary btn-block"
             :disabled="isPending"
+            type="button"
             @click="onSubmit"
           >
             <span
@@ -123,17 +132,18 @@ const onSubmit = handleSubmit(async () => {
           </button>
           <button
             class="btn btn-secondary btn-block"
-            @click="editDialog?.close()"
+            type="button"
+            @click="closeModal"
           >
             {{ t('common.cancel') }}
           </button>
         </div>
       </div>
       <form
-        method="dialog"
         class="modal-backdrop"
+        method="dialog"
       >
-        <button>close</button>
+        <button type="submit">close</button>
       </form>
     </dialog>
   </div>

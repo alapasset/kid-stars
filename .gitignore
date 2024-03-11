@@ -132,3 +132,4 @@ dist
 # mac
 .idea
 .DS_Store
+.output

@@ -5,70 +5,69 @@ const user = useSupabaseUser()
 
 const { t } = useI18n()
 
-async function signOut() {
+const hasAvatar = computed(() => Boolean(user.value?.user_metadata.avatar_url))
+
+async function signOut () {
   const { error } = await supabase.auth.signOut()
-  if (error) {throw createError(error)}
-  navigateTo(`/login`)
+  if (error) throw createError(error)
+  await navigateTo('/login')
 }
 
-const avatar = computed(() => {
-  return user.value?.user_metadata.avatar_url
-})
-
+async function goToFamily () {
+  await navigateTo('/family')
+}
 </script>
 
 <template>
-  <div>
+  <div
+    v-if="user"
+    class="flex flex-row gap-3"
+  >
     <div
-      v-if="user"
-      class="flex flex-row gap-3"
+      v-if="hasAvatar"
+      class="avatar"
     >
-      <div
-        v-if="avatar"
-        class="avatar"
-      >
-        <div class="w-12 h-12 rounded-full">
-          <img :src="avatar">
-        </div>
-      </div>
-      <div
-        v-else
-        class="avatar placeholder"
-      >
-        <div class="bg-neutral text-neutral-content rounded-full w-12">
-          <Icon
-            class="w-12 h-12"
-            name="material-symbols:person"
-          />
-        </div>
-      </div>
-      <div class="dropdown dropdown-end">
-        <div
-          tabindex="0"
-          role="button"
-          class="btn btn-ghost btn-circle"
-        >
-          <Icon
-            class="w-5 h-5"
-            name="material-symbols:menu"
-          />
-        </div>
-        <ul
-          tabindex="0"
-          class="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52 border"
-        >
-          <li><a @click="navigateTo(`/family`)">{{ t('family.manage') }}</a></li>
-          <li><a @click="signOut">{{ t('common.logout') }}</a></li>
-        </ul>
+      <div class="size-12 rounded-full">
+        <img alt="avatar" :src="user.user_metadata.avatar_url">
       </div>
     </div>
-    <NuxtLink
+    <div
       v-else
-      to="/login"
+      class="avatar placeholder"
     >
-      <button class="btn">
-        {{ t('common.login') }}
-      </button>
-    </NuxtLink>
+      <div class="w-12 rounded-full bg-neutral text-neutral-content">
+        <Icon
+          class="size-12"
+          name="material-symbols:person"
+        />
+      </div>
+    </div>
+    <div class="dropdown dropdown-end">
+      <div
+        class="btn btn-circle btn-ghost"
+        role="button"
+        tabindex="0"
+      >
+        <Icon
+          class="size-5"
+          name="material-symbols:menu"
+        />
+      </div>
+      <ul
+        class="menu dropdown-content menu-sm z-[1] mt-3 w-52 rounded-box border bg-base-100 p-2 shadow"
+        tabindex="0"
+      >
+        <li><a @click="goToFamily">{{ t('family.manage') }}</a></li>
+        <li><a @click="signOut">{{ t('common.logout') }}</a></li>
+      </ul>
+    </div>
   </div>
+  <NuxtLink
+    v-else
+    to="/login"
+  >
+    <button class="btn" type="button">
+      {{ t('common.login') }}
+    </button>
+  </NuxtLink>
 </template>

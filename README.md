@@ -73,3 +73,8 @@ bun run preview
 ```
 
 Check out the [deployment documentation](https://nuxt.com/docs/getting-started/deployment) for more information.
+
+## TODO
+
+- [ ] add format rules in vscode project settings instead of .eslintrc
+- [ ] add eslint plugins unicorn (ts) + tailwind (vue) & hardcore (vue & ts) rules

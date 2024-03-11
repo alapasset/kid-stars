@@ -1,3 +1,4 @@
 export default defineI18nConfig(() => ({
-  legacy: false
+  // eslint-disable-next-line @typescript-eslint/naming-convention
+  legacy: false,
 }))
