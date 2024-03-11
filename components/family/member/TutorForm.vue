@@ -1,11 +1,7 @@
 <script setup lang="ts">
 import type { TutorCreationForm } from '~/types/family'
 
-const emit = defineEmits<{
-  closeModal: []
-}>()
-
-const { mutateAsync, isSuccess, isPending } = useInviteTutor()
+const { mutateAsync, isPending } = useInviteTutor()
 const { handleSubmit } = useForm<TutorCreationForm>()
 
 const { t } = useI18n()
@@ -22,12 +18,7 @@ const { value: email, errorMessage: errorMessageEmail } = useField<string>(
 
 const onSubmit = handleSubmit(async values => {
   await mutateAsync(values)
-  if (isSuccess.value) emit('closeModal')
 })
-
-function closeModal () {
-  emit('closeModal')
-}
 </script>
 
 <template>
@@ -56,13 +47,6 @@ function closeModal () {
           class="loading loading-spinner"
         />
         {{ t('common.invite') }}
-      </button>
-      <button
-        class="btn btn-secondary btn-block"
-        type="button"
-        @click="closeModal"
-      >
-        {{ t('common.cancel') }}
       </button>
     </div>
   </form>

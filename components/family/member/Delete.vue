@@ -30,7 +30,7 @@ async function onSubmit () {
       @click.stop="openModal"
     >
       <Icon
-        class="size-10"
+        class="size-7 md:size-9"
         name="material-symbols:delete"
       />
     </button>

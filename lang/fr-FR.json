@@ -34,7 +34,9 @@
     "child": "Enfant",
     "tutor": "Tuteur",
     "member": "Membre",
-    "creator": "Créateur"
+    "creator": "Créateur",
+    "status": "Statut",
+    "attribute": "Attribuer"
   },
   "dashboard": {
     "title": "Tableau de bord"
@@ -84,6 +86,9 @@
         "points": "points",
         "new-points": "Nouveau nombre de point"
       }
+    },
+    "admin": {
+      "title": "Gestion des membres de la famille"
     }
   },
   "create-password": {
@@ -110,7 +115,7 @@
       "password": {
         "required": "Le mot de passe est obligatoire",
         "invalid": "Le mot de passe doit contenir au moins une majuscule, une minuscule, un chiffre et un caractère spécial",
-        "same":"Les mots de passe doivent être identiques"
+        "same": "Les mots de passe doivent être identiques"
       },
       "points": {
         "minValue": "Le nombre de points total restant doit être supérieur ou égale à 0"

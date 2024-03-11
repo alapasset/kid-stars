@@ -33,6 +33,14 @@ export function useFetchFamilyMember (memberId: string) {
   })
 }
 
+export function useFetchFamilyMembers (familyId: MaybeRef<string>) {
+  const familyReference = toRef(familyId)
+  return useQuery({
+    queryKey: ['family', 'get-all-family-member', familyReference.value],
+    queryFn: async () => await $fetch<FamilyMember[]>(`/api/family/${familyReference.value}/members`),
+  })
+}
+
 export function useFetchFamilyMemberByUser (userId: MaybeRef<string | undefined>) {
   const userIdReference = toRef(userId)
   const isEnabled = Boolean(userIdReference.value)

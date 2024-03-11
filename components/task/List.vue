@@ -47,13 +47,7 @@ const { data: tasks, isFetched } = useFetchTasksByFamily(familyId)
       </tbody>
     </table>
   </div>
-  <div
-    v-else
-    class="flex w-full flex-col gap-4"
-  >
-    <div class="skeleton h-14 w-full" />
-    <div class="skeleton h-14 w-full" />
-    <div class="skeleton h-14 w-full" />
-    <div class="skeleton h-14 w-full" />
+  <div v-else class="text-center">
+    <span class="loading loading-dots loading-lg" />
   </div>
 </template>
