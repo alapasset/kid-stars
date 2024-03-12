@@ -80,3 +80,17 @@ export function useUpdateFamilyMember () {
     onError: () => { notifySuccess(t('notification.update.error')) },
   })
 }
+
+export function useMemberCheckCode () {
+  const { notifySuccess, notifyError } = useNotifications()
+  const { t } = useI18n()
+
+  return useMutation({
+    mutationFn: async (code: string) => {
+      const body = { code }
+      await $fetch('/api/family/member/check-code/', { method: 'put', body })
+    },
+    onSuccess: () => { notifySuccess(t('member.check-code.success')) },
+    onError: () => { notifyError(t('member.check-code.error')) },
+  })
+}
