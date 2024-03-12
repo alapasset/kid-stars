@@ -36,7 +36,11 @@
     "member": "Membre",
     "creator": "Créateur",
     "status": "Statut",
-    "attribute": "Attribuer"
+    "attribute": "Attribuer",
+    "task": "Tache(s)",
+    "family": "Famille",
+    "administration": "Administration",
+    "clear": "Clear"
   },
   "dashboard": {
     "title": "Tableau de bord"
@@ -88,7 +92,7 @@
       }
     },
     "admin": {
-      "title": "Gestion des membres de la famille"
+      "title": "Gestion des membres de ma famille"
     }
   },
   "create-password": {
@@ -105,9 +109,9 @@
       },
       "code": {
         "required": "Le code est obligatoire",
-        "min-length": "Le code doit faire au moins 4 caractères",
         "wrong": "Le code est incorrect, êtes-vous sûr de l'avoir bien saise ?",
-        "same": "Les codes doivent être identiques"
+        "same": "Les codes doivent être identiques",
+        "legnth": "Le code doit faire 6 chiffres"
       },
       "family-name": {
         "required": "Le nom de famille est obligatoire"
@@ -151,7 +155,7 @@
       }
     },
     "hint": {
-      "code": "code numerique (ex: 123456789)",
+      "code": "Code à 6 chiffres (ex: 123456)",
       "password": "8 caractères minimum avec une majuscule, une minuscule, un chiffre et un caractère spécial"
     }
   },
@@ -189,5 +193,16 @@
       "not-done": "Non effectuée"
     },
     "manage": "Gérer les tâches"
+  },
+  "member": {
+    "check-code": {
+      "success": "Code valide",
+      "error": "Code invalide"
+    }
+  },
+  "admin": {
+    "code": {
+      "title": "Code de la session tuteur"
+    }
   }
 }

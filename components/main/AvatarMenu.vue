@@ -16,12 +16,8 @@ async function signOut () {
 async function goToDashboard () {
   await navigateTo('/dashboard')
 }
-async function goToFamily () {
-  await navigateTo('/admin/family')
-}
-async function goToTask () {
-  await navigateTo('/admin/task')
-
+async function goToAdmin () {
+  await navigateTo('/admin')
 }
 </script>
 
@@ -65,8 +61,7 @@ async function goToTask () {
         tabindex="0"
       >
         <li><a @click="goToDashboard">{{ t('dashboard.title') }}</a></li>
-        <li><a @click="goToFamily">{{ t('family.manage') }}</a></li>
-        <li><a @click="goToTask">{{ t('task.manage') }}</a></li>
+        <li><a @click="goToAdmin">{{ t('common.administration') }}</a></li>
         <li><a @click="signOut">{{ t('common.logout') }}</a></li>
       </ul>
     </div>

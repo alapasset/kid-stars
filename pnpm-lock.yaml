@@ -7,10 +7,10 @@ settings:
 dependencies:
   '@hebilicious/vue-query-nuxt':
     specifier: ^0.3.0
-    version: 0.3.0(@tanstack/vue-query@5.26.3)(nuxt@3.10.3)(rollup@4.12.1)
+    version: 0.3.0(@tanstack/vue-query@5.27.5)(nuxt@3.10.3)(rollup@4.12.1)
   '@tanstack/vue-query':
-    specifier: ^5.26.3
-    version: 5.26.3(vue@3.4.21)
+    specifier: ^5.27.5
+    version: 5.27.5(vue@3.4.21)
   '@vee-validate/nuxt':
     specifier: ^4.12.6
     version: 4.12.6(rollup@4.12.1)(vue@3.4.21)
@@ -32,6 +32,9 @@ dependencies:
   vue-router:
     specifier: ^4.3.0
     version: 4.3.0(vue@3.4.21)
+  vue3-otp-input:
+    specifier: ^0.4.4
+    version: 0.4.4(vue@3.4.21)
 
 devDependencies:
   '@nuxt/eslint-config':
@@ -65,8 +68,8 @@ devDependencies:
     specifier: ^1.1.0
     version: 1.1.0
   eslint-plugin-tailwindcss:
-    specifier: ^3.15.0
-    version: 3.15.0(tailwindcss@3.4.1)
+    specifier: ^3.15.1
+    version: 3.15.1(tailwindcss@3.4.1)
   eslint-plugin-unicorn:
     specifier: ^51.0.1
     version: 51.0.1(eslint@8.57.0)
@@ -926,7 +929,7 @@ packages:
     resolution: {integrity: sha512-vBZP4NlzfOlerQTnba4aqZoMhE/a9HY7HRqoOPaETQcSQuWEIyZMHGfVu6w9wGtGK5fED5qRs2DteVCjOH60sA==}
     engines: {node: '>=14'}
 
-  /@hebilicious/vue-query-nuxt@0.3.0(@tanstack/vue-query@5.26.3)(nuxt@3.10.3)(rollup@4.12.1):
+  /@hebilicious/vue-query-nuxt@0.3.0(@tanstack/vue-query@5.27.5)(nuxt@3.10.3)(rollup@4.12.1):
     resolution: {integrity: sha512-3ULFb4Sq4vp7VCuMFTlvHOIipgLsFPTAUfSoPNrXiUzvuetsLquijaIFWMlgetWC/+1o5WEBXSVcrmX46uZB6w==}
     requiresBuild: true
     peerDependencies:
@@ -934,7 +937,7 @@ packages:
       nuxt: ^3.8.0
     dependencies:
       '@nuxt/kit': 3.10.3(rollup@4.12.1)
-      '@tanstack/vue-query': 5.26.3(vue@3.4.21)
+      '@tanstack/vue-query': 5.27.5(vue@3.4.21)
       defu: 6.1.4
       esbuild: 0.19.12
       magicast: 0.3.3
@@ -3521,12 +3524,12 @@ packages:
       remove-accents: 0.4.2
     dev: false
 
-  /@tanstack/query-core@5.26.3:
-    resolution: {integrity: sha512-kKv7VHIleC7cwpMS3M63mWUFFbdiRo7JZMVUyZ4z/79RZoAi7/vGTVkCrnNqyKl+zwBRkumYL+eiYtyShGZd0A==}
+  /@tanstack/query-core@5.27.5:
+    resolution: {integrity: sha512-HuYOo46NhzNX1SwXCmLf/Skr8B7T56cDHUN+iOhnu7+GOkUMThda64GwZpAqQzBT8TOTBQo6RQaNe0gi3Gi2fw==}
     dev: false
 
-  /@tanstack/vue-query@5.26.3(vue@3.4.21):
-    resolution: {integrity: sha512-GbKxyEmFG77uLqVKFuPF/feybxoP2RZ3ncaKaX3HHUgzROZRr10adg7JXRlF/gCbI31OFMPpxgLnddaPte+2IQ==}
+  /@tanstack/vue-query@5.27.5(vue@3.4.21):
+    resolution: {integrity: sha512-5OrR+ha1b9n1aMYq+AToIoa6+4rObRUn3JkMCwT3MgkN35k8AbW+LkZ69eMYae14j+PAf4gz6EC+LkcPd53lfg==}
     peerDependencies:
       '@vue/composition-api': ^1.1.2
       vue: ^2.6.0 || ^3.3.0
@@ -3535,7 +3538,7 @@ packages:
         optional: true
     dependencies:
       '@tanstack/match-sorter-utils': 8.11.8
-      '@tanstack/query-core': 5.26.3
+      '@tanstack/query-core': 5.27.5
       '@vue/devtools-api': 6.6.1
       vue: 3.4.21(typescript@5.4.2)
       vue-demi: 0.14.7(vue@3.4.21)
@@ -7107,8 +7110,8 @@ packages:
       eslint-plugin-jsx-a11y: 6.8.0(eslint@8.57.0)
     dev: true
 
-  /eslint-plugin-tailwindcss@3.15.0(tailwindcss@3.4.1):
-    resolution: {integrity: sha512-mRs8OGJMxkCl8cD0wGjr9NbcRYJCN3D1TfgmIGb1L+3opqYyTT1jjVau1s6SUdVJqci3EfbxG60TJQtgqfEtTw==}
+  /eslint-plugin-tailwindcss@3.15.1(tailwindcss@3.4.1):
+    resolution: {integrity: sha512-4RXRMIaMG07C2TBEW1k0VM4+dDazz1kxcZhkK4zirvmHGZTA4jnlSO2kq5mamuSPi+Wo17dh2SlC8IyFBuCd7Q==}
     engines: {node: '>=12.13.0'}
     peerDependencies:
       tailwindcss: ^3.4.0
@@ -14553,6 +14556,15 @@ packages:
       '@vue/language-core': 1.8.27(typescript@5.4.2)
       semver: 7.6.0
       typescript: 5.4.2
+
+  /vue3-otp-input@0.4.4(vue@3.4.21):
+    resolution: {integrity: sha512-LI1MeBiiEy59cnjqXzlcz4G4cMxZcHF/xOKilb6sfw4uFHfQ22Luu2ls0Bb51zL0pb3gGp7RuIL5eurEJXkoBg==}
+    engines: {node: '>=16.0.0', npm: '>=8.0.0'}
+    peerDependencies:
+      vue: ^3.0.*
+    dependencies:
+      vue: 3.4.21(typescript@5.4.2)
+    dev: false
 
   /vue@3.4.21(typescript@5.4.2):
     resolution: {integrity: sha512-5hjyV/jLEIKD/jYl4cavMcnzKwjMKohureP8ejn3hhEjwhWIhWeuzL2kJAjzl/WyVsgPY56Sy4Z40C3lVshxXA==}

@@ -34,8 +34,7 @@ const { value: pseudo, errorMessage: errorMessagePseudo } = useField<string>(
 const { value: code, errorMessage: errorMessageCode } = useField<string>(
   'code',
   inputValue => {
-    const maxLegnth = 4
-    if(inputValue && inputValue.length < maxLegnth) return t('form.error.code.min-legnth')
+    if(!/^\d{6}$/u.test(inputValue)) return t('form.error.code.legnth')
     return true
   },
 )
