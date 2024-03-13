@@ -9,6 +9,7 @@ export interface TaskCreationForm {
 export interface TaskFamilyMember {
   pseudo: string
 }
+
 export interface Task {
   child?: string
   createdAt: string

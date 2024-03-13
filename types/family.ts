@@ -1,7 +1,15 @@
+export const familyMemberRole = {
+  child: 'child',
+  tutor: 'tutor',
+} as const
+
+export type FamilyMemberRole = keyof typeof familyMemberRole
+
 export interface FamilyCreationForm {
   code: string
   name: string
   pseudo: string
+  role: FamilyMemberRole
 }
 
 export interface FamilyMember {
@@ -9,6 +17,7 @@ export interface FamilyMember {
   family: string
   id: string
   pseudo: string
+  role: FamilyMemberRole
   user?: string
 }
 
@@ -25,7 +34,9 @@ export interface Family {
 
 export interface ChildCreationForm {
   pseudo: string
+  role: FamilyMemberRole
 }
+
 export interface TutorCreationForm {
   invitedEmail: string
 }

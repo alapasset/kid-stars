@@ -3,6 +3,8 @@ const props = defineProps<{
   memberId: string
 }>()
 
+const { memberId } = toRefs(props)
+
 const { t } = useI18n()
 
 const { mutateAsync, isPending } = useDeleteFamilyMember()
@@ -17,7 +19,7 @@ function closeModal () {
 }
 
 async function onSubmit () {
-  await mutateAsync(props.memberId)
+  await mutateAsync(memberId.value)
   deleteDialog.value?.close()
 }
 </script>

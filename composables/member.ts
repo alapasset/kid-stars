@@ -72,7 +72,7 @@ export function useUpdateFamilyMember () {
   const { t } = useI18n()
 
   return useMutation({
-    mutationFn: async (data: Partial<FamilyMember>) => await $fetch(`/api/family/member/${data.id ?? ''}`, { method: 'put', body: data }),
+    mutationFn: async (data: FamilyMember) => await $fetch(`/api/family/member/${data.id}`, { method: 'put', body: data }),
     onSuccess: async () => {
       await queryClient.invalidateQueries({ queryKey: ['family'] })
       notifySuccess(t('notification.update.success'))
@@ -82,15 +82,15 @@ export function useUpdateFamilyMember () {
 }
 
 export function useMemberCheckCode () {
-  const { notifySuccess, notifyError } = useNotifications()
+  const { notifyError } = useNotifications()
   const { t } = useI18n()
 
   return useMutation({
-    mutationFn: async (code: string) => {
-      const body = { code }
+    mutationFn: async (code: MaybeRef<string>) => {
+      const codeReference = toRef(code)
+      const body = { code: codeReference.value }
       await $fetch('/api/family/member/check-code/', { method: 'put', body })
     },
-    onSuccess: () => { notifySuccess(t('member.check-code.success')) },
     onError: () => { notifyError(t('member.check-code.error')) },
   })
 }

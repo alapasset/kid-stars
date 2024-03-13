@@ -1,8 +1,15 @@
 <script setup lang="ts">
-import type { FamilyCreationForm } from '~/types/family'
+import { familyMemberRole, type FamilyCreationForm } from '~/types/family'
 
 const { t } = useI18n()
-const { handleSubmit, setFieldValue } = useForm<FamilyCreationForm>()
+const { handleSubmit, setFieldValue } = useForm<FamilyCreationForm>({
+  initialValues: {
+    name: '',
+    pseudo: '',
+    code: '',
+    role: familyMemberRole.tutor,
+  },
+})
 
 const user = useSupabaseUser()
 
