@@ -64,7 +64,7 @@ watch(isFetched, () => {
 <template>
   <div
     v-if="showModal"
-    class="card w-96 border bg-base-100 shadow-xl"
+    class="card w-80 border bg-base-100 shadow-xl"
   >
     <div class="card-body">
       <h2 class="card-title">

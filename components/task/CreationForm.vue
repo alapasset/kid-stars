@@ -56,7 +56,7 @@ function onPointUpdate (value: string) {
 </script>
 
 <template>
-  <div class="max-w-96">
+  <div class="max-w-80">
     <h3 class="text-lg font-bold">
       {{ t('task.admin.form.title') }}
     </h3>

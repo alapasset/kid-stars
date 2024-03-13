@@ -23,9 +23,7 @@ function getStatus (member: FamilyMember) {
           <th>{{ t('common.name') }}</th>
           <th class="hidden md:table-cell">{{ t('common.status') }}</th>
           <th>{{ t('common.points') }}</th>
-          <th>{{ t('common.attribute') }}</th>
-          <th>{{ t('common.edit') }}</th>
-          <th>{{ t('common.delete') }}</th>
+          <th>{{ t('common.actions') }}</th>
         </tr>
       </thead>
       <tbody>
@@ -47,19 +45,17 @@ function getStatus (member: FamilyMember) {
               :member-id="member.id"
             />
           </td>
-          <td>
+          <td class="flex gap-3">
             <FamilyMemberPointForm
               v-if="!isTutor(member)"
               :member
             />
-          </td>
-          <td>
-            <FamilyMemberEdit
+            <FamilyMemberChildEdit
+              v-if="!isTutor(member)"
               :member
             />
-          </td>
-          <td>
             <FamilyMemberDelete
+              v-if="!isTutor(member)"
               :member-id="member.id"
             />
           </td>

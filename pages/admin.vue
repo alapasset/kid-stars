@@ -7,7 +7,7 @@ const { t } = useI18n()
 const { mutate, isSuccess, isPending } = useMemberCheckCode()
 const route = useRoute()
 const currentPage = computed(() => route.path.split('/').pop())
-const pages = ['family', 'task']
+const pages = ['me', 'family', 'task']
 const showAdmin = ref(false)
 
 function onComplete (value: string) {
