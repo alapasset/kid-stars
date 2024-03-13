@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { useFetchFamily } from '~/composables/family'
+import { familyMemberRole } from '~/types/family'
 
 const props = defineProps<{
   familyId: string
@@ -11,8 +12,8 @@ const { familyId } = toRefs(props)
 
 const { data, isFetched, isLoading } = useFetchFamily(familyId)
 
-const childs = computed(() => data.value?.members.filter(member => member.code === null))
-const tutors = computed(() => data.value?.members.filter(member => member.code))
+const childs = computed(() => data.value?.members.filter(member => member.role === familyMemberRole.child))
+const tutors = computed(() => data.value?.members.filter(member => member.role === familyMemberRole.tutor))
 </script>
 
 <template>
@@ -45,16 +46,8 @@ const tutors = computed(() => data.value?.members.filter(member => member.code))
         </div>
       </div>
     </div>
-    <div
-      v-else-if="isLoading"
-      class="flex h-96 items-center justify-center"
-    >
-      <div class="flex w-52 flex-col gap-4">
-        <div class="skeleton h-32 w-full" />
-        <div class="skeleton h-4 w-28" />
-        <div class="skeleton h-4 w-full" />
-        <div class="skeleton h-4 w-full" />
-      </div>
+    <div v-else-if="isLoading" class="text-center">
+      <span class="loading loading-dots loading-lg" />
     </div>
   </div>
 </template>

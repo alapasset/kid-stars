@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { FamilyMember } from '~/types/family'
+import { familyMemberRole, type FamilyMember } from '~/types/family'
 
 const props = defineProps<{
   member: FamilyMember
@@ -8,8 +8,9 @@ const props = defineProps<{
 const { member } = toRefs(props)
 
 const { t } = useI18n()
-const isTutor = computed(() => Boolean(member.value.code))
+const isTutor = computed(() => member.value.role === familyMemberRole.tutor)
 const { mutateAsync, isSuccess, isPending } = useUpdateFamilyMember()
+const { mutateAsync: checkCode, isError: isWrongCode, isPending: isCheckingCode } = useMemberCheckCode()
 const editDialog = ref<HTMLDialogElement>()
 
 const { values, handleSubmit } = useForm<FamilyMember>({
@@ -46,14 +47,17 @@ function closeModal () {
 }
 
 const onSubmit = handleSubmit(async () => {
-  if(isTutor.value && member.value.code !== actualCode.value) {
-    setErrors(t('form.error.code.wrong'))
-    return
-  }
-  await mutateAsync(values)
-  if(isSuccess.value)
-    editDialog.value?.close()
+  if (isTutor.value) {
+    await checkCode(actualCode)
 
+    if(isWrongCode.value) {
+      setErrors(t('form.error.code.wrong'))
+      return
+    }
+  }
+
+  await mutateAsync(values)
+  if(isSuccess.value) editDialog.value?.close()
 })
 </script>
 
@@ -124,7 +128,7 @@ const onSubmit = handleSubmit(async () => {
             @click="onSubmit"
           >
             <span
-              v-if="isPending"
+              v-if="isPending || isCheckingCode"
               class="loading loading-spinner"
             />
             {{ t('common.confirm') }}

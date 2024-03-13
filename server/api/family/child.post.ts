@@ -13,8 +13,7 @@ export default defineEventHandler(async (event) => {
 
   if(errorFamilyMember) throw createError(errorFamilyMember)
 
-  const { error: errorFamilyMemberCreation } = await client.from('family_member')
-    .insert({ pseudo: body.pseudo, family: familyMember.family })
+  const { error: errorFamilyMemberCreation } = await client.from('family_member').insert({ pseudo: body.pseudo, family: familyMember.family, role: body.role })
 
   if(errorFamilyMemberCreation) throw createError(errorFamilyMemberCreation)
 })

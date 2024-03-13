@@ -7,7 +7,7 @@ export default defineEventHandler(async (event) => {
   if(event.context.params?.userId === undefined) throw createError({ statusCode: 400, statusMessage: 'No user id' })
 
   const client = await serverSupabaseClient<Database>(event)
-  const { data, error } = await client.from('family_member').select('*').eq('user', event.context.params.userId).maybeSingle()
+  const { data, error } = await client.from('family_member').select('id, family, user, pseudo, role').eq('user', event.context.params.userId).maybeSingle()
 
   if (error) throw createError(error.message)
   if (!data) throw createError({ statusCode: 400, statusMessage: 'No member for this user' })

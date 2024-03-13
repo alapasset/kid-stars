@@ -1,6 +1,8 @@
 import { serverSupabaseClient, serverSupabaseUser } from '#supabase/server'
+import { hash as argon2Hash } from 'argon2'
 import type { Database } from '~/types/database.types'
 import type { FamilyCreationForm } from '~/types/family'
+
 
 export default defineEventHandler(async (event) => {
   const user = await serverSupabaseUser(event)
@@ -15,7 +17,9 @@ export default defineEventHandler(async (event) => {
     .single()
   if(errorFamily) throw createError(errorFamily)
 
-  const { error: errorFamilyMember } = await client.from('family_member').insert({ pseudo: body.pseudo, family: family.id, user: user.id, code: body.code })
+  const hash = await argon2Hash(body.code)
+
+  const { error: errorFamilyMember } = await client.from('family_member').insert({ pseudo: body.pseudo, family: family.id, user: user.id, code: hash, role: body.role })
   if(errorFamilyMember) throw createError(errorFamilyMember)
 
 })
