@@ -40,7 +40,9 @@
     "task": "Tache(s)",
     "family": "Famille",
     "administration": "Administration",
-    "clear": "Clear"
+    "clear": "Effacer",
+    "me": "Mes informations",
+    "actions": "Actions"
   },
   "dashboard": {
     "title": "Tableau de bord"
@@ -203,6 +205,11 @@
   "admin": {
     "code": {
       "title": "Code de la session tuteur"
+    }
+  },
+  "me": {
+    "admin": {
+      "title": "Mes informations"
     }
   }
 }

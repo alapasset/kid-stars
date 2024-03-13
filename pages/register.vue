@@ -61,7 +61,7 @@ async function signInWithOauth () {
 </script>
 
 <template>
-  <div class="card mx-auto w-96 border bg-base-100 shadow-xl">
+  <div class="card mx-auto w-80 border bg-base-100 shadow-xl">
     <div class="card-body">
       <form
         class="flex flex-col gap-4"

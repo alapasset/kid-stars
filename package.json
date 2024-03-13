@@ -1,7 +1,7 @@
 {
   "dependencies": {
     "@hebilicious/vue-query-nuxt": "^0.3.0",
-    "@tanstack/vue-query": "^5.27.5",
+    "@tanstack/vue-query": "^5.28.0",
     "@vee-validate/nuxt": "^4.12.6",
     "argon2": "^0.40.1",
     "daisyui": "^4.7.3",

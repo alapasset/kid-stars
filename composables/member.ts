@@ -26,10 +26,11 @@ export function useInviteTutor () {
   })
 }
 
-export function useFetchFamilyMember (memberId: string) {
+export function useFetchFamilyMember (memberId: MaybeRef<string>) {
+  const memberIdReference = toRef(memberId)
   return useQuery({
-    queryKey: ['family', 'get-family-member', memberId],
-    queryFn: async () => await $fetch(`/api/family/member/${memberId}`),
+    queryKey: ['family', 'get-family-member', memberIdReference.value],
+    queryFn: async () => await $fetch<FamilyMember>(`/api/family/member/${memberIdReference.value}`),
   })
 }
 
@@ -48,7 +49,7 @@ export function useFetchFamilyMemberByUser (userId: MaybeRef<string | undefined>
     // eslint-disable-next-line @typescript-eslint/naming-convention
     enabled: isEnabled,
     queryKey: ['family', 'get-family-member-by-user', userIdReference.value],
-    queryFn: async () => await $fetch(`/api/family/member/user/${ userIdReference.value ?? '' }`),
+    queryFn: async () => await $fetch<FamilyMember>(`/api/family/member/user/${ userIdReference.value ?? '' }`),
   })
 }
 export function useDeleteFamilyMember () {

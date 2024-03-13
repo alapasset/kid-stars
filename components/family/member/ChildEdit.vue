@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { familyMemberRole, type FamilyMember } from '~/types/family'
+import type { FamilyMember } from '~/types/family'
 
 const props = defineProps<{
   member: FamilyMember
@@ -8,9 +8,7 @@ const props = defineProps<{
 const { member } = toRefs(props)
 
 const { t } = useI18n()
-const isTutor = computed(() => member.value.role === familyMemberRole.tutor)
 const { mutateAsync, isSuccess, isPending } = useUpdateFamilyMember()
-const { mutateAsync: checkCode, isError: isWrongCode, isPending: isCheckingCode } = useMemberCheckCode()
 const editDialog = ref<HTMLDialogElement>()
 
 const { values, handleSubmit } = useForm<FamilyMember>({
@@ -28,16 +26,6 @@ const { value: pseudo, errorMessage: errorMessagePseudo } = useField<string>(
   },
 )
 
-const { value: code, errorMessage: errorMessageCode } = useField<string>(
-  'code',
-  inputValue => {
-    if(!/^\d{6}$/u.test(inputValue)) return t('form.error.code.legnth')
-    return true
-  },
-)
-
-const { value: actualCode, errorMessage: errorMessageActualCode, setErrors } = useField<string>('actualCode')
-
 function openModal () {
   editDialog.value?.showModal()
 }
@@ -47,15 +35,6 @@ function closeModal () {
 }
 
 const onSubmit = handleSubmit(async () => {
-  if (isTutor.value) {
-    await checkCode(actualCode)
-
-    if(isWrongCode.value) {
-      setErrors(t('form.error.code.wrong'))
-      return
-    }
-  }
-
   await mutateAsync(values)
   if(isSuccess.value) editDialog.value?.close()
 })
@@ -100,25 +79,6 @@ const onSubmit = handleSubmit(async () => {
             :placeholder="t('form.label.pseudo')"
             required
           />
-          <CoreInputText
-            v-if="isTutor"
-            v-model="code"
-            :error-messages="errorMessageCode"
-            icon="material-symbols:lock"
-            :label="t('form.label.new-code')"
-            :placeholder="t('form.label.new-code')"
-            type="password"
-          />
-          <CoreInputText
-            v-if="isTutor"
-            v-model="actualCode"
-            :error-messages="errorMessageActualCode"
-            icon="material-symbols:shield-lock"
-            :label="t('form.label.actual-code')"
-            :placeholder="t('form.label.actual-code')"
-            required
-            type="password"
-          />
         </div>
         <div class="flex flex-col gap-2 p-2">
           <button
@@ -128,7 +88,7 @@ const onSubmit = handleSubmit(async () => {
             @click="onSubmit"
           >
             <span
-              v-if="isPending || isCheckingCode"
+              v-if="isPending"
               class="loading loading-spinner"
             />
             {{ t('common.confirm') }}

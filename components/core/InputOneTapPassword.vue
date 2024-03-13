@@ -23,18 +23,20 @@ function onClearInput () {
 </script>
 
 <template>
-  <div class="flex gap-5">
-    <v-otp-input
-      ref="otpInput"
-      input-classes="otp-input"
-      input-type="password"
-      :num-inputs="6"
-      separator=""
-      should-auto-focus
-      should-focus-order
-      value=""
-      @on-complete="onComplete"
-    />
+  <div class="flex flex-col gap-5">
+    <div class="flex gap-5">
+      <v-otp-input
+        ref="otpInput"
+        input-classes="otp-input"
+        input-type="password"
+        :num-inputs="6"
+        separator=""
+        should-auto-focus
+        should-focus-order
+        value=""
+        @on-complete="onComplete"
+      />
+    </div>
     <button class="btn btn-secondary" type="button" @click="onClearInput">{{ t('common.clear') }}</button>
   </div>
 </template>
