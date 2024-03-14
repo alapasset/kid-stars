@@ -17,7 +17,7 @@ function onComplete (value: string) {
 watch(isSuccess, async (isNewSuccess: boolean) => {
   if(isNewSuccess) {
     showAdmin.value = true
-    await navigateTo('/admin/family')
+    await navigateTo('/admin/me')
   }
 })
 </script>

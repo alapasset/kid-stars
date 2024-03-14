@@ -113,7 +113,7 @@
         "required": "Le code est obligatoire",
         "wrong": "Le code est incorrect, êtes-vous sûr de l'avoir bien saise ?",
         "same": "Les codes doivent être identiques",
-        "legnth": "Le code doit faire 6 chiffres"
+        "length": "Le code doit faire 6 chiffres"
       },
       "family-name": {
         "required": "Le nom de famille est obligatoire"
