@@ -1,7 +1,4 @@
-export enum NotificationType {
-  IsError = 'error',
-  IsSuccess = 'success',
-}
+export type NotificationType = 'error' | 'success'
 
 export interface GlobalNotification {
   id: string

@@ -3,7 +3,7 @@ const props = defineProps<{
   memberId: string
 }>()
 
-const { memberId } = toRefs(props)
+const memberId = toRef(props, 'memberId')
 
 const { t } = useI18n()
 
@@ -19,7 +19,7 @@ function closeModal () {
 }
 
 async function onSubmit () {
-  await mutateAsync(memberId.value)
+  await mutateAsync(memberId)
   deleteDialog.value?.close()
 }
 </script>
@@ -27,7 +27,7 @@ async function onSubmit () {
 <template>
   <div>
     <button
-    class="btn btn-circle btn-ghost "
+      class="btn btn-circle btn-ghost "
       type="button"
       @click.stop="openModal"
     >

@@ -14,4 +14,8 @@ const { t } = useI18n()
     v-if="families?.[0]?.family"
     :family-id="families?.[0]?.family"
   />
+  <DashboardTask
+    v-if="families?.[0]?.family"
+    :family-id="families?.[0]?.family"
+    />
 </template>

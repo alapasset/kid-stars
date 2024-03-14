@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { NotificationType, type GlobalNotification } from '~/types/notifications'
+import type { GlobalNotification } from '~/types/notifications'
 
 const props = defineProps<{
   notification: GlobalNotification
@@ -17,7 +17,7 @@ setTimeout(removeCurrentNotification, timeToWait)
 <template>
   <div
     class="flex w-full items-center gap-3 p-2 text-white shadow-md md:rounded-lg md:p-4"
-    :class="notification?.type === NotificationType.IsError ? `bg-error` : `bg-success`"
+    :class="notification?.type === 'error' ? `bg-error` : `bg-success`"
   >
     <span class="flex-1">{{ notification?.message }}</span>
     <button

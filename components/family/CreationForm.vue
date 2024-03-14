@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { familyMemberRole, type FamilyCreationForm } from '~/types/family'
+import type { FamilyCreationForm } from '~/types/family'
 
 const { t } = useI18n()
 const { handleSubmit, setFieldValue } = useForm<FamilyCreationForm>({
@@ -7,7 +7,7 @@ const { handleSubmit, setFieldValue } = useForm<FamilyCreationForm>({
     name: '',
     pseudo: '',
     code: '',
-    role: familyMemberRole.tutor,
+    role: 'tutor',
   },
 })
 

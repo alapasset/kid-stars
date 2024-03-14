@@ -1,12 +1,12 @@
 <script setup lang="ts">
-import { familyMemberRole, type ChildCreationForm } from '~/types/family'
+import type { ChildCreationForm } from '~/types/family'
 
 const { mutateAsync, isPending } = useCreateChild()
 const { handleSubmit } = useForm<ChildCreationForm>(
   {
     initialValues: {
       pseudo: '',
-      role: familyMemberRole.child,
+      role: 'child',
     },
   },
 )

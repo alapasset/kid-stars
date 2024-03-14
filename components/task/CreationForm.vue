@@ -15,6 +15,7 @@ const { handleSubmit, resetForm } = useForm<TaskCreationForm>({
   initialValues: {
     tutor: user.value?.id,
     family: familyId.value,
+    status: 'pending',
   },
 })
 
