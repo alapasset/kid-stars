@@ -1,12 +1,11 @@
 <script setup lang="ts">
-import { useGetLastTransaction } from '~/composables/point'
-
 const props = defineProps<{
   isLastTransaction: boolean
   memberId: string
 }>()
 
-const { memberId, isLastTransaction } = toRefs(props)
+const memberId = toRef(props, 'memberId')
+const isLastTransaction = toRef(props, 'isLastTransaction')
 
 const { data: point } = useGetPoint(memberId)
 const doGetLastTransaction = computed(() => isLastTransaction.value && Boolean(point.value))

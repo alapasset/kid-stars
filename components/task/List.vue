@@ -15,6 +15,7 @@ const { data: tasks, isFetched } = useFetchTasksByFamily(familyId)
           <th>{{ t('common.creator') }}</th>
           <th>{{ t('common.points') }}</th>
           <th>{{ t('common.child') }}</th>
+          <th>Status</th>
         </tr>
       </thead>
       <tbody>
@@ -29,13 +30,16 @@ const { data: tasks, isFetched } = useFetchTasksByFamily(familyId)
             {{ task.description }}
           </td>
           <td>
-            {{ task.familyMember.pseudo }}
+            {{ task.tutorMember.pseudo }}
           </td>
           <td>
             {{ task.points }}
           </td>
           <td>
-            {{ task.child || t('task.admin.not-done') }}
+            {{ task.childMember?.pseudo }}
+          </td>
+          <td>
+            {{ task.status }}
           </td>
           <td>
             <Icon

@@ -7,7 +7,8 @@ export default defineEventHandler(async (event) => {
   if(event.context.params?.id === undefined) throw createError({ statusCode: 400, statusMessage: 'No family id' })
 
   const client = await serverSupabaseClient<Database>(event)
-  const { data, error } = await client.from('task').select('*, familyMember:tutor(pseudo)').eq('family', event.context.params.id)
+  // eslint-disable-next-line @typescript-eslint/naming-convention
+  const { data, error } = await client.from('task').select('*, tutorMember:tutor(pseudo), childMember:child(pseudo)').eq('family', event.context.params.id).order('created_at', { ascending: true })
   if (error) throw createError(error.message)
   return data
 })

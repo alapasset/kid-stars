@@ -1,9 +1,4 @@
-export const familyMemberRole = {
-  child: 'child',
-  tutor: 'tutor',
-} as const
-
-export type FamilyMemberRole = keyof typeof familyMemberRole
+export type FamilyMemberRole = 'child' | 'tutor'
 
 export interface FamilyCreationForm {
   code: string

@@ -24,3 +24,18 @@ export function useFetchTasksByFamily (familyId: MaybeRef<string>){
   })
 }
 
+export function useUpdateTask () {
+  const queryClient = useQueryClient()
+  const { notifySuccess, notifyError } = useNotifications()
+  const { t } = useI18n()
+
+  return useMutation({
+    mutationFn: async (data: Partial<Task>) => await $fetch(`/api/task/${data.id ?? ''}`, { method: 'put', body: data }),
+    onSuccess: async () => {
+      await queryClient.invalidateQueries({ queryKey: ['task'] })
+      notifySuccess(t('notification.update.success'))
+    },
+    onError: () => { notifyError(t('notification.update.error')) },
+  })
+}
+

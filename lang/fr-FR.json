@@ -192,7 +192,13 @@
       "form": {
         "title": "Création d'une tâche"
       },
-      "not-done": "Non effectuée"
+      "not-done": "Non attribuée"
+    },
+    "dashboard": {
+      "title" : "Liste des taches disponible en ce moment.",
+      "form": {
+        "title": "Qui a effectué la tâche ?"
+      }
     },
     "manage": "Gérer les tâches"
   },

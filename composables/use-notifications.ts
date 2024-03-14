@@ -1,14 +1,14 @@
-import { NotificationType, type GlobalNotification } from '~/types/notifications'
+import type { GlobalNotification } from '~/types/notifications'
 import { nanoid } from 'nanoid'
 
 const notifications = ref<GlobalNotification[]>([])
 
 function addSuccessNotification (message: string) {
-  notifications.value.push({ id: nanoid(), message, type: NotificationType.IsSuccess })
+  notifications.value.push({ id: nanoid(), message, type: 'success' })
 }
 
 function addErrorNotification (message: string) {
-  notifications.value.push({ id: nanoid(), message, type: NotificationType.IsError })
+  notifications.value.push({ id: nanoid(), message, type: 'error' })
 }
 
 function removeNotification (id: string) {

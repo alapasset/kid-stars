@@ -58,7 +58,10 @@ export function useDeleteFamilyMember () {
   const { t } = useI18n()
 
   return useMutation({
-    mutationFn: async (memberId: string) => await $fetch(`/api/family/member/${memberId}`, { method: 'delete' }),
+    mutationFn: async (memberId: MaybeRef<string>) => {
+      const memberIdReference = toRef(memberId)
+      return await $fetch(`/api/family/member/${memberIdReference.value}`, { method: 'delete' })
+    },
     onSuccess: async () => {
       await queryClient.invalidateQueries({ queryKey: ['family'] })
       notifySuccess(t('notification.delete.success'))

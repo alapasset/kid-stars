@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { familyMemberRole, type FamilyMember } from '~/types/family'
+import type { FamilyMember } from '~/types/family'
 
 const props = defineProps<{ familyId: string }>()
 const { t } = useI18n()
@@ -7,7 +7,7 @@ const familyId = toRef(props, 'familyId')
 const { data: familyMembers, isFetched } = useFetchFamilyMembers(familyId)
 
 function isTutor (member: FamilyMember) {
-  return member.role === familyMemberRole.tutor
+  return member.role === 'tutor'
 }
 
 function getStatus (member: FamilyMember) {

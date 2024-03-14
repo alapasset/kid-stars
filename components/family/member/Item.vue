@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { familyMemberRole, type FamilyMember } from '~/types/family'
+import type { FamilyMember } from '~/types/family'
 
 const props = defineProps<{
   member: FamilyMember
@@ -9,7 +9,7 @@ const { t } = useI18n()
 
 const user = useSupabaseUser()
 
-const isTutor = computed(() => props.member.role === familyMemberRole.tutor)
+const isTutor = computed(() => props.member.role === 'tutor')
 const profile = computed(() => props.member.user === user.value?.id ? String(user.value?.user_metadata.avatar_url) : undefined)
 const title = computed(() => isTutor.value ? t('family.tutor') : t('family.child'))
 </script>

@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { useFetchFamily } from '~/composables/family'
-import { familyMemberRole } from '~/types/family'
 
 const props = defineProps<{
   familyId: string
@@ -12,8 +11,8 @@ const { familyId } = toRefs(props)
 
 const { data, isFetched, isLoading } = useFetchFamily(familyId)
 
-const childs = computed(() => data.value?.members.filter(member => member.role === familyMemberRole.child))
-const tutors = computed(() => data.value?.members.filter(member => member.role === familyMemberRole.tutor))
+const childs = computed(() => data.value?.members.filter(member => member.role === 'child'))
+const tutors = computed(() => data.value?.members.filter(member => member.role === 'tutor'))
 </script>
 
 <template>
