@@ -4,7 +4,6 @@ const props = defineProps<{
 }>()
 
 const memberId = toRef(props, 'memberId')
-
 const { t } = useI18n()
 
 const { mutateAsync, isPending } = useDeleteFamilyMember()
