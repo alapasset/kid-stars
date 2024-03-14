@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { Task } from '~/types/task.js'
+import { type Task, taskStatus } from '~/types/task.js'
 import type { FamilyMember } from '~/types/family.js'
 
 const props = defineProps<{
@@ -20,22 +20,23 @@ const { mutateAsync, isPending } = useUpdateTask()
 const { values, handleSubmit, setFieldValue } = useForm<Task>({
   initialValues: {
     id: task.value.id,
-    status: 'toBeValidated',
+    status: taskStatus.toBeValidated,
   },
 })
 
 const statusClass = computed(() => {
-  if (task.value.status === 'validated')
+  if (task.value.status === taskStatus.validated)
     return 'border-green-600'
 
-  if (task.value.status === 'toBeValidated')
+  if (task.value.status === taskStatus.toBeValidated)
+
     return 'border-amber-400'
 
   return 'border-red-600'
 })
 
 const filteredMembers = computed(() => members.value ? members.value.filter(member => member.role === 'child') : [])
-const isValidated = computed(() => task.value.status === 'validated')
+const isValidated = computed(() => task.value.status === taskStatus.validated)
 
 function setValue (value: FamilyMember) {
   setFieldValue('child', value.id)
