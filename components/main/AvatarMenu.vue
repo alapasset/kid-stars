@@ -17,7 +17,7 @@ async function goToDashboard () {
   await navigateTo('/dashboard')
 }
 async function goToAdmin () {
-  await navigateTo('/admin')
+  await navigateTo('/admin/me')
 }
 </script>
 

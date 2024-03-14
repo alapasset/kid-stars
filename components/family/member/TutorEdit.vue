@@ -16,7 +16,7 @@ const { values, handleSubmit } = useForm<FamilyMember>({
   },
 })
 
-const { value: pseudo, errorMessage: errorMessagePseudo } = useField<string>(
+const { value: pseudo, errorMessage: errorMessagePseudo, setValue } = useField<string>(
   'pseudo',
   inputValue => {
     if(!inputValue || inputValue.length === 0) return t('form.error.pseudo.required')
@@ -27,7 +27,7 @@ const { value: pseudo, errorMessage: errorMessagePseudo } = useField<string>(
 const { value: code, errorMessage: errorMessageCode } = useField<string>(
   'code',
   inputValue => {
-    if(!/^\d{6}$/u.test(inputValue)) return t('form.error.code.legnth')
+    if(inputValue && !/^\d{6}$/u.test(inputValue)) return t('form.error.code.length')
     return true
   },
 )
@@ -42,6 +42,10 @@ const onSubmit = handleSubmit(async () => {
   }
   await mutateAsync(values)
   if(isSuccess.value) editDialog.value?.close()
+})
+
+watch(member, () => {
+  if(member.value) setValue(member.value.pseudo)
 })
 </script>
 
