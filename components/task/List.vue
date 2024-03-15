@@ -15,7 +15,8 @@ const { data: tasks, isFetched } = useFetchTasksByFamily(familyId)
           <th>{{ t('common.creator') }}</th>
           <th>{{ t('common.points') }}</th>
           <th>{{ t('common.child') }}</th>
-          <th>Status</th>
+          <th>{{ t('common.status') }}</th>
+          <th>{{ t('common.actions') }}</th>
         </tr>
       </thead>
       <tbody>
@@ -39,13 +40,11 @@ const { data: tasks, isFetched } = useFetchTasksByFamily(familyId)
             {{ task.childMember?.pseudo }}
           </td>
           <td>
-            {{ task.status }}
+            {{ t(`task.status.${task.status }`) }}
           </td>
-          <td>
-            <Icon
-              class="size-6"
-              name="material-symbols:settings-rounded"
-            />
+          <td class="flex gap-3">
+            <TaskEdit :task />
+            <TaskDelete :task />
           </td>
         </tr>
       </tbody>

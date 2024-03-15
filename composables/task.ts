@@ -39,3 +39,22 @@ export function useUpdateTask () {
   })
 }
 
+export function useDeleteTask () {
+  const queryClient = useQueryClient()
+  const { notifySuccess, notifyError } = useNotifications()
+  const { t } = useI18n()
+
+  return useMutation({
+    mutationFn: async (taskId: MaybeRef<string>) => {
+      const taskIdReference = toRef(taskId)
+      return await $fetch(`/api/task/${taskIdReference.value}`, { method: 'delete' })
+    },
+    onSuccess: async () => {
+      await queryClient.invalidateQueries({ queryKey: ['task'] })
+      notifySuccess(t('notification.delete.success'))
+    },
+    onError: () => { notifyError(t('notification.delete.error')) },
+
+  })
+}
+

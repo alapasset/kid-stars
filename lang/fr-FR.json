@@ -130,6 +130,9 @@
         "name": {
           "required": "Le nom de la tâche est obligatoire"
         },
+        "status": {
+          "invalid": "Le status ne peut être en attente si un enfant a été désigné pour la tâche"
+        },
         "description": {
           "required": "La description de la tâche est obligatoire"
         },
@@ -190,17 +193,35 @@
     "admin": {
       "title": "Gestion des tâches",
       "form": {
-        "title": "Création d'une tâche"
-      },
-      "not-done": "Non attribuée"
+        "create": {
+          "title": "Création d'une tâche"
+        },
+        "edit": {
+          "title": "Editer une tâche",
+          "childField": "À qui attribuer la tâche ?",
+          "childFieldReset": "Ne pas attribuer ?",
+          "status": "Mettre à jour le status?"
+        },
+        "delete": {
+          "confirm": "Êtes vous sûr de vouloir supprimer cette tâche ?"
+        }
+      }
     },
     "dashboard": {
       "title" : "Liste des taches disponible en ce moment.",
       "form": {
         "title": "Qui a effectué la tâche ?"
+      },
+      "card": {
+        "emptyChild": "Non attribuée"
       }
     },
-    "manage": "Gérer les tâches"
+    "manage": "Gérer les tâches",
+    "status": {
+      "validated": "Validée",
+      "toBeValidated": "Prête pour validation",
+      "pending": "En attente"
+    }
   },
   "member": {
     "check-code": {

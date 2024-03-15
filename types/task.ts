@@ -1,10 +1,4 @@
-export const taskStatus = {
-  validated: 'validated',
-  toBeValidated: 'toBeValidated',
-  pending: 'pending',
-} as const
-
-export type TaskStatus = keyof typeof taskStatus
+export type TaskStatus = 'pending' | 'toBeValidated' | 'validated'
 
 export interface TaskCreationForm {
   description: string
@@ -16,7 +10,7 @@ export interface TaskCreationForm {
 }
 
 export interface TaskUpdateForm {
-  child: string | null
+  child?: string
   description: string
   id: string
   name: string
@@ -32,7 +26,7 @@ export interface TutorMember {
 }
 
 export interface Task {
-  child: string | null
+  child?: string
   childMember: ChildMember
   createdAt: string
   description: string

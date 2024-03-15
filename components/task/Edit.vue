@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { type Task, type TaskUpdateForm, taskStatus, type TaskStatus } from '~/types/task.js'
+import type { Task, TaskUpdateForm } from '~/types/task.js'
 import type { FamilyMember } from '~/types/family.js'
 
 const props = defineProps<{ task: Task }>()
@@ -7,12 +7,11 @@ const { task } = toRefs(props)
 const { t } = useI18n()
 const editDialog = ref<HTMLDialogElement>()
 const familyId = ref(task.value.family)
-const selectedMemberId = ref<string | null>(task.value.child)
+const selectedMemberId = ref<string | undefined>(task.value.child)
 
 const { data: members } = useFetchFamilyMembers(familyId)
 const { mutateAsync, isPending } = useUpdateTask()
 
-const statusOptions = computed(() => Object.keys(taskStatus))
 const filteredMembers = computed(() => members.value ? members.value.filter(member => member.role === 'child') : [])
 
 const { values, handleSubmit, setFieldValue } = useForm<TaskUpdateForm>({
@@ -50,15 +49,6 @@ const { value: points, errorMessage: errorMessagePoint, setValue } = useField<nu
     return true
   },
 )
-const { value: status, errorMessage: errorMessageStatus } = useField<TaskStatus>(
-  'status',
-  inputValue => {
-    if ((inputValue !== statusOptions.value.find(status => status === inputValue) || (inputValue === taskStatus.pending && values.child !== null)))
-      return t('form.error.task.status.invalid')
-
-    return true
-  },
-)
 
 function onPointUpdate (value: string) {
   setValue(Number(value))
@@ -70,10 +60,8 @@ function setChildValue (value: FamilyMember) {
   if(value.id) selectedMemberId.value = value.id
 }
 function resetChildValue () {
-  // eslint-disable-next-line unicorn/no-null
-  setFieldValue('child', null)
-  // eslint-disable-next-line unicorn/no-null
-  selectedMemberId.value = null
+  setFieldValue('child', undefined)
+  selectedMemberId.value = undefined
 }
 
 function openModal () {
@@ -104,7 +92,7 @@ const onSubmit = handleSubmit(async () => {
         >
           <div class="flex items-center justify-between">
             <h3 class="text-lg font-bold">
-              Editer une tâche
+              {{ t('task.admin.form.edit.title') }}
             </h3>
             <form method="dialog">
               <button class="btn btn-circle btn-ghost btn-sm" type="submit">
@@ -146,7 +134,7 @@ const onSubmit = handleSubmit(async () => {
               @update:model-value="onPointUpdate"
             />
           </div>
-          <p class="font-bold">A qui attribuer la tache?</p>
+          <p class="font-bold">{{ t('task.admin.form.edit.childField') }}</p>
           <div
               v-if="filteredMembers"
               class="flex flex-wrap justify-around gap-2"
@@ -166,19 +154,8 @@ const onSubmit = handleSubmit(async () => {
                 type="button"
                 @click="resetChildValue"
               >
-                Ne pas attribuer ?
-              </button>
-          </div>
-          <div>
-            <p class="pb-4 font-bold">Mettre à jour le status?</p>
-            <label class="form-control w-full" for="status">
-              <select v-model="status" class="select select-bordered" name="status">
-                <option v-for="(value, key) in statusOptions" :key :value>
-                  {{ value }}
-                </option>
-              </select>
-              <p v-if="errorMessageStatus" class="text-red-500">{{ errorMessageStatus }}</p>
-            </label>
+              {{ t('task.admin.form.edit.childFieldReset') }}
+            </button>
           </div>
           <button
             class="btn btn-primary"

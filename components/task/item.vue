@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { type Task, taskStatus } from '~/types/task.js'
+import type { Task } from '~/types/task.js'
 import type { FamilyMember } from '~/types/family.js'
 
 const props = defineProps<{
@@ -20,15 +20,15 @@ const { mutateAsync, isPending } = useUpdateTask()
 const { values, handleSubmit, setFieldValue } = useForm<Task>({
   initialValues: {
     id: task.value.id,
-    status: taskStatus.toBeValidated,
+    status: 'toBeValidated',
   },
 })
 
 const statusClass = computed(() => {
-  if (task.value.status === taskStatus.validated)
+  if (task.value.status === 'validated')
     return 'border-green-600'
 
-  if (task.value.status === taskStatus.toBeValidated)
+  if (task.value.status === 'toBeValidated')
 
     return 'border-amber-400'
 
@@ -36,7 +36,7 @@ const statusClass = computed(() => {
 })
 
 const filteredMembers = computed(() => members.value ? members.value.filter(member => member.role === 'child') : [])
-const isValidated = computed(() => task.value.status === taskStatus.validated)
+const isValidated = computed(() => task.value.status === 'validated')
 
 function setValue (value: FamilyMember) {
   setFieldValue('child', value.id)
@@ -87,7 +87,7 @@ const onSubmit = handleSubmit(async () => {
           </div>
           <div class="flex w-full justify-between pb-2 font-bold">
             <p class="text-sm font-normal tracking-normal">{{ task.description }}</p>
-            <p>{{ task.childMember?.pseudo || 'Non attribuée' }}</p>
+            <p>{{ task.childMember?.pseudo || t('task.dashboard.card.emptyChild') }}</p>
           </div>
         </div>
         <div>
