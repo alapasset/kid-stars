@@ -218,6 +218,9 @@
       "validated": "Validée",
       "toBeValidated": "Prête pour validation",
       "pending": "En attente"
+    },
+    "item": {
+      "point": "points"
     }
   },
   "member": {
