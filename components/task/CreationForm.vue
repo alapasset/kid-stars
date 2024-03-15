@@ -59,7 +59,7 @@ function onPointUpdate (value: string) {
 <template>
   <div class="max-w-80">
     <h3 class="text-lg font-bold">
-      {{ t('task.admin.form.title') }}
+      {{ t('task.admin.form.create.title') }}
     </h3>
     <form
       class="flex flex-col gap-5"
