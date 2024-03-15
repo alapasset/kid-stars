@@ -81,7 +81,7 @@ async function onSubmit () {
         class="modal-backdrop"
         method="dialog"
       >
-        <button type="submit">close</button>
+        <button type="submit"></button>
       </form>
     </dialog>
   </div>

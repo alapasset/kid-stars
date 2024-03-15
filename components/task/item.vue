@@ -83,7 +83,7 @@ const onSubmit = handleSubmit(async () => {
             >
               {{ task.name }}
             </h4>
-            <h5 class="font-bold">{{ task.points }} points</h5>
+            <h5 class="font-bold">{{ task.points }} {{ $t('task.item.point') }}</h5>
           </div>
           <div class="flex w-full justify-between pb-2 font-bold">
             <p class="text-sm font-normal tracking-normal">{{ task.description }}</p>
@@ -148,7 +148,7 @@ const onSubmit = handleSubmit(async () => {
         class="modal-backdrop"
         method="dialog"
       >
-        <button type="submit">close</button>
+        <button type="submit"></button>
       </form>
     </dialog>
   </div>
