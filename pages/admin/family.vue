@@ -5,7 +5,7 @@ definePageMeta({
 
 const { data: families, isFetched: isOnFetch } = useFetchFamilies()
 const { t } = useI18n()
-const myFirstFamily = computed(() => families.value?.[0]?.family)
+const myFirstFamily = computed(() => families.value?.[0]?.id)
 </script>
 
 <template>
@@ -14,7 +14,7 @@ const myFirstFamily = computed(() => families.value?.[0]?.family)
     :title="t('family.admin.title')"
   >
     <template #form>
-      <FamilyMemberCreationForm
+      <MemberCreationForm
         v-if="myFirstFamily"
         :family-id="myFirstFamily"
         :title="t('family.admin.title')"
@@ -22,7 +22,7 @@ const myFirstFamily = computed(() => families.value?.[0]?.family)
     </template>
 
     <template #list>
-      <FamilyMemberList
+      <MemberList
         v-if="myFirstFamily"
         :family-id="myFirstFamily"
       />

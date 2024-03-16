@@ -1,17 +1,18 @@
+import type { Child } from './member'
+import type { Task } from './task'
+
 export interface Point {
-  child: string
+  child: Child
   points: number
+  task: Task
 }
 
-export  interface PointCreationForm {
-  child: string
-  points: number
-}
+export type PointForm = Pick<Point, 'points'>
+export type LastPoint = Pick<Point, 'points'>
 
 export interface SumPoint {
   sum: number
 }
 
-export interface LastPoint {
-  points: number
-}
+export const minusPointValues = [-25, -10, -5, -1]
+export const plusPointValues = [1, 5, 10, 25]

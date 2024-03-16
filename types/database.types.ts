@@ -9,6 +9,41 @@ export type Json =
 export type Database = {
   public: {
     Tables: {
+      activity: {
+        Row: {
+          created_at: string
+          description: string
+          family: string | null
+          id: string
+          name: string
+          points: number
+        }
+        Insert: {
+          created_at?: string
+          description: string
+          family?: string | null
+          id?: string
+          name: string
+          points: number
+        }
+        Update: {
+          created_at?: string
+          description?: string
+          family?: string | null
+          id?: string
+          name?: string
+          points?: number
+        }
+        Relationships: [
+          {
+            foreignKeyName: "public_activity_family_fkey"
+            columns: ["family"]
+            isOneToOne: false
+            referencedRelation: "family"
+            referencedColumns: ["id"]
+          }
+        ]
+      }
       family: {
         Row: {
           creator: string
@@ -41,7 +76,7 @@ export type Database = {
           family: string
           id: string
           pseudo: string
-          role: string | null
+          role: string
           user: string | null
         }
         Insert: {
@@ -49,7 +84,7 @@ export type Database = {
           family: string
           id?: string
           pseudo: string
-          role?: string | null
+          role: string
           user?: string | null
         }
         Update: {
@@ -57,7 +92,7 @@ export type Database = {
           family?: string
           id?: string
           pseudo?: string
-          role?: string | null
+          role?: string
           user?: string | null
         }
         Relationships: [
@@ -79,32 +114,52 @@ export type Database = {
       }
       point: {
         Row: {
+          activity: string | null
           child: string
           created_at: string
           id: string
           points: number
+          task: string | null
           tutor: string
         }
         Insert: {
+          activity?: string | null
           child?: string
           created_at?: string
           id?: string
           points: number
+          task?: string | null
           tutor?: string
         }
         Update: {
+          activity?: string | null
           child?: string
           created_at?: string
           id?: string
           points?: number
+          task?: string | null
           tutor?: string
         }
         Relationships: [
+          {
+            foreignKeyName: "public_point_activity_fkey"
+            columns: ["activity"]
+            isOneToOne: false
+            referencedRelation: "activity"
+            referencedColumns: ["id"]
+          },
           {
             foreignKeyName: "public_point_child_fkey"
             columns: ["child"]
             isOneToOne: false
             referencedRelation: "family_member"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "public_point_task_fkey"
+            columns: ["task"]
+            isOneToOne: false
+            referencedRelation: "task"
             referencedColumns: ["id"]
           },
           {

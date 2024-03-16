@@ -1,21 +1,14 @@
 {
   "$schema": "https://json.schemastore.org/eslintrc",
   "root": true,
-  "env": {
-    "browser": true,
-    "node": true
-  },
-  "parser": "vue-eslint-parser",
   "extends": [
     "plugin:tailwindcss/recommended",
     "plugin:unicorn/all",
     "hardcore",
     "hardcore/ts",
-    "hardcore/vue",
-    "@nuxt/eslint-config"
+    "hardcore/vue"
   ],
   "parserOptions": {
-    "parser": "@typescript-eslint/parser",
     "project": "tsconfig.json"
   },
   "ignorePatterns": [
@@ -199,7 +192,7 @@
           "args": true,
           "pkg": true,
           "str": true,
-          "props": true,
+          "props": true
         }
       }
     ],
@@ -223,6 +216,6 @@
     "vuejs-accessibility/interactive-supports-focus": "off",
     "vuejs-accessibility/no-static-element-interactions": "off",
     "sonar/function-return-type": "off",
-    "no-magic-numbers":"off"
+    "@typescript-eslint/no-magic-numbers":"off"
   }
 }

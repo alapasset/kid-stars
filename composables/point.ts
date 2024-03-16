@@ -1,28 +1,13 @@
-import type { LastPoint, Point, SumPoint } from '~/types/point'
+import type { LastPoint, PointForm, SumPoint } from '~/types/point'
 
-export function useCreatePoint () {
-  const queryClient = useQueryClient()
-  const { notifySuccess, notifyError } = useNotifications()
-  const { t } = useI18n()
-
-  return useMutation({
-    mutationFn: async (body: Point) => await $fetch(`/api/family/member/${body.child}/point`, { method: 'post', body }),
-    onSuccess: async () => {
-      await queryClient.invalidateQueries({ queryKey: ['point'] })
-      notifySuccess(t('notification.update.success'))
-    },
-    onError: () => { notifyError(t('notification.save.error')) },
-  })
-}
-
-export function useGetPoint (child: MaybeRef<string>, doCall: MaybeRef<boolean> = true) {
+export function useGetPoints (child: MaybeRef<string>, doCall: MaybeRef<boolean> = true) {
   const doCallReference = toRef(doCall)
   const childReference = toRef(child)
   return useQuery({
     // eslint-disable-next-line @typescript-eslint/naming-convention
     enabled: doCallReference.value,
+    queryFn: async () => await $fetch<SumPoint[]>(`/api/point/child/${childReference.value}`, { method: 'get' }),
     queryKey: ['point', childReference.value],
-    queryFn: async () => await $fetch<SumPoint[]>(`/api/point/${childReference.value}`, { method: 'get' }),
   })
 }
 
@@ -31,9 +16,25 @@ export function useGetLastTransaction (child: MaybeRef<string>, doCall: MaybeRef
   const doCallReference = toRef(doCall)
   const isEnabled = Boolean(doCallReference.value)
   return useQuery({
-    queryKey: ['last', childReference.value],
-    queryFn: async () => await $fetch<LastPoint[]>(`/api/family/member/${childReference.value}/last-transaction`, { method: 'get' }),
     // eslint-disable-next-line @typescript-eslint/naming-convention
     enabled: isEnabled,
+    queryFn: async () => await $fetch<LastPoint[]>(`/api/point/child/${childReference.value}/last-transaction`, { method: 'get' }),
+    queryKey: ['point', 'last-transaction', childReference.value],
+  })
+}
+
+export function useAddPoint (childId: MaybeRef<string>) {
+  const childIdReference = toRef(childId)
+  const queryClient = useQueryClient()
+  const { notifyError, notifySuccess } = useNotifications()
+  const { t } = useI18n()
+
+  return useMutation({
+    mutationFn: async (body: PointForm) => await $fetch(`/api/point/child/${childIdReference.value}`, { body, method: 'post' }),
+    onError: () => { notifyError(t('notification.save.error')) },
+    onSuccess: async () => {
+      await queryClient.invalidateQueries({ queryKey: ['point'] })
+      notifySuccess(t('notification.update.success'))
+    },
   })
 }

@@ -1,13 +1,6 @@
-export interface UserCreationForm {
+export interface UserForm {
   email: string
   password: string
 }
 
-export interface UserPasswordCreationForm {
-  password: string
-}
-
-export interface UserLoginForm {
-  email: string
-  password: string
-}
+export type UserPasswordForm = Pick<UserForm, 'password'>

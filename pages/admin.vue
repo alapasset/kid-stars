@@ -4,7 +4,7 @@ definePageMeta({
 })
 
 const { t } = useI18n()
-const { mutate, isSuccess, isPending } = useMemberCheckCode()
+const { isPending, isSuccess, mutate } = useTutorCheckCode()
 const route = useRoute()
 const currentPage = computed(() => route.path.split('/').pop())
 const pages = ['me', 'family', 'task']
