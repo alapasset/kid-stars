@@ -11,11 +11,11 @@ const { t } = useI18n()
 <template>
   <h1 class="mb-5 text-center text-5xl">{{ t('dashboard.title') }}</h1>
   <FamilyDetail
-    v-if="families?.[0]?.family"
-    :family-id="families?.[0]?.family"
+    v-if="families?.[0]?.id"
+    :family-id="families?.[0]?.id"
   />
-  <DashboardTask
-    v-if="families?.[0]?.family"
-    :family-id="families?.[0]?.family"
-    />
+  <TaskDashboard
+    v-if="families?.[0]?.id"
+    :family-id="families?.[0]?.id"
+  />
 </template>

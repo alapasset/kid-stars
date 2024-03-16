@@ -1,40 +1,26 @@
+import type { Family } from './family'
+import type { Child, Tutor } from './member'
+
 export type TaskStatus = 'pending' | 'toBeValidated' | 'validated'
 
-export interface TaskCreationForm {
-  description: string
-  family: string
-  name: string
-  points: number
-  status: TaskStatus
-  tutor: string
-}
-
-export interface TaskUpdateForm {
-  child?: string
-  description: string
-  id: string
-  name: string
-  points: number
-  status: TaskStatus
-}
-export interface ChildMember {
-  pseudo: string
-}
-
-export interface TutorMember {
-  pseudo: string
-}
-
 export interface Task {
-  child?: string
-  childMember: ChildMember
+  child?: Child
   createdAt: string
   description: string
-  family: string
+  family: Family
   id: string
   name: string
   points: number
   status: TaskStatus
-  tutor: string
-  tutorMember: TutorMember
+  tutor: Tutor
+}
+
+export interface TaskForm {
+  child?: string
+  description: string
+  family?: string
+  name: string
+  points: number
+  status: TaskStatus
+  tutor?: string
 }

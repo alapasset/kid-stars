@@ -18,8 +18,8 @@ function removeNotification (id: string) {
 export function useNotifications () {
   return {
     notifications,
-    notifySuccess: addSuccessNotification,
     notifyError: addErrorNotification,
+    notifySuccess: addSuccessNotification,
     removeNotification,
   }
 }

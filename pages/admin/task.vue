@@ -3,9 +3,13 @@ definePageMeta({
   middleware: 'auth',
 })
 
-const { data: families, isFetched: isOnFetch } = useFetchFamilies()
+const { data: families, isFetched: isFetchedFamilies } = useFetchFamilies()
+const { data: tutor, isFetched: isFetchedTutor } = useFetchTutorByUser()
+
 const { t } = useI18n()
-const myFirstFamily = computed(() => families.value?.[0]?.family)
+
+const myFirstFamily = computed(() => families.value?.[0]?.id)
+const isOnFetch = computed(() => isFetchedFamilies.value && isFetchedTutor.value)
 </script>
 
 <template>
@@ -14,9 +18,10 @@ const myFirstFamily = computed(() => families.value?.[0]?.family)
     :title="t('task.admin.title')"
   >
     <template #form>
-      <TaskCreationForm
-        v-if="myFirstFamily"
+      <TaskForm
+        v-if="myFirstFamily && tutor"
         :family-id="myFirstFamily"
+        :tutor-id="tutor?.id"
       />
     </template>
 

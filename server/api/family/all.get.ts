@@ -7,7 +7,7 @@ export default defineEventHandler(async (event) => {
 
   const client = await serverSupabaseClient<Database>(event)
   const { data, error } = await client.from('family_member')
-    .select('family')
+    .select('id:family')
     .eq('user', user.id)
 
   if (error) throw createError(error.message)

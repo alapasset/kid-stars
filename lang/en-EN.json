@@ -201,11 +201,14 @@
           "childField": "À qui attribuer la tâche ?",
           "childFieldReset": "Ne pas attribuer ?",
           "status": "Mettre à jour le status?"
+        },
+        "validate": {
+          "title": "Validate the task"
         }
       }
     },
     "dashboard": {
-      "title" : "Liste des taches disponible en ce moment.",
+      "title": "Liste des taches disponible en ce moment.",
       "form": {
         "title": "Qui a effectué la tâche ?"
       },
@@ -220,7 +223,7 @@
       "pending": "En attente"
     },
     "item": {
-      "point": "points"
+      "point": "point(s)"
     }
   },
   "member": {

@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import type { UserLoginForm } from '~/types/user'
+import type { UserForm } from '~/types/user'
 
 const { t } = useI18n()
 
@@ -7,10 +7,10 @@ const runtimeConfig = useRuntimeConfig()
 const redirectTo = `${runtimeConfig.public.DEPLOY_PRIME_URL}/confirm`
 const supabase = useSupabaseClient()
 
-const { handleSubmit } = useForm<UserLoginForm>()
+const { handleSubmit } = useForm<UserForm>()
 const { notifyError } = useNotifications()
 
-const { value: email, errorMessage: errorMessageEmail } = useField<string>(
+const { errorMessage: errorMessageEmail, value: email } = useField<string>(
   'email',
   inputValue => {
     const emailValidationRegExp = /^[\w!#$%&'*+./=?^`{|}~-]+@[\d.A-Za-z-]+$/mu
@@ -20,7 +20,7 @@ const { value: email, errorMessage: errorMessageEmail } = useField<string>(
   },
 )
 
-const { value: password, errorMessage: errorMessagePassword } = useField<string>(
+const { errorMessage: errorMessagePassword, value: password } = useField<string>(
   'password',
   inputValue => {
     if (inputValue.length === 0) return t('form.error.password.required')
@@ -40,10 +40,10 @@ const onSubmit = handleSubmit(async (values) => {
 
 async function signInWithOauth () {
   const { error } = await supabase.auth.signInWithOAuth({
-    provider: 'google',
     options: {
       redirectTo,
     },
+    provider: 'google',
   })
   if (error) throw createError(error)
 }

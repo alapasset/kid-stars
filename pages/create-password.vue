@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import type { UserPasswordCreationForm } from '~/types/user'
+import type { UserPasswordForm } from '~/types/user'
 
 const client = useSupabaseClient()
 const { accessToken, refreshToken } = useGetTokens()
@@ -8,9 +8,9 @@ const { t } = useI18n()
 const supabase = useSupabaseClient()
 const isLoading = ref(false)
 
-const { handleSubmit } = useForm<UserPasswordCreationForm>()
+const { handleSubmit } = useForm<UserPasswordForm>()
 
-const { value: password, errorMessage: errorMessagePassword } = useField<string>(
+const { errorMessage: errorMessagePassword, value: password } = useField<string>(
   'password',
   inputValue => {
     const passwordValidationRegExp = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[!#$%&*?@])[\d!#$%&*?@A-Za-z]{8,}$/u
