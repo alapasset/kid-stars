@@ -18,4 +18,8 @@ const { t } = useI18n()
     v-if="families?.[0]?.id"
     :family-id="families?.[0]?.id"
   />
+  <ActivityDashboard
+    v-if="families?.[0]?.id"
+    :family-id="families?.[0]?.id"
+  />
 </template>
