@@ -38,6 +38,7 @@
     "status": "Statut",
     "attribute": "Attribuer",
     "task": "Tache(s)",
+    "activity": "Activité(s)",
     "family": "Famille",
     "administration": "Administration",
     "clear": "Effacer",
@@ -202,8 +203,12 @@
           "childFieldReset": "Ne pas attribuer ?",
           "status": "Mettre à jour le status?"
         },
+        "delete": {
+          "confirm": "Êtes vous sûr de vouloir supprimer cette tâche ?"
+        },
         "validate": {
-          "title": "Validate the task"
+          "title": "Valider la tache",
+          "message": "La tache à bien été faite ?"
         }
       }
     },
@@ -224,6 +229,19 @@
     },
     "item": {
       "point": "point(s)"
+    }
+  },
+  "activity": {
+    "dashboard": {
+      "title": "Liste des activités disponible en ce moment."
+    },
+    "admin": {
+      "title": "Gestion des activités",
+      "form": {
+        "create":{
+          "title": "Création d'une activité"
+        }
+      }
     }
   },
   "member": {

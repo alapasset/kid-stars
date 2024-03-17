@@ -7,7 +7,7 @@ const { t } = useI18n()
 const { isPending, isSuccess, mutate } = useTutorCheckCode()
 const route = useRoute()
 const currentPage = computed(() => route.path.split('/').pop())
-const pages = ['me', 'family', 'task']
+const pages = ['me', 'family', 'task', 'activity']
 const showAdmin = ref(false)
 
 function onComplete (value: string) {
@@ -32,7 +32,7 @@ watch(isSuccess, async (isNewSuccess: boolean) => {
       <CoreInputOneTapPassword v-else @on-complete="onComplete" />
     </div>
     <div v-else class="flex flex-col gap-5">
-      <div class="tabs-boxed tabs mx-auto max-w-xs" role="tablist">
+      <div class="tabs-boxed tabs mx-auto max-w-lg" role="tablist">
         <NuxtLink v-for="page in pages" :key="page" class="tab" :class="{'tab-active': currentPage === page}" role="tab" :to="`/admin/${page}`">
           {{ t(`common.${page}`) }}
         </NuxtLink>

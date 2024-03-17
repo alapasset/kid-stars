@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { Task, TaskForm } from '~/types/task.js'
+import type { Task, TaskForm, TaskStatus } from '~/types/task.js'
 
 const props = defineProps<{
   task: Task
@@ -12,6 +12,7 @@ const { t } = useI18n()
 const formDialog = ref<HTMLDialogElement>()
 const openDialog = ref(false)
 const selectedChildId = ref(task.value.child?.id)
+const toBeValidate = ref<TaskStatus>('toBeValidated')
 
 const { data: members } = useFetchFamilyMembers(task.value.family.id)
 const { isPending, mutateAsync } = useUpdateTask(task.value.id)
@@ -37,6 +38,7 @@ const isValidated = computed(() => task.value.status === 'validated')
 
 function setChild (childId: string) {
   setFieldValue('child', childId)
+  setFieldValue('status', toBeValidate.value)
   if(childId) selectedChildId.value = childId
 }
 
