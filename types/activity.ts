@@ -8,7 +8,7 @@ export interface ActivityForm {
 export interface Activity {
   createdAt: string
   description: string
-  family: string | null
+  family: string
   id: string
   name: string
   points: number
