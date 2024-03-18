@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import type { Task } from '~/types/task.js'
+import type { Task, TaskForm } from '~/types/task.js'
 
 const props = defineProps<{ task: Task }>()
 const task = toRef(props, 'task')
@@ -8,14 +8,23 @@ const { t } = useI18n()
 
 const valdiationDialog = ref<HTMLDialogElement>()
 
-const { isPending, mutateAsync } = useValidateTask()
+const { isPending, mutateAsync } = useValidateTask(task.value.id)
 
 function openModal () {
   valdiationDialog.value?.showModal()
 }
 
+const { values } = useForm<TaskForm>({
+  initialValues: {
+    child: task.value.child?.id,
+    description: task.value.description,
+    name: task.value.name,
+    points: task.value.points,
+    status: task.value.status,
+  },
+})
 async function onSubmit () {
-  await mutateAsync(task.value.id)
+  await mutateAsync(values)
   valdiationDialog.value?.close()
 }
 </script>

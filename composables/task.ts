@@ -57,15 +57,15 @@ export function useDeleteTask (taskId: MaybeRef<string>) {
   })
 }
 
-export function useValidateTask () {
+export function useValidateTask (taskId: MaybeRef<string>) {
   const queryClient = useQueryClient()
   const { notifyError, notifySuccess } = useNotifications()
   const { t } = useI18n()
 
   return useMutation({
-    mutationFn: async (taskId: MaybeRef<string>) => {
+    mutationFn: async (data: TaskForm) => {
       const taskIdReference = toRef(taskId)
-      return await $fetch(`/api/task/${taskIdReference.value}/validation`, { method: 'put' })
+      return await $fetch(`/api/task/${taskIdReference.value}/validation`, { body: data, method: 'put' })
     },
     onError: () => { notifyError(t('notification.delete.error')) },
     onSuccess: async () => {
