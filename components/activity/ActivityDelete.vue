@@ -58,7 +58,7 @@ async function onSubmit () {
           </form>
         </div>
         <div class="flex flex-col gap-5">
-          {{ t('task.admin.form.delete.confirm') }}
+          {{ t('activity.admin.form.delete.confirm') }}
         </div>
         <div class="flex flex-col gap-2 p-2">
           <button

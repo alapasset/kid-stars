@@ -1,7 +1,9 @@
+import type { Activity } from './activity.js'
 import type { Child } from './member'
 import type { Task } from './task'
 
 export interface Point {
+  activity: Activity
   child: Child
   points: number
   task: Task
