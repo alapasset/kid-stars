@@ -16,11 +16,14 @@ function openModal () {
 
 const { values } = useForm<TaskForm>({
   initialValues: {
+    id: task.value.id,
     child: task.value.child?.id,
     description: task.value.description,
+    family: task.value.family.id,
     name: task.value.name,
     points: task.value.points,
     status: task.value.status,
+    tutor: task.value.tutor.id,
   },
 })
 async function onSubmit () {

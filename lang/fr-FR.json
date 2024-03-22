@@ -4,6 +4,7 @@
     "cancel": "Annuler",
     "save": "Enregistrer",
     "create": "Créer",
+    "date": "Date",
     "delete": "Supprimer",
     "deletion": "Suppression",
     "edit": "Editer",
@@ -41,6 +42,7 @@
     "activity": "Activité(s)",
     "family": "Famille",
     "administration": "Administration",
+    "history": "Historique",
     "clear": "Effacer",
     "me": "Mes informations",
     "actions": "Actions"
@@ -188,6 +190,11 @@
     "create-password": {
       "success": "Mot de passe créé",
       "error": "Erreur lors de la création du mot de passe"
+    }
+  },
+  "history": {
+    "admin": {
+      "title": "Historique des transactions"
     }
   },
   "task": {

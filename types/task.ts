@@ -19,6 +19,7 @@ export interface TaskForm {
   child?: string
   description: string
   family?: string
+  id?: string
   name: string
   points: number
   status: TaskStatus
