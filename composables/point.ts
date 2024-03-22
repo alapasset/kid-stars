@@ -1,4 +1,4 @@
-import type { LastPoint, PointForm, SumPoint } from '~/types/point'
+import type { LastPoint, Point, PointForm, SumPoint } from '~/types/point'
 
 export function useGetPoints (child: MaybeRef<string>, doCall: MaybeRef<boolean> = true) {
   const doCallReference = toRef(doCall)
@@ -8,6 +8,15 @@ export function useGetPoints (child: MaybeRef<string>, doCall: MaybeRef<boolean>
     enabled: doCallReference.value,
     queryFn: async () => await $fetch<SumPoint[]>(`/api/point/child/${childReference.value}`, { method: 'get' }),
     queryKey: ['point', childReference.value],
+  })
+}
+
+export function useFetchPointByFamily (familyId: MaybeRef<string>) {
+  const familyIdReference = toRef(familyId)
+
+  return useQuery({
+    queryFn: async () => await $fetch<Point[]>(`/api/point/family/${familyIdReference.value}`, { method: 'get' }),
+    queryKey: ['point', familyIdReference],
   })
 }
 

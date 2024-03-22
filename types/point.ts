@@ -1,12 +1,16 @@
 import type { Activity } from './activity.js'
-import type { Child } from './member'
+import type { Child, Tutor } from './member'
 import type { Task } from './task'
 
 export interface Point {
-  activity: Activity
+  activity?: Activity
   child: Child
+  createdAt: string
+  family: string
+  id?: string
   points: number
-  task: Task
+  task?: Task
+  tutor: Tutor
 }
 
 export type PointForm = Pick<Point, 'points'>

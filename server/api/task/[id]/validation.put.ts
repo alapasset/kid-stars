@@ -13,4 +13,8 @@ export default defineEventHandler(async (event) => {
 
   const { error } = await client.from('task').update(body).eq('id', event.context.params.id)
   if (error) throw createError(error)
+
+  if (body.child === undefined || body.child === null || body.family === undefined || body.points === undefined || body.tutor === undefined) throw createError({ message: 'Missing data', statusCode: 500 })
+  const { error: pointError } = await client.from('point').insert({ child: body.child, family: body.family , points: body.points, tutor:body.tutor, task: body.id }).single()
+  if(pointError) throw createError({ message: 'Could not insert data', statusCode: 500 })
 })
