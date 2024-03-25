@@ -17,11 +17,8 @@ export default defineEventHandler(async (event) => {
   if (!child) throw createError({ statusCode: 500, statusMessage: 'No member for this user' })
 
   const body: Point = await readBody(event)
-
-  const pointData: Database['public']['Tables']['point']['Insert'] = { child: child.id, family: tutor.family, points: body. points, tutor:tutor.id }
-
+  
   const { error: pointError } = await client.from('point').insert({ child: child.id, points: body.points, tutor:tutor.id, family: child.family }).single()
 
-  const { error: pointError } = await client.from('point').insert(pointData).single()
   if(pointError) throw createError({ message: 'Could not insert data', statusCode: 500 })
 })
