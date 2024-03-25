@@ -39,7 +39,9 @@ export function useAddPoint (childId: MaybeRef<string>) {
   const { t } = useI18n()
 
   return useMutation({
-    mutationFn: async (body: PointForm) => await $fetch(`/api/point/child/${childIdReference.value}`, { body, method: 'post' }),
+    mutationFn: async (body: PointForm) => {
+      await $fetch(`/api/point/child/${childIdReference.value}`, { body, method: 'post' })
+    },
     onError: () => { notifyError(t('notification.save.error')) },
     onSuccess: async () => {
       await queryClient.invalidateQueries({ queryKey: ['point'] })

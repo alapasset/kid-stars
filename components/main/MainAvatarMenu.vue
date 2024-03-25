@@ -5,13 +5,15 @@ const user = useSupabaseUser()
 
 const { t } = useI18n()
 
-const hasAvatar = computed(() => Boolean(user.value?.user_metadata.avatar_url))
+const { data: tutor, isFetched } = useFetchTutorByUser()
 
 async function signOut () {
   const { error } = await supabase.auth.signOut()
   if (error) throw createError(error)
   await navigateTo('/login')
 }
+
+const avatar = computed(() => tutor.value?.avatar)
 
 async function goToDashboard () {
   await navigateTo('/dashboard')
@@ -26,36 +28,32 @@ async function goToAdmin () {
     v-if="user"
     class="flex flex-row gap-3"
   >
-    <div
-      v-if="hasAvatar"
-      class="avatar"
-    >
-      <div class="size-12 rounded-full">
-        <img alt="avatar" :src="user.user_metadata.avatar_url">
-      </div>
-    </div>
-    <div
-      v-else
-      class="avatar placeholder"
-    >
-      <div class="w-12 rounded-full bg-neutral text-neutral-content">
-        <Icon
-          class="size-12"
-          name="material-symbols:person"
-        />
-      </div>
-    </div>
     <div class="dropdown dropdown-end">
       <div
         class="btn btn-circle btn-ghost"
         role="button"
         tabindex="0"
       >
-        <Icon
-          class="size-5"
-          name="material-symbols:menu"
-        />
+      <div
+        v-if="avatar && isFetched"
+        class="avatar"
+      >
+        <div class="size-12 rounded-full border border-gray-700 pt-2">
+          <img alt="avatar" :src="avatar">
+        </div>
       </div>
+      <div
+        v-else
+        class="avatar placeholder"
+      >
+        <div class="w-12 rounded-full bg-neutral text-neutral-content">
+          <Icon
+            class="size-12"
+            name="material-symbols:person"
+          />
+        </div>
+      </div>
+    </div>
       <ul
         class="menu dropdown-content menu-sm z-[1] mt-3 w-52 rounded-box border bg-base-100 p-2 shadow"
         tabindex="0"

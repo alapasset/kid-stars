@@ -8,9 +8,8 @@ const props = defineProps<{
 const tutor = toRef(props, 'tutor')
 
 const { t } = useI18n()
-const { isPending, isSuccess, mutateAsync } = useUpdateTutor(tutor.value.id)
+const { isPending, mutateAsync } = useUpdateTutor(tutor.value.id)
 const { isError: isWrongCode, isPending: isCheckingCode, mutateAsync: checkCode } = useTutorCheckCode()
-const editDialog = ref<HTMLDialogElement>()
 
 const { handleSubmit, values } = useForm<FamilyMember>({
   initialValues: {
@@ -44,7 +43,6 @@ const onSubmit = handleSubmit(async () => {
     return
   }
   await mutateAsync(values)
-  if(isSuccess.value) editDialog.value?.close()
 })
 </script>
 
