@@ -45,7 +45,8 @@
     "history": "Historique",
     "clear": "Effacer",
     "me": "Mes informations",
-    "actions": "Actions"
+    "actions": "Actions",
+    "avatar": "Avatar"
   },
   "dashboard": {
     "title": "Tableau de bord"
@@ -245,7 +246,7 @@
     "admin": {
       "title": "Gestion des activités",
       "form": {
-        "create":{
+        "create": {
           "title": "Création d'une activité"
         },
         "delete": {
@@ -268,6 +269,27 @@
   "me": {
     "admin": {
       "title": "Mes informations"
+    }
+  },
+  "avatar": {
+    "generator": {
+      "title": "Gestion de votre avatar",
+      "generate": "Generer un nouvel avatar",
+      "previous-step": "Précédent",
+      "next-step": "Suivant",
+      "skinColor": "Couleur de peau",
+      "earrings": "Boucles d'oreilles",
+      "eyebrows": "Sourcils",
+      "eyes": "Yeux",
+      "features": "Caractéristiques",
+      "glasses": "Lunettes",
+      "hair": "Cheveux",
+      "hairColor": "Couleur de cheveux",
+      "mouth": "Bouche",
+      "finished": "Voulez-vous savegardez votre nouvel avatar ?"
+    },
+    "admin": {
+      "title": "Creation de votre avatar"
     }
   }
 }

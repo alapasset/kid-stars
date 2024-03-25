@@ -72,6 +72,7 @@ export type Database = {
       }
       family_member: {
         Row: {
+          avatar: string
           code: string | null
           family: string
           id: string
@@ -80,6 +81,7 @@ export type Database = {
           user: string | null
         }
         Insert: {
+          avatar?: string
           code?: string | null
           family: string
           id?: string
@@ -88,6 +90,7 @@ export type Database = {
           user?: string | null
         }
         Update: {
+          avatar?: string
           code?: string | null
           family?: string
           id?: string

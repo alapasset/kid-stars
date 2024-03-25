@@ -16,12 +16,31 @@ export function useDeleteFamilyMember () {
   return useMutation({
     mutationFn: async (memberId: MaybeRef<string>) => {
       const memberIdReference = toRef(memberId)
-      return await $fetch(`/api/member/${memberIdReference.value}`, { method: 'delete' })
+      await $fetch(`/api/member/${memberIdReference.value}`, { method: 'delete' })
     },
     onError: () => { notifyError(t('notification.delete.error')) },
     onSuccess: async () => {
       await queryClient.invalidateQueries({ queryKey: ['family'] })
       notifySuccess(t('notification.delete.success'))
+    },
+  })
+}
+
+
+export function useUpdateFamilyMemberAvatar (memberId: MaybeRef<string>) {
+  const memberIdReference = toRef(memberId)
+  const queryClient = useQueryClient()
+  const { notifyError, notifySuccess } = useNotifications()
+  const { t } = useI18n()
+
+  return useMutation({
+    mutationFn: async (body: { avatar: string }) => {
+      await $fetch(`/api/member/${memberIdReference.value}/avatar`, { body, method: 'put' })
+    },
+    onError: () => { notifyError(t('notification.save.error')) },
+    onSuccess: async () => {
+      await queryClient.invalidateQueries({ queryKey: ['point'] })
+      notifySuccess(t('notification.update.success'))
     },
   })
 }

@@ -47,7 +47,9 @@ export function useDeleteActivity (activityId: MaybeRef<string>) {
   const activityIdReference = toRef(activityId)
 
   return useMutation({
-    mutationFn: async () => await $fetch(`/api/activity/${activityIdReference.value}`, { method: 'delete' }),
+    mutationFn: async () => {
+      await $fetch(`/api/activity/${activityIdReference.value}`, { method: 'delete' })
+    },
     onError: () => { notifyError(t('notification.delete.error')) },
     onSuccess: async () => {
       await queryClient.invalidateQueries({ queryKey: ['activity'] })

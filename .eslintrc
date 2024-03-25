@@ -216,6 +216,7 @@
     "vuejs-accessibility/interactive-supports-focus": "off",
     "vuejs-accessibility/no-static-element-interactions": "off",
     "sonar/function-return-type": "off",
-    "@typescript-eslint/no-magic-numbers":"off"
+    "@typescript-eslint/no-magic-numbers":"off",
+    "vuejs-accessibility/label-has-for": "off",
   }
 }
