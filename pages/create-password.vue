@@ -1,4 +1,4 @@
-<script lang="ts" setup>
+<script setup lang="ts">
 import type { UserPasswordForm } from '~/types/user'
 
 const client = useSupabaseClient()

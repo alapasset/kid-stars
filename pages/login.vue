@@ -1,10 +1,10 @@
-<script lang="ts" setup>
+<script setup lang="ts">
 import type { UserForm } from '~/types/user'
 
 const { t } = useI18n()
 
 const runtimeConfig = useRuntimeConfig()
-const redirectTo = `${runtimeConfig.public.DEPLOY_PRIME_URL}/confirm`
+const redirectTo = `${runtimeConfig.public.DEPLOY_PRIME_URL || runtimeConfig.public.LOGIN_REDIRECT_URL }/confirm`
 const supabase = useSupabaseClient()
 
 const { handleSubmit } = useForm<UserForm>()
@@ -14,7 +14,7 @@ const { errorMessage: errorMessageEmail, value: email } = useField<string>(
   'email',
   inputValue => {
     const emailValidationRegExp = /^[\w!#$%&'*+./=?^`{|}~-]+@[\d.A-Za-z-]+$/mu
-    if (inputValue.length === 0) return t('form.error.email.required')
+    if (inputValue && inputValue.length === 0) return t('form.error.email.required')
     if (!emailValidationRegExp.test(inputValue)) return t('form.error.email.invalid')
     return true
   },
@@ -23,7 +23,7 @@ const { errorMessage: errorMessageEmail, value: email } = useField<string>(
 const { errorMessage: errorMessagePassword, value: password } = useField<string>(
   'password',
   inputValue => {
-    if (inputValue.length === 0) return t('form.error.password.required')
+    if (inputValue && inputValue.length === 0) return t('form.error.password.required')
     return true
   },
 )

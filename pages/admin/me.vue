@@ -1,6 +1,9 @@
 <script setup lang="ts">
 definePageMeta({
-  middleware: 'auth',
+  middleware: [
+    'auth',
+    'members',
+  ],
 })
 
 const { data: tutor, isFetched: isOnFetch } = useFetchTutorByUser()

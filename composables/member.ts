@@ -8,6 +8,13 @@ export function useFetchFamilyMembers (familyId: MaybeRef<string>) {
   })
 }
 
+export function useFetchFamilyMembersByUser () {
+  return useQuery({
+    queryFn: async () => await $fetch<FamilyMember[]>('/api/member/all'),
+    queryKey: ['family', 'get-all-family-member'],
+  })
+}
+
 export function useDeleteFamilyMember () {
   const queryClient = useQueryClient()
   const { notifyError, notifySuccess } = useNotifications()
