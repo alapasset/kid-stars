@@ -2,7 +2,6 @@
 definePageMeta({
   middleware: 'auth',
 })
-import { useCurrentFamilyMemberStore } from '~/storage/user'
 
 const { t } = useI18n()
 const { isSuccess, mutateAsync } = useTutorCheckCode()
@@ -33,3 +32,4 @@ async function onComplete (value: string) {
     <CoreInputOneTapPassword v-else @on-complete="onComplete" />
   </div>
 </template>
+

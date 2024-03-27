@@ -32,4 +32,3 @@ setTimeout(removeCurrentNotification, timeToWait)
     </button>
   </div>
 </template>
-à'èé()

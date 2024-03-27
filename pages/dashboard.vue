@@ -6,7 +6,8 @@ definePageMeta({
   ],
 })
 
-const { data: families } = useFetchFamilies()
+const currentFamilyMemberStore = useCurrentFamilyMemberStore()
+const { currentFamilyMember } = storeToRefs(currentFamilyMemberStore)
 
 const { t } = useI18n()
 </script>
@@ -14,15 +15,16 @@ const { t } = useI18n()
 <template>
   <h1 class="mb-5 text-center text-5xl">{{ t('dashboard.title') }}</h1>
   <FamilyDetail
-    v-if="families?.[0]?.id"
-    :family-id="families?.[0]?.id"
+    v-if="currentFamilyMember"
+    :family-id="currentFamilyMember?.family"
   />
   <TaskDashboard
-    v-if="families?.[0]?.id"
-    :family-id="families?.[0]?.id"
+    v-if="currentFamilyMember"
+    :family-id="currentFamilyMember?.family"
   />
   <ActivityDashboard
-    v-if="families?.[0]?.id"
-    :family-id="families?.[0]?.id"
+    v-if="currentFamilyMember"
+    :family-id="currentFamilyMember?.family"
   />
 </template>
+

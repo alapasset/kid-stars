@@ -1,11 +1,4 @@
-import type { Tutor, TutorForm } from '~/types/member'
-
-export function useFetchTutorByUser () {
-  return useQuery({
-    queryFn: async () => await $fetch<Tutor>('/api/tutor/'),
-    queryKey: ['family', 'get-tutor-by-user'],
-  })
-}
+import type { TutorForm } from '~/types/member'
 
 export function useTutorCheckCode () {
   const { notifyError } = useNotifications()

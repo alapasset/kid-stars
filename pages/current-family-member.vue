@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { useFetchFamilyMembersByUser } from '~/composables/member'
-import { useCurrentFamilyMemberStore } from '~/storage/user'
 import type { FamilyMember } from '~/types/member'
 
 definePageMeta({
@@ -61,3 +60,4 @@ async function goToProfile (member: FamilyMember) {
     <span class="loading loading-dots loading-lg" />
   </div>
 </template>
+

@@ -1,8 +1,5 @@
 
 <script setup lang="ts">
-import { storeToRefs } from 'pinia'
-import { useCurrentFamilyMemberStore } from '~/storage/user'
-
 const supabase = useSupabaseClient()
 const user = useSupabaseUser()
 
@@ -16,12 +13,14 @@ const isTutor = computed(() => currentFamilyMember.value && currentFamilyMember.
 async function signOut () {
   const { error } = await supabase.auth.signOut()
   if (error) throw createError(error)
+  currentFamilyMemberStore.clearFamilyMember()
   await navigateTo('/login')
 }
 
 async function goToDashboard () {
   await navigateTo('/dashboard')
 }
+
 async function goToAdmin () {
   await navigateTo('/admin/me')
 }

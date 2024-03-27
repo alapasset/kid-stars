@@ -11,13 +11,6 @@ export function useFetchFamily (familyId: MaybeRef<string>) {
   })
 }
 
-export function useFetchFamilies () {
-  return useQuery({
-    queryFn: async () => await $fetch<Partial<Family>[]>('/api/family/all'),
-    queryKey: ['family', 'get-all-family'],
-  })
-}
-
 export function useCreateFamily () {
   const queryClient = useQueryClient()
   const { notifyError, notifySuccess } = useNotifications()

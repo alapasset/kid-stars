@@ -13,13 +13,13 @@ dependencies:
     version: 8.0.0
   '@hebilicious/vue-query-nuxt':
     specifier: ^0.3.0
-    version: 0.3.0(@tanstack/vue-query@5.28.8)(nuxt@3.11.1)(rollup@4.13.0)
+    version: 0.3.0(@tanstack/vue-query@5.28.9)(nuxt@3.11.1)(rollup@4.13.0)
   '@pinia/nuxt':
     specifier: ^0.5.1
     version: 0.5.1(rollup@4.13.0)(typescript@5.4.3)(vue@3.4.21)
   '@tanstack/vue-query':
-    specifier: ^5.28.8
-    version: 5.28.8(vue@3.4.21)
+    specifier: ^5.28.9
+    version: 5.28.9(vue@3.4.21)
   '@vee-validate/nuxt':
     specifier: ^4.12.6
     version: 4.12.6(rollup@4.13.0)(vue@3.4.21)
@@ -27,8 +27,8 @@ dependencies:
     specifier: ^0.40.1
     version: 0.40.1
   daisyui:
-    specifier: ^4.8.0
-    version: 4.8.0(postcss@8.4.38)
+    specifier: ^4.9.0
+    version: 4.9.0(postcss@8.4.38)
   nanoid:
     specifier: ^5.0.6
     version: 5.0.6
@@ -67,6 +67,9 @@ devDependencies:
   '@nuxtjs/tailwindcss':
     specifier: ^6.11.4
     version: 6.11.4(rollup@4.13.0)
+  '@pinia-plugin-persistedstate/nuxt':
+    specifier: ^1.2.0
+    version: 1.2.0(@pinia/nuxt@0.5.1)(pinia@2.1.7)(rollup@4.13.0)
   dotenv:
     specifier: ^16.4.5
     version: 16.4.5
@@ -95,8 +98,8 @@ devDependencies:
     specifier: ^4.0.0
     version: 4.0.0(rollup@4.13.0)(vue@3.4.21)
   supabase:
-    specifier: ^1.150.0
-    version: 1.150.0
+    specifier: ^1.151.1
+    version: 1.151.1
   typescript:
     specifier: ^5.4.3
     version: 5.4.3
@@ -1337,7 +1340,7 @@ packages:
   /@floating-ui/utils@0.2.1:
     resolution: {integrity: sha512-9TANp6GPoMtYzQdt54kfAyMmz1+osLlXdg2ENroU7zzrtflTLrrC/lgrIfaSe+Wu0b89GKccT7vxXA0MoAIO+Q==}
 
-  /@hebilicious/vue-query-nuxt@0.3.0(@tanstack/vue-query@5.28.8)(nuxt@3.11.1)(rollup@4.13.0):
+  /@hebilicious/vue-query-nuxt@0.3.0(@tanstack/vue-query@5.28.9)(nuxt@3.11.1)(rollup@4.13.0):
     resolution: {integrity: sha512-3ULFb4Sq4vp7VCuMFTlvHOIipgLsFPTAUfSoPNrXiUzvuetsLquijaIFWMlgetWC/+1o5WEBXSVcrmX46uZB6w==}
     requiresBuild: true
     peerDependencies:
@@ -1345,7 +1348,7 @@ packages:
       nuxt: ^3.8.0
     dependencies:
       '@nuxt/kit': 3.11.1(rollup@4.13.0)
-      '@tanstack/vue-query': 5.28.8(vue@3.4.21)
+      '@tanstack/vue-query': 5.28.9(vue@3.4.21)
       defu: 6.1.4
       esbuild: 0.19.12
       magicast: 0.3.3
@@ -2221,6 +2224,21 @@ packages:
       typescript: 5.4.3
     dev: true
 
+  /@pinia-plugin-persistedstate/nuxt@1.2.0(@pinia/nuxt@0.5.1)(pinia@2.1.7)(rollup@4.13.0):
+    resolution: {integrity: sha512-2rtgx5viGSMQMCoFYZMHguA2FhFKCUvw0PwETfqQegsWeBHlqk1/D0G/9xqep8Hq+c1BuFx+jNLJzoLXtYfivg==}
+    peerDependencies:
+      '@pinia/nuxt': ^0.5.0
+    dependencies:
+      '@nuxt/kit': 3.11.1(rollup@4.13.0)
+      '@pinia/nuxt': 0.5.1(rollup@4.13.0)(typescript@5.4.3)(vue@3.4.21)
+      defu: 6.1.4
+      pinia-plugin-persistedstate: 3.2.1(pinia@2.1.7)
+    transitivePeerDependencies:
+      - pinia
+      - rollup
+      - supports-color
+    dev: true
+
   /@pinia/nuxt@0.5.1(rollup@4.13.0)(typescript@5.4.3)(vue@3.4.21):
     resolution: {integrity: sha512-6wT6TqY81n+7/x3Yhf0yfaJVKkZU42AGqOR0T3+UvChcaOJhSma7OWPN64v+ptYlznat+fS1VTwNAcbi2lzHnw==}
     dependencies:
@@ -2232,7 +2250,6 @@ packages:
       - supports-color
       - typescript
       - vue
-    dev: false
 
   /@pkgjs/parseargs@0.11.0:
     resolution: {integrity: sha512-+1VkjdD0QBLPodGrJUeqarH8VAIvQODIbwh9XpP5Syisf7YoQgsJKPNFoqqLQlu+VQ/tVSshMR6loPMn8U+dPg==}
@@ -3982,12 +3999,12 @@ packages:
       remove-accents: 0.4.2
     dev: false
 
-  /@tanstack/query-core@5.28.8:
-    resolution: {integrity: sha512-cx64XHeB0kvKxFt22ibvegPeOxnaWVFUbAuhXoIrb7+XePEexHWoB9Kq5n9qroNPkRwQZwgFAP9HNbQz5ohoIg==}
+  /@tanstack/query-core@5.28.9:
+    resolution: {integrity: sha512-hNlfCiqZevr3GRVPXS3MhaGW5hjcxvCsIQ4q6ff7EPlvFwYZaS+0d9EIIgofnegDaU2BbCDlyURoYfRl5rmzow==}
     dev: false
 
-  /@tanstack/vue-query@5.28.8(vue@3.4.21):
-    resolution: {integrity: sha512-JpByXdFpOMws0QYNAtMQXye/rEhKJ/oMD1MPutLkOI89Phl4MgUf1NqiMF/kAEIfUQmMd+r8tiJNB5FdO8Ld+w==}
+  /@tanstack/vue-query@5.28.9(vue@3.4.21):
+    resolution: {integrity: sha512-gZgUdnxIvb8X3TNLYFbWYAZWX1ziyLlqE8yEutDojW5zwkwWWSC4N3KjvMfarTehBfdQ2F6y8db2Ccip63f0Xw==}
     peerDependencies:
       '@vue/composition-api': ^1.1.2
       vue: ^2.6.0 || ^3.3.0
@@ -3996,7 +4013,7 @@ packages:
         optional: true
     dependencies:
       '@tanstack/match-sorter-utils': 8.11.8
-      '@tanstack/query-core': 5.28.8
+      '@tanstack/query-core': 5.28.9
       '@vue/devtools-api': 6.6.1
       vue: 3.4.21(typescript@5.4.3)
       vue-demi: 0.14.7(vue@3.4.21)
@@ -6525,8 +6542,8 @@ packages:
     resolution: {integrity: sha512-ABfH28PWp5oqqp31cLXJQdeMqoFNej9rJOu84wKhN3jPCH7FAZg3zY1MVI27PTFoqfPlxOyhGmh9PzOVv+yN2g==}
     dev: true
 
-  /daisyui@4.8.0(postcss@8.4.38):
-    resolution: {integrity: sha512-SXy6MVzhqaa1vPZIdo5K/QAyRaQ4dbRHG+oXy7BFqJnZlwOB6bGkQRqqvClBUY2wCyiiyhk4gY5Ngi1m2JRIEA==}
+  /daisyui@4.9.0(postcss@8.4.38):
+    resolution: {integrity: sha512-9JsDx4E+30kPxThE+6yEwQokqg1957uwTx/skP2RE98fG6Ten6U+S9YXeQg1a3CI958aF5aOb0oEA+KZFfrZUA==}
     engines: {node: '>=16.9.0'}
     dependencies:
       css-selector-tokenizer: 0.8.0
@@ -12292,6 +12309,14 @@ packages:
     engines: {node: '>=0.10.0'}
     dev: true
 
+  /pinia-plugin-persistedstate@3.2.1(pinia@2.1.7):
+    resolution: {integrity: sha512-MK++8LRUsGF7r45PjBFES82ISnPzyO6IZx3CH5vyPseFLZCk1g2kgx6l/nW8pEBKxxd4do0P6bJw+mUSZIEZUQ==}
+    peerDependencies:
+      pinia: ^2.0.0
+    dependencies:
+      pinia: 2.1.7(typescript@5.4.3)(vue@3.4.21)
+    dev: true
+
   /pinia@2.1.7(typescript@5.4.3)(vue@3.4.21):
     resolution: {integrity: sha512-+C2AHFtcFqjPih0zpYuvof37SFxMQ7OEG2zV9jRI12i9BOy3YQVAHwdKtyyc8pDcDyIc33WCIsZaCFWU7WWxGQ==}
     peerDependencies:
@@ -12308,7 +12333,6 @@ packages:
       typescript: 5.4.3
       vue: 3.4.21(typescript@5.4.3)
       vue-demi: 0.14.7(vue@3.4.21)
-    dev: false
 
   /pirates@4.0.6:
     resolution: {integrity: sha512-saLsH7WeYYPiD25LDuLRRY/i+6HaPYr6G1OUlN39otzkSTxKnubR9RTxS3/Kk50s1g2JTgFwWQDQyplC5/SHZg==}
@@ -14332,8 +14356,8 @@ packages:
       ts-interface-checker: 0.1.13
     dev: true
 
-  /supabase@1.150.0:
-    resolution: {integrity: sha512-hjyXukIww6Jc37Wq9urUldS61a7lZdw6J8Ky/TaScGFqTsO4DbPXUoOxHHaWYSM2ucV+4ejNZ5jYpAGmorApkA==}
+  /supabase@1.151.1:
+    resolution: {integrity: sha512-fl4h9mgG3z+bQ7UntymT30yqvOPJ4AfiCDKvDCFAdpkDhiozSfQqh1LwytEQSqMpgt6PEAcDJdYEbvholqPKOQ==}
     engines: {npm: '>=8'}
     hasBin: true
     requiresBuild: true
@@ -14341,7 +14365,7 @@ packages:
       bin-links: 4.0.3
       https-proxy-agent: 7.0.4
       node-fetch: 3.3.2
-      tar: 6.2.0
+      tar: 6.2.1
     transitivePeerDependencies:
       - supports-color
     dev: true
@@ -14507,18 +14531,6 @@ packages:
       b4a: 1.6.6
       fast-fifo: 1.3.2
       streamx: 2.16.1
-
-  /tar@6.2.0:
-    resolution: {integrity: sha512-/Wo7DcT0u5HUV486xg675HtjNd3BXZ6xDbzsCUZPt5iw8bTQ63bP0Raut3mvro9u+CUyq7YQd8Cx55fsZXxqLQ==}
-    engines: {node: '>=10'}
-    dependencies:
-      chownr: 2.0.0
-      fs-minipass: 2.1.0
-      minipass: 5.0.0
-      minizlib: 2.1.2
-      mkdirp: 1.0.4
-      yallist: 4.0.0
-    dev: true
 
   /tar@6.2.1:
     resolution: {integrity: sha512-DZ4yORTwrbTj/7MZYq2w+/ZFdI6OZ/f9SFHR+71gIVUZhOQPHzVCLpvRnPgyaMpfWxxk/4ONva3GQSyNIKRv6A==}

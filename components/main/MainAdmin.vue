@@ -1,6 +1,5 @@
 <script setup lang="ts">
 defineProps<{
-  isFetched: boolean
   title: string
 }>()
 
@@ -20,11 +19,8 @@ defineSlots<{
     <div class="flex justify-center">
       <slot name="form" />
     </div>
-    <div v-if="isFetched">
+    <div>
       <slot name="list" />
-    </div>
-    <div v-else class="text-center">
-      <span class="loading loading-dots loading-lg" />
     </div>
   </div>
 </template>

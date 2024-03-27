@@ -3,6 +3,7 @@ definePageMeta({
   middleware: [
     'auth',
     'members',
+    'tutor',
   ],
 })
 
