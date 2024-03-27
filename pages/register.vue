@@ -1,4 +1,4 @@
-<script lang="ts" setup>
+<script setup lang="ts">
 import type { UserForm } from '~/types/user'
 
 const { t } = useI18n()

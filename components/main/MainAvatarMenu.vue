@@ -1,11 +1,17 @@
 
 <script setup lang="ts">
+import { storeToRefs } from 'pinia'
+import { useCurrentFamilyMemberStore } from '~/storage/user'
+
 const supabase = useSupabaseClient()
 const user = useSupabaseUser()
 
 const { t } = useI18n()
 
-const { data: tutor, isFetched } = useFetchTutorByUser()
+const currentFamilyMemberStore = useCurrentFamilyMemberStore()
+const { currentFamilyMember, isLogged } = storeToRefs(currentFamilyMemberStore)
+
+const isTutor = computed(() => currentFamilyMember.value && currentFamilyMember.value.role === 'tutor')
 
 async function signOut () {
   const { error } = await supabase.auth.signOut()
@@ -13,13 +19,16 @@ async function signOut () {
   await navigateTo('/login')
 }
 
-const avatar = computed(() => tutor.value?.avatar)
-
 async function goToDashboard () {
   await navigateTo('/dashboard')
 }
 async function goToAdmin () {
   await navigateTo('/admin/me')
+}
+
+async function goToFamilyMemberSelection () {
+  currentFamilyMemberStore.clearFamilyMember()
+  await navigateTo('/current-family-member')
 }
 </script>
 
@@ -35,11 +44,11 @@ async function goToAdmin () {
         tabindex="0"
       >
       <div
-        v-if="avatar && isFetched"
+        v-if="currentFamilyMember?.avatar"
         class="avatar"
       >
         <div class="size-12 rounded-full border border-gray-700 pt-2">
-          <img alt="avatar" :src="avatar">
+          <img alt="avatar" :src="currentFamilyMember.avatar">
         </div>
       </div>
       <div
@@ -58,8 +67,9 @@ async function goToAdmin () {
         class="menu dropdown-content menu-sm z-[1] mt-3 w-52 rounded-box border bg-base-100 p-2 shadow"
         tabindex="0"
       >
-        <li><a @click="goToDashboard">{{ t('dashboard.title') }}</a></li>
-        <li><a @click="goToAdmin">{{ t('common.administration') }}</a></li>
+        <li v-if="isLogged"><a @click="goToFamilyMemberSelection">{{ t('common.change-user')}}</a></li>
+        <li v-if="isLogged"><a @click="goToDashboard">{{ t('dashboard.title') }}</a></li>
+        <li v-if="isLogged && isTutor"><a @click="goToAdmin">{{ t('common.administration') }}</a></li>
         <li><a @click="signOut">{{ t('common.logout') }}</a></li>
       </ul>
     </div>

@@ -4,6 +4,7 @@
     "cancel": "Annuler",
     "save": "Enregistrer",
     "create": "Créer",
+    "date": "Date",
     "delete": "Supprimer",
     "deletion": "Suppression",
     "edit": "Editer",
@@ -26,6 +27,8 @@
     "already-have-account": "Déjà un compte ?",
     "not-have-account": "Pas encore de compte ?",
     "register-success": "Inscription réussie, un mail de confirmation vous a été envoyé",
+    "change-user": "Changer d'utilisateur",
+    "select-user": "Avec quel utilisateur veux tu utiliser l'application?",
     "join": "Rejoindre",
     "or": "ou",
     "name": "Nom",
@@ -41,6 +44,7 @@
     "activity": "Activité(s)",
     "family": "Famille",
     "administration": "Administration",
+    "history": "Historique",
     "clear": "Effacer",
     "me": "Mes informations",
     "actions": "Actions",
@@ -191,6 +195,11 @@
       "error": "Erreur lors de la création du mot de passe"
     }
   },
+  "history": {
+    "admin": {
+      "title": "Historique des transactions"
+    }
+  },
   "task": {
     "admin": {
       "title": "Gestion des tâches",
@@ -279,10 +288,10 @@
       "hair": "Cheveux",
       "hairColor": "Couleur de cheveux",
       "mouth": "Bouche",
-      "finished": "Do you want to save your new avatar?"
+      "finished": "Voulez-vous savegardez votre nouvel avatar ?"
     },
     "admin": {
-      "title": "Creating your avatar"
+      "title": "Creation de votre avatar"
     }
   }
 }

@@ -32,6 +32,7 @@ const tutors = computed(() => data.value?.members.filter(member => member.role =
           <MemberCard
             v-for="member in tutors"
             :key="member.id"
+            is-light
             :member
           />
         </div>
@@ -40,6 +41,7 @@ const tutors = computed(() => data.value?.members.filter(member => member.role =
           <MemberCard
             v-for="member in childs"
             :key="member.id"
+            is-light
             :member
           />
         </div>

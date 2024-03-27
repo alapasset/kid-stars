@@ -2,6 +2,7 @@
 import type { FamilyMember } from '~/types/member'
 
 const props = defineProps<{
+  isLight: boolean
   member: FamilyMember
 }>()
 
@@ -21,7 +22,7 @@ const title = computed(() => isTutor.value ? t('family.tutor') : t('family.child
         {{ title }}
       </div>
       <PointLabel
-        v-if="!isTutor"
+        v-if="!isTutor && isLight"
         :is-last-transaction="false"
         :member-id="member.id"
       />

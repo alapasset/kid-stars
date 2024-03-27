@@ -9,10 +9,6 @@ const { t } = useI18n()
 
 const otpInput = ref<InstanceType<typeof VOtpInput> | null>()
 
-definePageMeta({
-  middleware: 'auth',
-})
-
 function onComplete (value: string) {
   emit('onComplete', value)
 }
