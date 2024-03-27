@@ -23,5 +23,12 @@ export const useCurrentFamilyMemberStore = defineStore('currentFamilyMemberStore
     disconnectFamilyMember()
   }
 
-  return { isLogged, setFamilyMember, clearFamilyMember, currentFamilyMember, connectFamilyMember, disconnectFamilyMember }
-})
+  return {
+    isLogged,
+    setFamilyMember,
+    clearFamilyMember,
+    currentFamilyMember,
+    connectFamilyMember,
+    disconnectFamilyMember,
+  }
+}, { persist: { storage: persistedState.localStorage } })

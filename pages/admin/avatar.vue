@@ -1,24 +1,18 @@
 <script setup lang="ts">
-definePageMeta({
-  middleware: [
-    'auth',
-    'members',
-  ],
-})
 const { t } = useI18n()
-const { data: tutor, isFetched: isFetchedTutor } = useFetchTutorByUser()
+
+const currentFamilyMemberStore = useCurrentFamilyMemberStore()
+const { currentFamilyMember } = storeToRefs(currentFamilyMemberStore)
 </script>
 
 <template>
-  <MainAdmin
-    :is-fetched="isFetchedTutor"
-    :title="t('avatar.admin.title')"
-    >
+  <MainAdmin :title="t('avatar.admin.title')">
     <template #form>
       <AvatarForm
-        v-if="tutor"
-        :tutor-id="tutor.id"
+        v-if="currentFamilyMember"
+        :tutor-id="currentFamilyMember.id"
       />
     </template>
 </MainAdmin>
 </template>
+

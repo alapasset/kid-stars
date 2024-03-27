@@ -11,7 +11,7 @@ export default defineEventHandler(async (event) => {
   if (error) throw createError(error.message)
   if (familyId === null) throw createError('message')
 
-  const { data: familyMembers, error: errorFamilyMember } = await client.from('family_member').select('id, avatar, pseudo, role, user').eq('family', familyId.id)
+  const { data: familyMembers, error: errorFamilyMember } = await client.from('family_member').select('id, avatar, pseudo, role, user, family').eq('family', familyId.id)
   if (errorFamilyMember) throw  createError(errorFamilyMember.message)
   return familyMembers
 })

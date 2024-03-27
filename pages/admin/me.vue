@@ -1,23 +1,15 @@
 <script setup lang="ts">
-definePageMeta({
-  middleware: [
-    'auth',
-    'members',
-  ],
-})
-
-const { data: tutor, isFetched: isOnFetch } = useFetchTutorByUser()
-
 const { t } = useI18n()
+
+const currentFamilyMemberStore = useCurrentFamilyMemberStore()
+const { currentFamilyMember } = storeToRefs(currentFamilyMemberStore)
 </script>
 
 <template>
-  <MainAdmin
-    :is-fetched="isOnFetch"
-    :title="t('me.admin.title')"
-  >
+  <MainAdmin :title="t('me.admin.title')">
     <template #form>
-      <TutorEdit v-if="tutor" :title="t('me.admin.title')" :tutor />
+      <TutorEdit v-if="currentFamilyMember" :title="t('me.admin.title')" :tutor="currentFamilyMember" />
     </template>
   </MainAdmin>
 </template>
+

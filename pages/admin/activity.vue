@@ -1,33 +1,24 @@
 <script setup lang="ts">
-definePageMeta({
-  middleware: [
-    'auth',
-    'members',
-  ],
-})
-
-const { data: families, isFetched: isOnFetch } = useFetchFamilies()
 const { t } = useI18n()
-const myFirstFamily = computed(() => families.value?.[0]?.id)
+const currentFamilyMemberStore = useCurrentFamilyMemberStore()
+const { currentFamilyMember } = storeToRefs(currentFamilyMemberStore)
 </script>
 
 <template>
-  <MainAdmin
-    :is-fetched="isOnFetch"
-    :title="t('activity.admin.title')"
-    >
+  <MainAdmin :title="t('activity.admin.title')">
     <template #form>
       <ActivityForm
-        v-if="myFirstFamily"
-        :family-id="myFirstFamily"
+        v-if="currentFamilyMember"
+        :family-id="currentFamilyMember.family"
       />
     </template>
 
     <template #list>
       <ActivityList
-      v-if="myFirstFamily"
-      :family-id="myFirstFamily"
+      v-if="currentFamilyMember"
+      :family-id="currentFamilyMember.family"
       />
     </template>
 </MainAdmin>
 </template>
+

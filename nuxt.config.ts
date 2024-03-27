@@ -44,6 +44,7 @@ export default defineNuxtConfig({
     'nuxt-svgo',
     '@nuxtjs/color-mode',
     '@pinia/nuxt',
+    '@pinia-plugin-persistedstate/nuxt',
   ],
   runtimeConfig: {
     public: {
