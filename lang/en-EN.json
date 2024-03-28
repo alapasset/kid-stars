@@ -225,7 +225,10 @@
     "dashboard": {
       "title": "Liste des taches disponible en ce moment.",
       "form": {
-        "title": "Qui a effectué la tâche ?"
+        "title": {
+          "enoughPoints": "Veux tu effectuer cette tâche ?",
+          "notEnoughPoints": "Tu n'as pas assez de points pour effectuer cette tâche"
+        }
       },
       "card": {
         "emptyChild": "Non attribuée"

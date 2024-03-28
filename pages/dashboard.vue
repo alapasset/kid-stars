@@ -24,7 +24,7 @@ const { t } = useI18n()
   />
   <ActivityDashboard
     v-if="currentFamilyMember"
-    :family-id="currentFamilyMember?.family"
+    :current-member="currentFamilyMember"
   />
 </template>
 
