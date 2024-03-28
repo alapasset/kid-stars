@@ -1,4 +1,4 @@
-import type { TutorForm } from '~/types/member'
+import type { Tutor, TutorForm } from '~/types/member'
 
 export function useTutorCheckCode () {
   const { notifyError } = useNotifications()
@@ -19,12 +19,14 @@ export function useUpdateTutor (tutorId: MaybeRef<string>) {
   const queryClient = useQueryClient()
   const { notifySuccess } = useNotifications()
   const { t } = useI18n()
+  const { updateMemberPseudo } = useCurrentMemberStore()
 
   return useMutation({
-    mutationFn: async (data: TutorForm) => await $fetch(`/api/tutor/${tutorIdReference.value}`, { body: data, method: 'put' }),
+    mutationFn: async (data: TutorForm) => await $fetch<Tutor>(`/api/tutor/${tutorIdReference.value}`, { body: data, method: 'put' }),
     onError: () => { notifySuccess(t('notification.update.error')) },
-    onSuccess: async () => {
+    onSuccess: async (data: Tutor) => {
       await queryClient.invalidateQueries({ queryKey: ['family'] })
+      updateMemberPseudo(data.pseudo)
       notifySuccess(t('notification.update.success'))
     },
   })

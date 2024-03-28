@@ -5,7 +5,7 @@ export function useFetchTasksByFamily (familyId: MaybeRef<string>){
 
   return useQuery({
     queryFn: async () => await $fetch<Task []>(`/api/family/${familyReference.value}/tasks`, { method: 'get' }),
-    queryKey: ['task'],
+    queryKey: ['task', familyReference.value],
   })
 }
 

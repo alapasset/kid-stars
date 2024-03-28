@@ -5,7 +5,7 @@ definePageMeta({
 
 const { t } = useI18n()
 const { isSuccess, mutateAsync } = useTutorCheckCode()
-const { connectFamilyMember } = useCurrentFamilyMemberStore()
+const { connectMember } = useCurrentMemberStore()
 const isPending = ref(false)
 async function onComplete (value: string) {
   isPending.value = true
@@ -16,7 +16,7 @@ async function onComplete (value: string) {
   }
 
   if(isSuccess.value) {
-    connectFamilyMember()
+    connectMember()
     await navigateTo('/dashboard')
   }
 }

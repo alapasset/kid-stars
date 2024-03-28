@@ -8,8 +8,8 @@ const props = defineProps<{
 const tutor = toRef(props, 'tutor')
 
 const { t } = useI18n()
-const { isPending, mutateAsync } = useUpdateTutor(tutor.value.id)
-const { isError: isWrongCode, isPending: isCheckingCode, mutateAsync: checkCode } = useTutorCheckCode()
+const { isPending, mutate } = useUpdateTutor(tutor.value.id)
+const { isPending: isCheckingCode, mutateAsync: checkCode } = useTutorCheckCode()
 
 const { handleSubmit, values } = useForm<FamilyMember>({
   initialValues: {
@@ -37,12 +37,13 @@ const { errorMessage: errorMessageCode, value: code } = useField<string>(
 const { errorMessage: errorMessageActualCode, setErrors, value: actualCode } = useField<string>('actualCode')
 
 const onSubmit = handleSubmit(async () => {
-  await checkCode(actualCode)
-  if(isWrongCode.value) {
+  try {
+    await checkCode(actualCode)
+  } catch {
     setErrors(t('form.error.code.wrong'))
     return
   }
-  await mutateAsync(values)
+  mutate(values)
 })
 </script>
 

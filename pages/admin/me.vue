@@ -1,14 +1,14 @@
 <script setup lang="ts">
 const { t } = useI18n()
 
-const currentFamilyMemberStore = useCurrentFamilyMemberStore()
-const { currentFamilyMember } = storeToRefs(currentFamilyMemberStore)
+const currentMemberStore = useCurrentMemberStore()
+const { currentMember } = storeToRefs(currentMemberStore)
 </script>
 
 <template>
   <MainAdmin :title="t('me.admin.title')">
     <template #form>
-      <TutorEdit v-if="currentFamilyMember" :title="t('me.admin.title')" :tutor="currentFamilyMember" />
+      <TutorEdit v-if="currentMember" :title="t('me.admin.title')" :tutor="currentMember" />
     </template>
   </MainAdmin>
 </template>

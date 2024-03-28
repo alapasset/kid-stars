@@ -9,7 +9,7 @@ export default defineEventHandler(async (event) => {
   const client = await serverSupabaseClient<Database>(event)
 
   const body: TutorForm = await readBody(event)
-  const { error: errorTutorPseudoUpdate } = await client.from('family_member').update({ pseudo: body.pseudo }).eq('id', event.context.params.id)
+  const { data, error: errorTutorPseudoUpdate } = await client.from('family_member').update({ pseudo: body.pseudo }).eq('id', event.context.params.id).select('id, pseudo, role').single()
   if(errorTutorPseudoUpdate) throw createError(errorTutorPseudoUpdate)
 
   if(body.code !== null && body.code !== undefined && body.code !== '') {
@@ -17,4 +17,6 @@ export default defineEventHandler(async (event) => {
     const { error: errorTutorCodeUpdate } = await client.from('family_member').update({ code: hash }).eq('id', event.context.params.id)
     if(errorTutorCodeUpdate) throw createError(errorTutorCodeUpdate)
   }
+
+  return data
 })

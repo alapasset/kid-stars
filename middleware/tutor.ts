@@ -1,7 +1,7 @@
 // eslint-disable-next-line consistent-return
 export default defineNuxtRouteMiddleware(async () => {
-  const currentFamilyMemberStore = useCurrentFamilyMemberStore()
-  const { currentFamilyMember } = storeToRefs(currentFamilyMemberStore)
+  const currentMemberStore = useCurrentMemberStore()
+  const { currentMember } = storeToRefs(currentMemberStore)
 
-  if (currentFamilyMember.value?.role !== 'tutor') return await navigateTo('/dashboard')
+  if (currentMember.value?.role !== 'tutor') return await navigateTo('/dashboard')
 })

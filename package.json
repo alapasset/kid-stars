@@ -23,6 +23,7 @@
     "@nuxtjs/supabase": "^1.1.7",
     "@nuxtjs/tailwindcss": "^6.11.4",
     "@pinia-plugin-persistedstate/nuxt": "^1.2.0",
+    "@tanstack/eslint-plugin-query": "^5.28.6",
     "dotenv": "^16.4.5",
     "dotenv-cli": "^7.4.1",
     "eslint": "^8.57.0",
