@@ -20,7 +20,7 @@ const { t } = useI18n()
   />
   <TaskDashboard
     v-if="member"
-    :family-id="member?.family"
+    :current-member="member"
   />
   <ActivityDashboard
     v-if="member"

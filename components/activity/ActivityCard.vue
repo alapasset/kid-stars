@@ -22,6 +22,8 @@ const { data: point } = useGetPoints(currentMember.value.id)
 const points = computed(() => point.value?.at(0)?.sum ?? 0)
 
 const canBuy = computed(() => points.value >= activity.value.points)
+const isTutor = computed(() => currentMember.value.role === 'tutor')
+
 const { handleSubmit, resetForm } = useForm<Point>({
   initialValues: {
     child: currentChild.value,
@@ -31,6 +33,7 @@ const { handleSubmit, resetForm } = useForm<Point>({
 })
 
 function onOpenModal () {
+  if (isTutor.value) return
   openDialog.value = true
   formDialog.value?.showModal()
 }
