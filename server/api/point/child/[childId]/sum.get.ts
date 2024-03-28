@@ -6,15 +6,7 @@ export default defineEventHandler(async (event) => {
   if(event.context.params?.childId === undefined) throw createError({ statusCode: 400, statusMessage: 'No child id' })
 
   const client = await serverSupabaseClient<Database>(event)
-  const { data, error } = await client.from('point')
-    .select(`
-      *,
-      activity:activity(*),
-      child:child(*),
-      task:task(*),
-      tutor:tutor(*)
-    `)
-    .eq('child', event.context.params.childId)
+  const { data, error } = await client.from('point').select('points.sum()').eq('child', event.context.params.childId)
 
   if (error) throw createError(error.message)
   if (data.length === 0) throw createError({ statusCode: 400, statusMessage: 'No point for this user' })

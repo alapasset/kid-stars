@@ -48,7 +48,8 @@
     "clear": "Effacer",
     "me": "Mes informations",
     "actions": "Actions",
-    "avatar": "Avatar"
+    "avatar": "Avatar",
+    "profile": "Profile"
   },
   "dashboard": {
     "title": "Tableau de bord"

@@ -6,7 +6,7 @@ export function useGetPoints (child: MaybeRef<string>, doCall: MaybeRef<boolean>
   return useQuery({
     // eslint-disable-next-line @typescript-eslint/naming-convention
     enabled: doCallReference.value,
-    queryFn: async () => await $fetch<SumPoint[]>(`/api/point/child/${childReference.value}`, { method: 'get' }),
+    queryFn: async () => await $fetch<SumPoint[]>(`/api/point/child/${childReference.value}/sum`, { method: 'get' }),
     queryKey: ['point', childReference.value],
   })
 }
@@ -17,6 +17,15 @@ export function useFetchPointByFamily (familyId: MaybeRef<string>) {
   return useQuery({
     queryFn: async () => await $fetch<Point[]>(`/api/point/family/${familyIdReference.value}`, { method: 'get' }),
     queryKey: ['point', familyIdReference],
+  })
+}
+
+export function useFetchPointByChild (childId: MaybeRef<string>) {
+  const childIdReference = toRef(childId)
+
+  return useQuery({
+    queryFn: async () => await $fetch<Point[]>(`/api/point/child/${childIdReference.value}`, { method: 'get' }),
+    queryKey: ['point', childIdReference],
   })
 }
 
