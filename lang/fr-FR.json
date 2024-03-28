@@ -226,8 +226,8 @@
       "title": "Liste des taches disponible en ce moment.",
       "form": {
         "title": {
-          "enoughPoints": "Veux tu effectuer cette tâche ?",
-          "notEnoughPoints": "Pas assez de points pour effectuer cette tâche"
+          "asChild": "Cette tâche a déjà été attribuée à un enfant.",
+          "asNotChild": "Veux tu effectuer cette tâche?"
         }
       },
       "card": {
@@ -246,7 +246,13 @@
   },
   "activity": {
     "dashboard": {
-      "title": "Liste des activités disponible en ce moment."
+      "title": "Liste des activités disponible en ce moment.",
+      "form": {
+        "title": {
+          "enoughPoints": "Veux tu effectuer cette activité?",
+          "notEnoughPoints": "Pas assez de points pour effectuer cette activités."
+        }
+      }
     },
     "admin": {
       "title": "Gestion des activités",

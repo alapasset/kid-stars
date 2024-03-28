@@ -1,7 +1,9 @@
 <script setup lang="ts">
-import type { Task, TaskForm, TaskStatus } from '~/types/task.js'
+import type { Child, FamilyMember } from '~/types/member.js'
+import type { Task, TaskForm } from '~/types/task.js'
 
 const props = defineProps<{
+  currentMember: FamilyMember
   task: Task
 }>()
 
@@ -9,21 +11,21 @@ const task = toRef(props, 'task')
 
 const { t } = useI18n()
 
+const currentMember = toRef(props, 'currentMember')
+const currentChild = ref<Child>(currentMember.value)
 const formDialog = ref<HTMLDialogElement>()
 const openDialog = ref(false)
 const selectedChildId = ref(task.value.child?.id)
-const toBeValidate = ref<TaskStatus>('toBeValidated')
 
-const { data: members } = useFetchFamilyMembers(task.value.family.id)
 const { isPending, mutateAsync } = useUpdateTask(task.value.id)
 
-const { handleSubmit, setFieldValue, values } = useForm<TaskForm>({
+const { handleSubmit, values } = useForm<TaskForm>({
   initialValues: {
-    child: task.value.child?.id,
+    child: currentChild.value.id,
     description: task.value.description,
     name: task.value.name,
     points: task.value.points,
-    status: task.value.status,
+    status: 'toBeValidated',
   },
 })
 
@@ -33,16 +35,12 @@ const statusClass = computed(() => {
   return 'border-red-600'
 })
 
-const familyChilds = computed(() => members.value ? members.value.filter(member => member.role === 'child') : [])
 const isValidated = computed(() => task.value.status === 'validated')
-
-function setChild (childId: string) {
-  setFieldValue('child', childId)
-  setFieldValue('status', toBeValidate.value)
-  if(childId) selectedChildId.value = childId
-}
+const asChild = computed(() => task.value.child?.id !== undefined)
+const isTutor = computed(() => currentMember.value.role === 'tutor')
 
 function onOpenModal () {
+  if (isTutor.value) return
   openDialog.value = true
   formDialog.value?.showModal()
 }
@@ -95,7 +93,7 @@ const onSubmit = handleSubmit(async () => {
       <div class="modal-box flex flex-col gap-5">
         <div class="flex w-full justify-between">
           <h3 class="text-lg font-bold">
-            {{ t('task.dashboard.form.title') }}
+            {{ asChild ? t('task.dashboard.form.title.asChild') : t('task.dashboard.form.title.asNotChild')}}
           </h3>
           <form method="dialog">
             <button class="btn btn-circle btn-ghost btn-sm" type="submit">
@@ -106,24 +104,10 @@ const onSubmit = handleSubmit(async () => {
             </button>
           </form>
         </div>
-        <div
-          v-if="familyChilds"
-          class="flex justify-around gap-2"
-        >
-          <button
-            v-for="child in familyChilds"
-            :key="child.id"
-            class="btn text-2xl"
-            :class="{ 'btn-accent': child.id === selectedChildId }"
-            type="button"
-            @click="() => setChild(child.id)"
-          >
-            {{ child.pseudo }}
-          </button>
-        </div>
         <div class="flex flex-col gap-2 p-2">
           <button
             class="btn btn-primary btn-block"
+            :disabled="asChild"
             type="button"
             @click="onSubmit"
           >
