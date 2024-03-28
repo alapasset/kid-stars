@@ -5,15 +5,15 @@ const user = useSupabaseUser()
 
 const { t } = useI18n()
 
-const currentFamilyMemberStore = useCurrentFamilyMemberStore()
-const { currentFamilyMember, isLogged } = storeToRefs(currentFamilyMemberStore)
+const currentMemberStore = useCurrentMemberStore()
+const { currentMember, isLogged } = storeToRefs(currentMemberStore)
 
-const isTutor = computed(() => currentFamilyMember.value && currentFamilyMember.value.role === 'tutor')
+const isTutor = computed(() => currentMember.value && currentMember.value.role === 'tutor')
 
 async function signOut () {
   const { error } = await supabase.auth.signOut()
   if (error) throw createError(error)
-  currentFamilyMemberStore.clearFamilyMember()
+  currentMemberStore.clearMember()
   await navigateTo('/login')
 }
 
@@ -26,7 +26,7 @@ async function goToAdmin () {
 }
 
 async function goToFamilyMemberSelection () {
-  currentFamilyMemberStore.clearFamilyMember()
+  currentMemberStore.clearMember()
   await navigateTo('/current-family-member')
 }
 </script>
@@ -43,11 +43,11 @@ async function goToFamilyMemberSelection () {
         tabindex="0"
       >
       <div
-        v-if="currentFamilyMember?.avatar"
+        v-if="currentMember?.avatar"
         class="avatar"
       >
         <div class="size-12 rounded-full border border-gray-700 pt-2">
-          <img alt="avatar" :src="currentFamilyMember.avatar">
+          <img alt="avatar" :src="currentMember.avatar">
         </div>
       </div>
       <div

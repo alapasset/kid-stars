@@ -1,6 +1,6 @@
 <script setup lang="ts">
-const currentFamilyMemberStore = useCurrentFamilyMemberStore()
-const { currentFamilyMember } = storeToRefs(currentFamilyMemberStore)
+const currentMemberStore = useCurrentMemberStore()
+const { currentMember } = storeToRefs(currentMemberStore)
 const { t } = useI18n()
 </script>
 
@@ -8,16 +8,16 @@ const { t } = useI18n()
   <MainAdmin :title="t('family.admin.title')">
     <template #form>
       <MemberCreationForm
-        v-if="currentFamilyMember"
-        :family-id="currentFamilyMember.family"
+        v-if="currentMember"
+        :family-id="currentMember.family"
         :title="t('family.admin.title')"
       />
     </template>
 
     <template #list>
       <MemberList
-        v-if="currentFamilyMember"
-        :family-id="currentFamilyMember.family"
+        v-if="currentMember"
+        :family-id="currentMember.family"
       />
     </template>
   </MainAdmin>

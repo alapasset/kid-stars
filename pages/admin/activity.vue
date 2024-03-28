@@ -1,22 +1,22 @@
 <script setup lang="ts">
 const { t } = useI18n()
-const currentFamilyMemberStore = useCurrentFamilyMemberStore()
-const { currentFamilyMember } = storeToRefs(currentFamilyMemberStore)
+const currentMemberStore = useCurrentMemberStore()
+const { currentMember } = storeToRefs(currentMemberStore)
 </script>
 
 <template>
   <MainAdmin :title="t('activity.admin.title')">
     <template #form>
       <ActivityForm
-        v-if="currentFamilyMember"
-        :family-id="currentFamilyMember.family"
+        v-if="currentMember"
+        :family-id="currentMember.family"
       />
     </template>
 
     <template #list>
       <ActivityList
-      v-if="currentFamilyMember"
-      :family-id="currentFamilyMember.family"
+      v-if="currentMember"
+      :family-id="currentMember.family"
       />
     </template>
 </MainAdmin>

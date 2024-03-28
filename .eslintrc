@@ -3,6 +3,7 @@
   "root": true,
   "extends": [
     "plugin:tailwindcss/recommended",
+    "plugin:@tanstack/eslint-plugin-query/recommended",
     "plugin:unicorn/all",
     "hardcore",
     "hardcore/ts",

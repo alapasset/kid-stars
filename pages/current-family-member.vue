@@ -11,12 +11,12 @@ const { t } = useI18n()
 
 const childs = computed(() => data.value?.filter(member => member.role === 'child'))
 const tutors = computed(() => data.value?.filter(member => member.role === 'tutor'))
-const { setFamilyMember } = useCurrentFamilyMemberStore()
+const { setMember } = useCurrentMemberStore()
 
 
 
 async function goToProfile (member: FamilyMember) {
-  setFamilyMember(member)
+  setMember(member)
   await navigateTo('/dashboard')
 }
 </script>

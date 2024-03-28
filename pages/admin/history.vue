@@ -1,6 +1,6 @@
 <script setup lang="ts">
-const currentFamilyMemberStore = useCurrentFamilyMemberStore()
-const { currentFamilyMember } = storeToRefs(currentFamilyMemberStore)
+const currentMemberStore = useCurrentMemberStore()
+const { currentMember } = storeToRefs(currentMemberStore)
 
 const { t } = useI18n()
 </script>
@@ -9,8 +9,8 @@ const { t } = useI18n()
   <MainAdmin :title="t('history.admin.title')">
     <template #list>
       <HistoryList
-        v-if="currentFamilyMember"
-        :family-id="currentFamilyMember.family"
+        v-if="currentMember"
+        :family-id="currentMember.family"
       />
     </template>
   </MainAdmin>

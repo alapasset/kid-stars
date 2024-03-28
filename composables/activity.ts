@@ -19,7 +19,7 @@ export function useFetchActivitiesByFamily (familyId: MaybeRef<string>){
   const familyReference = toRef(familyId)
 
   return useQuery({
-    queryKey: ['activity'],
+    queryKey: ['activity', familyReference.value],
     queryFn: async () => await $fetch<Activity []>(`/api/family/${familyReference.value}/activities`, { method: 'get' }),
   })
 }
