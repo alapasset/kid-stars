@@ -29,6 +29,10 @@ async function goToFamilyMemberSelection () {
   currentMemberStore.clearMember()
   await navigateTo('/current-family-member')
 }
+
+async function gotToProfile () {
+  await navigateTo('/profile')
+}
 </script>
 
 <template>
@@ -66,9 +70,10 @@ async function goToFamilyMemberSelection () {
         class="menu dropdown-content menu-sm z-[1] mt-3 w-52 rounded-box border bg-base-100 p-2 shadow"
         tabindex="0"
       >
-        <li v-if="isLogged"><a @click="goToFamilyMemberSelection">{{ t('common.change-user')}}</a></li>
+        <li v-if="isLogged && isTutor"><a @click="gotToProfile">{{ t('common.profile') }}</a></li>
         <li v-if="isLogged"><a @click="goToDashboard">{{ t('dashboard.title') }}</a></li>
         <li v-if="isLogged && isTutor"><a @click="goToAdmin">{{ t('common.administration') }}</a></li>
+        <li v-if="isLogged"><a @click="goToFamilyMemberSelection">{{ t('common.change-user')}}</a></li>
         <li><a @click="signOut">{{ t('common.logout') }}</a></li>
       </ul>
     </div>
