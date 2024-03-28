@@ -1,61 +1,49 @@
 <script setup lang="ts">
 import type { Activity } from '~/types/activity.js'
-import type { Child } from '~/types/member.js'
+import type { Child, FamilyMember } from '~/types/member.js'
 import type { Point } from '~/types/point.js'
+
 
 const props = defineProps<{
   activity:Activity
+  currentMember: FamilyMember
 }>()
 
 const activity = toRef(props, 'activity')
-const selectedChildId = ref('')
+const currentMember = toRef(props, 'currentMember')
+const currentChild = ref<Child>(currentMember.value)
 const formDialog = ref<HTMLDialogElement>()
 const openDialog = ref(false)
 
 const { t } = useI18n()
 
-const { isPending, mutateAsync } = useAddPoint(selectedChildId)
+const { isPending, mutateAsync } = useAddPoint(currentMember.value.id)
+const { data: point } = useGetPoints(currentMember.value.id)
+const points = computed(() => point.value?.at(0)?.sum ?? 0)
 
-const { data: members } = useFetchFamilyMembers(activity.value.family)
-
-const { handleSubmit, resetForm, setFieldValue } = useForm<Point>({
+const canBuy = computed(() => points.value >= activity.value.points)
+const { handleSubmit, resetForm } = useForm<Point>({
   initialValues: {
+    child: currentChild.value,
     activity: activity.value,
     points: -activity.value.points,
   },
 })
 
-const familyChilds = computed(() => members.value ? members.value.filter(member => member.role === 'child') : [])
 function onOpenModal () {
   openDialog.value = true
   formDialog.value?.showModal()
 }
 
-function getPoint (childId: string) {
-  const { data: point } = useGetPoints(childId)
-  return point.value?.at(0)?.sum
-}
-function isDisabled (childId: string) {
-  const point = getPoint(childId)
-  return (point === undefined) ? false : point < activity.value.points
-}
-
-function setChild (child: Child) {
-  setFieldValue('child', child)
-  selectedChildId.value = child.id
-}
-
 function onCloseModal () {
   openDialog.value = false
   formDialog.value?.close()
-  selectedChildId.value = ''
 }
 
 const onSubmit = handleSubmit(async values => {
   await mutateAsync(values)
   formDialog.value?.close()
   openDialog.value = false
-  selectedChildId.value = ''
   resetForm()
 })
 </script>
@@ -84,7 +72,7 @@ const onSubmit = handleSubmit(async values => {
         <div class="modal-box flex flex-col gap-5">
         <div class="flex w-full justify-between">
           <h3 class="text-lg font-bold">
-            {{ t('task.dashboard.form.title') }}
+            {{ canBuy ? t('task.dashboard.form.title.enoughPoints') : t('task.dashboard.form.title.notEnoughPoints') }}
           </h3>
           <form method="dialog">
             <button class="btn btn-circle btn-ghost btn-sm" type="submit">
@@ -95,26 +83,10 @@ const onSubmit = handleSubmit(async values => {
             </button>
           </form>
         </div>
-        <div
-          v-if="familyChilds"
-          class="flex justify-around gap-2"
-        >
-          <button
-            v-for="child in familyChilds"
-            :key="child.id"
-            class="btn text-2xl"
-            :class="{ 'btn-accent': child.id === selectedChildId }"
-            :disabled="isDisabled(child.id)"
-            type="button"
-            @click="() => setChild(child)"
-          >
-            {{ child.pseudo }}
-          </button>
-        </div>
         <div class="flex flex-col gap-2 p-2">
           <button
             class="btn btn-primary btn-block"
-            :disabled="!selectedChildId"
+            :disabled="!canBuy"
             type="button"
             @click="onSubmit"
           >
